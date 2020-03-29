@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/mmss-frontend/static/css/main.784eb61a.chunk.css",
+    "main.js": "/mmss-frontend/static/js/main.ff273389.chunk.js",
+    "main.js.map": "/mmss-frontend/static/js/main.ff273389.chunk.js.map",
+    "runtime-main.js": "/mmss-frontend/static/js/runtime-main.5e680be2.js",
+    "runtime-main.js.map": "/mmss-frontend/static/js/runtime-main.5e680be2.js.map",
+    "static/css/2.8ed5c54c.chunk.css": "/mmss-frontend/static/css/2.8ed5c54c.chunk.css",
+    "static/js/2.b96c34fa.chunk.js": "/mmss-frontend/static/js/2.b96c34fa.chunk.js",
+    "static/js/2.b96c34fa.chunk.js.map": "/mmss-frontend/static/js/2.b96c34fa.chunk.js.map",
+    "index.html": "/mmss-frontend/index.html",
+    "precache-manifest.1583a1c21a050f2ff79a96addb8d75d1.js": "/mmss-frontend/precache-manifest.1583a1c21a050f2ff79a96addb8d75d1.js",
+    "service-worker.js": "/mmss-frontend/service-worker.js",
+    "static/css/2.8ed5c54c.chunk.css.map": "/mmss-frontend/static/css/2.8ed5c54c.chunk.css.map",
+    "static/css/main.784eb61a.chunk.css.map": "/mmss-frontend/static/css/main.784eb61a.chunk.css.map",
+    "static/js/2.b96c34fa.chunk.js.LICENSE.txt": "/mmss-frontend/static/js/2.b96c34fa.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5e680be2.js",
+    "static/css/2.8ed5c54c.chunk.css",
+    "static/js/2.b96c34fa.chunk.js",
+    "static/css/main.784eb61a.chunk.css",
+    "static/js/main.ff273389.chunk.js"
+  ]
+}
