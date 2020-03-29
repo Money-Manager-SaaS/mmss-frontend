@@ -1,21 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import routes from './routes';
+import store from './store';
+
+import Layout from './components/Layout/Layout';
+
+const history = createBrowserHistory();
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Layout>
+            <Switch>
+              {routes.map((route, index) => (
+                <Route exact key={index} path={route.path} component={route.component} />
+              ))}
+            </Switch>
+          </Layout>
+        </ConnectedRouter>
+      </Provider>
+    );
+  }
 }
 
 export default App;
