@@ -14,6 +14,21 @@ const routes = [
     name: 'Sign up',
     component: null,
   },
+  {
+    path: '/accounts',
+    name: 'Accounts',
+    component: null,
+  },
+  {
+    path: '/categories',
+    name: 'Categories',
+    component: null,
+  },
+  {
+    path: '/payees',
+    name: 'Payees',
+    component: null,
+  },
 ];
 
 export default routes;

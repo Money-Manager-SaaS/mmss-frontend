@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Menu, Typography, Avatar, Divider } from 'antd';
 import {
   PicRightOutlined,
@@ -30,20 +31,28 @@ export default function SideBar() {
           <Divider className="divider" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" className="menu">
             <Menu.Item key="1">
-              <BookOutlined />
-              <span>Overall</span>
+              <Link to="/">
+                <BookOutlined />
+                <span>Overall</span>
+              </Link>
             </Menu.Item>
             <Menu.Item key="2">
-              <AccountBookOutlined />
-              <span>Accounts</span>
+              <Link to="/accounts">
+                <AccountBookOutlined />
+                <span>Accounts</span>
+              </Link>
             </Menu.Item>
             <Menu.Item key="3">
-              <PicRightOutlined />
-              <span>Categories</span>
+              <Link to="/categories">
+                <PicRightOutlined />
+                <span>Categories</span>
+              </Link>
             </Menu.Item>
             <Menu.Item key="4">
-              <UsergroupAddOutlined />
-              <span>Payees</span>
+              <Link to="/payees">
+                <UsergroupAddOutlined />
+                <span>Payees</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
