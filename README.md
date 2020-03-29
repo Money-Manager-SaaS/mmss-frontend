@@ -1,10 +1,18 @@
 # mmss-frontend
 
-## Main technology 
-  React
-  https://zh-hans.reactjs.org/
-  UI: antd
-  https://ant.design/index-cn
+## Main technology
+
+### React
+
+https://zh-hans.reactjs.org/
+
+### UI: antd
+
+https://ant.design/index-cn
+
+## Prettier + Eslint
+
+https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a
 
 # Quick Overview
 
