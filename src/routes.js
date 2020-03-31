@@ -1,8 +1,10 @@
+import { Overall } from './views';
+
 const routes = [
   {
     path: '/',
-    name: 'Dashboard',
-    component: null,
+    name: 'Overall',
+    component: Overall,
   },
   {
     path: '/login',
