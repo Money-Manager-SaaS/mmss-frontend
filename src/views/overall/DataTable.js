@@ -1,7 +1,9 @@
 import React from 'react';
-import { Table, Tag } from 'antd';
+import { Table, Button } from 'antd';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import './Overall.css';
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const data = [
   {
@@ -200,7 +202,7 @@ const data = [
 
 export default function DataTable() {
   return (
-    <Table dataSource={data} size="large">
+    <Table dataSource={data} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />
       <Column title="ACCOUNT" dataIndex="account" key="account" />
       <Column title="TO" dataIndex="to" key="to" />
@@ -214,8 +216,12 @@ export default function DataTable() {
         key="action"
         render={() => (
           <span>
-            <a style={{ marginRight: 16 }}>Modify</a>
-            <a>Delete</a>
+            <Button shape="circle-outline" className="editbtn">
+              <EditOutlined />
+            </Button>
+            <Button shape="circle-outline" className="deletebtn">
+              <DeleteOutlined />
+            </Button>
           </span>
         )}
       />

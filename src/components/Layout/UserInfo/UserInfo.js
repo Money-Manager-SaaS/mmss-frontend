@@ -22,7 +22,7 @@ export default function UserInfo() {
   return (
     <div className="user-info">
       <Dropdown overlay={menu}>
-        <a className="ant-dropdown-link">
+        <a className="ant-dropdown-link" href="_#">
           <Typography className="user-name">John Key</Typography>{' '}
           <DownOutlined className="arrow-down" />
         </a>

@@ -9,3 +9,30 @@
   border-radius: 5px;
   min-height: 85vh;
 }
+
+.addBtn {
+  width: 48px;
+  height: 48px;
+}
+
+.editbtn {
+  color: #13c2c2;
+  border-color: #13c2c2;
+  margin: auto 2px;
+}
+.editbtn:hover {
+  background-color: #13c2c2;
+  color: white;
+}
+
+.deletebtn {
+  color: #ff7a45;
+  border-color: #ff7a45;
+  margin: auto 2px;
+}
+
+.deletebtn:hover {
+  background-color: #ff7a45;
+  border-color: #ff7a45;
+  color: white;
+}
