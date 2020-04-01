@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Tabs, Row, Col, Button } from 'antd';
 import { HomeOutlined, AreaChartOutlined, PlusOutlined } from '@ant-design/icons';
 import './Overall.css';
-import CreateForm from '../../components/Forms/CreateForm';
+import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
 export default function Overall() {

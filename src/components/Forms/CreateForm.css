@@ -1,2 +1,18 @@
-.form {
+.ant-modal-title {
+  text-align: center;
+  color: #00474f;
+  font-size: 1.5em;
+}
+
+.ant-modal-content {
+  border: 20px solid rgba(255, 255, 255, 0.5);
+}
+
+.ant-modal-footer {
+  text-align: center;
+}
+
+.ant-modal-footer .ant-btn {
+  width: 100px;
+  margin: auto 1em;
 }
