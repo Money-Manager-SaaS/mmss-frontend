@@ -4,8 +4,6 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import './CreateForm.css';
 
-const { Option } = Select;
-
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -29,19 +27,19 @@ export default function CreateForm(props) {
         </Form.Item>
         <Form.Item label="Select account" name="">
           <Select defaultValue="ANZ" style={{ width: 160 }}>
-            <Option value="ANZ">ANZ</Option>
-            <Option value="Cash">Cash</Option>
-            <Option value="Alipay">Alipay</Option>
-            <Option value="Kiwibank">Kiwibank</Option>
+            <Select.Option value="ANZ">ANZ</Select.Option>
+            <Select.Option value="Cash">Cash</Select.Option>
+            <Select.Option value="Alipay">Alipay</Select.Option>
+            <Select.Option value="Kiwibank">Kiwibank</Select.Option>
           </Select>
         </Form.Item>
 
         <Form.Item label="To" name="">
           <Select defaultValue="ANZ" style={{ width: 160 }}>
-            <Option value="ANZ">ANZ</Option>
-            <Option value="Cash">Cash</Option>
-            <Option value="Alipay">Alipay</Option>
-            <Option value="Kiwibank">Kiwibank</Option>
+            <Select.Option value="ANZ">ANZ</Select.Option>
+            <Select.Option value="Cash">Cash</Select.Option>
+            <Select.Option value="Alipay">Alipay</Select.Option>
+            <Select.Option value="Kiwibank">Kiwibank</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item label="Amount" name="">

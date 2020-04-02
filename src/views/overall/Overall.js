@@ -6,7 +6,6 @@ import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
 export default function Overall() {
-  const { TabPane } = Tabs;
   const [visible, setVisible] = useState(false);
   //handle form open
   const showCreateForm = () => {
@@ -24,7 +23,7 @@ export default function Overall() {
   return (
     <div className="main-content">
       <Tabs defaultActiveKey="1">
-        <TabPane
+        <Tabs.TabPane
           className="content"
           tab={
             <span>
@@ -49,8 +48,8 @@ export default function Overall() {
             </Col>
             <Col span={6} style={{ width: '600px' }}></Col>
           </Row>
-        </TabPane>
-        <TabPane
+        </Tabs.TabPane>
+        <Tabs.TabPane
           className="content"
           tab={
             <span>
@@ -59,7 +58,7 @@ export default function Overall() {
             </span>
           }
           key="2"
-        ></TabPane>
+        ></Tabs.TabPane>
       </Tabs>
     </div>
   );

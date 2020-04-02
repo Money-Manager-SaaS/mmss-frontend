@@ -10,15 +10,13 @@ import {
 import Logo from '../../../assets/images/logo.png';
 import './SideBarStyle.css';
 
-const { Sider } = Layout;
-
 export default function SideBar() {
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className="sidebar">
+    <Layout.Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className="sidebar">
       {collapsed ? (
         <div className="logo">
           <Avatar shape="square" size={48} src={Logo} />
@@ -53,6 +51,6 @@ export default function SideBar() {
           </Link>
         </Menu.Item>
       </Menu>
-    </Sider>
+    </Layout.Sider>
   );
 }
