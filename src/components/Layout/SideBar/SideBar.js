@@ -6,6 +6,7 @@ import {
   AccountBookOutlined,
   BookOutlined,
   UsergroupAddOutlined,
+  SmileOutlined,
 } from '@ant-design/icons';
 import Logo from '../../../assets/images/logo.png';
 import './SideBarStyle.css';
@@ -48,6 +49,12 @@ export default function SideBar() {
           <Link to="/payees">
             <UsergroupAddOutlined />
             <span>Payees</span>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="5">
+          <Link to="/profile">
+            <SmileOutlined />
+            <span>My Profile</span>
           </Link>
         </Menu.Item>
       </Menu>

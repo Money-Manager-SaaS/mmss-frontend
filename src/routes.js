@@ -1,4 +1,4 @@
-import { Overall } from './views';
+import { Overall, Profile } from './views';
 
 const routes = [
   {
@@ -30,6 +30,11 @@ const routes = [
     path: '/payees',
     name: 'Payees',
     component: null,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
   },
 ];
 
