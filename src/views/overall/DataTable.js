@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Table, Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './Overall.css';
@@ -200,7 +201,7 @@ const data = [
   },
 ];
 
-export default function DataTable() {
+function DataTable() {
   return (
     <Table dataSource={data} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />
@@ -228,3 +229,5 @@ export default function DataTable() {
     </Table>
   );
 }
+
+export default DataTable;

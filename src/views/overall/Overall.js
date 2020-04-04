@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import action from '@/store/action';
+
 import { Tabs, Row, Col, Button } from 'antd';
+
 import { HomeOutlined, AreaChartOutlined, PlusOutlined } from '@ant-design/icons';
 import './Overall.css';
 import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
-export default function Overall() {
+function Overall(props) {
+  const { transaction } = props;
+  console.log(transaction);
   const [visible, setVisible] = useState(false);
   //handle form open
   const showCreateForm = () => {
@@ -63,3 +69,7 @@ export default function Overall() {
     </div>
   );
 }
+
+export default connect((state) => state.transaction, {
+  ...action.transaction,
+})(Overall);
