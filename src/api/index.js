@@ -9,7 +9,7 @@ const axios = require('axios').create({
   transformResponse: function (data) {
     try {
       data = JSON.parse(data);
-      console.log(data);
+      // console.log(data);
       if (data.status === 401) {
         window.location.reload();
       }

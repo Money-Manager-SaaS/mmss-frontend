@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import action from '@/store/action';
 
@@ -10,8 +10,13 @@ import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
 function Overall(props) {
-  const { transaction } = props;
-  console.log(transaction);
+  const { transactions, get_transactions } = props;
+
+  // Get transactions
+  useEffect(() => {
+    get_transactions();
+  }, [get_transactions]);
+
   const [visible, setVisible] = useState(false);
   //handle form open
   const showCreateForm = () => {
@@ -42,7 +47,7 @@ function Overall(props) {
           {' '}
           <Row>
             <Col span={18} style={{ textAlign: 'center' }}>
-              <DataTable />
+              <DataTable transactions={transactions} />
               <Button
                 type="primary"
                 shape="circle"
