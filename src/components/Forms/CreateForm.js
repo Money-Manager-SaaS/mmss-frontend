@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, Radio, Form, Select, InputNumber, Input, Button, Space } from 'antd';
+import { Modal, Radio, Form, Select, InputNumber, Input, Button, Space, DatePicker } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 import './CreateForm.css';
 
@@ -18,6 +19,9 @@ export default function CreateForm(props) {
       onCancel={props.handleCancel}
     >
       <Form {...layout}>
+        <Form.Item label="Date" name="date">
+          <DatePicker defaultValue={moment(new Date())} format={'MM/DD/YYYY'} />
+        </Form.Item>
         <Form.Item label="Type" name="type">
           <Radio.Group defaultValue="withdraw">
             <Radio value="withdraw">Withdraw</Radio>

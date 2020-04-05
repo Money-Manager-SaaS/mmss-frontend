@@ -202,7 +202,9 @@ const data = [
 ];
 
 function DataTable({ transactions }) {
-  console.log(transactions);
+  // const data = transactions;
+
+  // console.log(data);
   return (
     <Table dataSource={data} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />

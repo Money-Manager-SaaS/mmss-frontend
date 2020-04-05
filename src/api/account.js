@@ -1,4 +1,4 @@
-import { _get, _post, _delete, _put } from './index';
+import { _get, _delete, _put } from './index';
 
 export const getAccounts = (data) => {
   let req = {
