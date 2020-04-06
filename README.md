@@ -21,3 +21,10 @@ npm start or yarn start
 ```
 
 Then open http://localhost:3000/ to see your app.
+
+# Deployment
+always deploy from master to avoid conficts and feacture overriding
+
+0. `git checkout master`
+1. `git pull`
+2. do the deploy
