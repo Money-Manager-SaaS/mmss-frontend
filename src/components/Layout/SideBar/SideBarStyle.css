@@ -17,7 +17,8 @@
   background-color: #00474f;
 }
 
-.menu {
+.ant-menu.ant-menu-dark,
+.ant-menu.ant-menu-dark .ant-menu-sub {
   background-color: #00474f;
 }
 
@@ -29,15 +30,15 @@
   margin-bottom: 15px;
 }
 
-.ant-layout-sider-trigger {
-  background-color: #006d75;
-}
-
 .ant-menu.ant-menu-dark .ant-menu-item-selected {
   background-color: #e6fffb;
 }
 
-.ant-menu-dark .ant-menu-item-selected .anticon + span,
-.ant-menu-dark .ant-menu-item-selected .anticon {
-  color: #00474f;
+.ant-menu.ant-menu-dark,
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background-color: #00474f;
+}
+
+.ant-layout-sider-trigger {
+  background-color: #006d75;
 }
