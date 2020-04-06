@@ -1,4 +1,5 @@
 # mmss-frontend
+[![CodeFactor](https://www.codefactor.io/repository/github/money-manager-saas/mmss-frontend/badge/master)](https://www.codefactor.io/repository/github/money-manager-saas/mmss-frontend/overview/master)
 
 ## Main technology
 
