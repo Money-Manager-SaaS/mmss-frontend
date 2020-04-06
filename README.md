@@ -27,4 +27,4 @@ always deploy from master to avoid conficts and feacture overriding
 
 0. `git checkout master`
 1. `git pull`
-2. do the deploy
+2. `npm run predeploy && npm deploy`
