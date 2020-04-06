@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a23c63627918737e2be1bbe54567a70f",
+    "revision": "7a717e2502d1c70930fbc7ac4e72f402",
     "url": "/mmss-frontend/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mmss-frontend/static/css/2.1eeb5667.chunk.css"
   },
   {
-    "revision": "fa7425d3a438fed1d6f1",
-    "url": "/mmss-frontend/static/css/main.db32a1d4.chunk.css"
+    "revision": "82ae98c176a65d5fc130",
+    "url": "/mmss-frontend/static/css/main.505442fb.chunk.css"
   },
   {
     "revision": "b0fca14f991327af007e",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mmss-frontend/static/js/2.fae6bd2b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fa7425d3a438fed1d6f1",
-    "url": "/mmss-frontend/static/js/main.b25fe7b5.chunk.js"
+    "revision": "82ae98c176a65d5fc130",
+    "url": "/mmss-frontend/static/js/main.8a4d9def.chunk.js"
   },
   {
     "revision": "6ddb22ce32a271a9fb8c",
