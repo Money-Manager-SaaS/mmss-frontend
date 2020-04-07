@@ -18,7 +18,7 @@ function Overall(props) {
   }, [get_transactions]);
 
   const [visible, setVisible] = useState(false);
-  //handle form open
+  // handle form open
   const showCreateForm = () => {
     setVisible(true);
   };
@@ -57,7 +57,7 @@ function Overall(props) {
               />
               <CreateForm visible={visible} handleOK={handleOK} handleCancel={handleCancel} />
             </Col>
-            <Col span={6} style={{ width: '600px' }}></Col>
+            <Col span={6} style={{ width: '600px' }} />
           </Row>
         </Tabs.TabPane>
         <Tabs.TabPane
@@ -69,7 +69,7 @@ function Overall(props) {
             </span>
           }
           key="2"
-        ></Tabs.TabPane>
+        />
       </Tabs>
     </div>
   );
