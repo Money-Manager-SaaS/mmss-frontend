@@ -10,17 +10,12 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-export default function CreateForm(props) {
+export default function CreateForm({ visible, handleOK, handleCancel }) {
   return (
-    <Modal
-      title="Create Transaction"
-      visible={props.visible}
-      onOk={props.handleOK}
-      onCancel={props.handleCancel}
-    >
+    <Modal title="Create Transaction" visible={visible} onOk={handleOK} onCancel={handleCancel}>
       <Form {...layout}>
         <Form.Item label="Date" name="date">
-          <DatePicker defaultValue={moment(new Date())} format={'MM/DD/YYYY'} />
+          <DatePicker defaultValue={moment(new Date())} format="MM/DD/YYYY" />
         </Form.Item>
         <Form.Item label="Type" name="type">
           <Radio.Group defaultValue="withdraw">
