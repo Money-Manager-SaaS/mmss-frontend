@@ -11,8 +11,9 @@ export default function account(
     case TYPES.GET_ACCOUNTS:
       {
         const { status, data } = action.Data;
+
         if (status === 200) {
-          state.accounts = data;
+          state.accounts = data.accounts;
         }
       }
       break;

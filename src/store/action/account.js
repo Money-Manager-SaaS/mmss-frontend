@@ -6,6 +6,7 @@ const account = {
   get_accounts(props) {
     return async (dispatch) => {
       let Data = await getAccounts(props);
+
       dispatch({
         type: TYPES.GET_ACCOUNTS,
         Data,
