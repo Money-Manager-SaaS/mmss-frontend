@@ -12,7 +12,7 @@ export default function transaction(
       {
         const { status, data } = action.Data;
         if (status === 200) {
-          state.transactions = data;
+          state.transactions = data.transactions;
         }
       }
       break;
