@@ -1,20 +1,21 @@
 import React, { Component, useEffect } from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import action from '@/store/action';
 import routes from './routes';
 import store from './store';
-import { connect } from 'react-redux';
-import action from '@/store/action';
+
 import Layout from './components/Layout/Layout';
+
 const history = createBrowserHistory();
 
 function GetAccount({ get_accounts }) {
   useEffect(() => {
     get_accounts();
   }, [get_accounts]);
-  return <React.Fragment />;
+  return <></>;
 }
 
 const ConnectGetAccount = connect(null, action.account)(GetAccount);
