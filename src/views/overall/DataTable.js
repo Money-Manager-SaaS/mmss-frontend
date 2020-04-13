@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Table, Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './Overall.css';
@@ -13,7 +12,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'expense',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -25,7 +24,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -37,7 +36,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'expense',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -49,7 +48,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'expense',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -61,7 +60,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -73,7 +72,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -85,7 +84,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -97,7 +96,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -109,7 +108,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -121,7 +120,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -133,7 +132,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -145,7 +144,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'expense',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -157,7 +156,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -169,7 +168,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -181,7 +180,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'transfer',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -193,7 +192,7 @@ const data = [
     account: 'ANZ',
     to: 'ANZ',
     amount: '$1000',
-    type: 'food',
+    type: 'income',
     payee: 'AT',
     category: 'Food',
     note: 'null',
@@ -201,33 +200,14 @@ const data = [
   },
 ];
 
-function getAccountName(id, accounts) {
-  const findAccount = accounts.find((account) => account.id === id);
-  return findAccount ? findAccount.name : '';
-}
-
-function DataTable({ transactions = [], accounts = [] }) {
-  console.log(accounts, transactions);
-
-  const dataSource = transactions.map((transaction) => ({
-    key: transaction.id,
-    date: transaction.createdAt,
-    account: getAccountName(transaction.accountID, accounts),
-    to: getAccountName(transaction.toAccountID, accounts),
-    amount: transaction.amount,
-    payee: transaction.payeeId,
-    category: transaction.categoryID,
-    note: transaction.note,
-    action: null,
-  }));
-
+export default function DataTable() {
   return (
-    <Table dataSource={dataSource} size="middle">
+    <Table dataSource={data} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />
       <Column title="ACCOUNT" dataIndex="account" key="account" />
       <Column title="TO" dataIndex="to" key="to" />
       <Column title="AMOUNT" dataIndex="amount" key="amount" />
-
+      <Column title="TYPE" dataIndex="type" key="type" />
       <Column title="PAYEE" dataIndex="payee" key="payee" />
       <Column title="CATEGORY" dataIndex="category" key="category" />
       <Column title="NOTE" dataIndex="note" key="note" />
@@ -249,4 +229,3 @@ function DataTable({ transactions = [], accounts = [] }) {
   );
 }
 
-export default DataTable;
