@@ -108,6 +108,9 @@ dist
 /.pnp
 .pnp.js
 
+
+# other
+/.idea
 # testing
 /coverage
 
