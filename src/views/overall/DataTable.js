@@ -200,9 +200,23 @@ const data = [
   },
 ];
 
-export default function DataTable() {
+export default function DataTable({ transactions, accountsTable, categoriesTable }) {
+  console.log(transactions, accountsTable, categoriesTable);
+
+  const dataSource = transactions.map((transaction) => ({
+    key: transaction.id,
+    date: new Date(transaction.createdAt).toLocaleString('en-GB'),
+    account: accountsTable[transaction.accountID],
+    to: accountsTable[transaction.toAccountID],
+    amount: '$' + transaction.amount.toFixed(2),
+    type: transaction.transferType,
+    payee: transaction.payeeId,
+    category: categoriesTable[transaction.categoryID],
+    note: transaction.note,
+    action: null,
+  }));
   return (
-    <Table dataSource={data} size="middle">
+    <Table dataSource={dataSource} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />
       <Column title="ACCOUNT" dataIndex="account" key="account" />
       <Column title="TO" dataIndex="to" key="to" />
@@ -228,4 +242,3 @@ export default function DataTable() {
     </Table>
   );
 }
-

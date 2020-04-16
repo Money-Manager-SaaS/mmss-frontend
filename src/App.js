@@ -11,14 +11,15 @@ import Layout from './components/Layout/Layout';
 
 const history = createBrowserHistory();
 
-function GetAccount({ get_accounts }) {
+function GetAccount({ get_accounts, get_categories }) {
   useEffect(() => {
     get_accounts();
-  }, [get_accounts]);
+    get_categories();
+  }, [get_accounts, get_categories]);
   return <></>;
 }
 
-const ConnectGetAccount = connect(null, action.account)(GetAccount);
+const ConnectGetAccount = connect(null, { ...action.account, ...action.category })(GetAccount);
 
 class App extends Component {
   render() {

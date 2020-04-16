@@ -1,8 +1,17 @@
 import * as TYPES from '../action-type';
 
+function CreateAccountsTable(accounts) {
+  const result = {};
+  accounts.forEach((account) => {
+    result[account.id] = account.name;
+  });
+  return result;
+}
+
 export default function account(
   state = {
     accounts: [],
+    accountsTable: {},
   },
   action
 ) {
@@ -11,9 +20,9 @@ export default function account(
     case TYPES.GET_ACCOUNTS:
       {
         const { status, data } = action.Data;
-
         if (status === 200) {
           state.accounts = data.accounts;
+          state.accountsTable = CreateAccountsTable(data.accounts);
         }
       }
       break;
