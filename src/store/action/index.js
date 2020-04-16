@@ -1,6 +1,6 @@
 import transaction from './transaction';
 import account from './account';
-
-let action = { transaction, account };
+import category from './category';
+let action = { transaction, account, category };
 
 export default action;

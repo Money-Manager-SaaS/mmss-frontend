@@ -10,7 +10,7 @@ import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
 function Overall(props) {
-  const { transactions, get_transactions, accounts } = props;
+  const { transactions, get_transactions, accountsTable, categoriesTable } = props;
 
   // Get transactions
   useEffect(() => {
@@ -47,7 +47,11 @@ function Overall(props) {
           {' '}
           <Row>
             <Col span={18} style={{ textAlign: 'center' }}>
-              <DataTable transactions={transactions} accounts={accounts} />
+              <DataTable
+                transactions={transactions}
+                accountsTable={accountsTable}
+                categoriesTable={categoriesTable}
+              />
               <Button
                 type="primary"
                 shape="circle"
@@ -75,6 +79,7 @@ function Overall(props) {
   );
 }
 
-export default connect((state) => ({ ...state.transaction, ...state.account }), {
-  ...action.transaction,
-})(Overall);
+export default connect(
+  (state) => ({ ...state.transaction, ...state.account, ...state.category }),
+  action.transaction
+)(Overall);
