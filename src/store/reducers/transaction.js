@@ -10,10 +10,9 @@ export default function transaction(
   switch (action.type) {
     case TYPES.GET_TRANSACTIONS:
       {
-        const { status, data } = action.Data;
-        if (status === 200) {
-          state.transactions = data.transactions;
-        }
+        const { transactions } = action.data;
+
+        state.transactions = transactions;
       }
       break;
     case TYPES.ADD_TRANSACTION:

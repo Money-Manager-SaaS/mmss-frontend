@@ -1,12 +1,5 @@
 import * as TYPES from '../action-type';
-
-function CreateCategoriesTable(categories) {
-  const result = {};
-  categories.forEach((category) => {
-    result[category.id] = category.name;
-  });
-  return result;
-}
+import { CreateIdNameTable } from '../../utils';
 
 export default function category(
   state = {
@@ -19,12 +12,9 @@ export default function category(
   switch (action.type) {
     case TYPES.GET_CATEGORIES:
       {
-        const { status, data } = action.Data;
-
-        if (status === 200) {
-          state.categories = data.categories;
-          state.categoriesTable = CreateCategoriesTable(data.categories);
-        }
+        const { data } = action;
+        state.categories = data;
+        state.categoriesTable = CreateIdNameTable(data);
       }
       break;
     case TYPES.ADD_CATEGORY:
@@ -39,7 +29,6 @@ export default function category(
       state.categories = state.categories.map((item) =>
         item.id !== action.data.id ? item : { ...item, ...action.data }
       );
-
       break;
     default:
       break;

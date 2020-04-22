@@ -32,7 +32,6 @@ export default function CreateForm({ visible, handleOK, handleCancel }) {
             <Select.Option value="Kiwibank">Kiwibank</Select.Option>
           </Select>
         </Form.Item>
-
         <Form.Item label="To" name="to">
           <Select defaultValue="ANZ" style={{ width: 160 }}>
             <Select.Option value="ANZ">ANZ</Select.Option>

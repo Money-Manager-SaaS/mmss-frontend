@@ -201,8 +201,6 @@ const data = [
 ];
 
 export default function DataTable({ transactions, accountsTable, categoriesTable }) {
-  console.log(transactions, accountsTable, categoriesTable);
-
   const dataSource = transactions.map((transaction) => ({
     key: transaction.id,
     date: new Date(transaction.createdAt).toLocaleString('en-GB'),
@@ -215,6 +213,7 @@ export default function DataTable({ transactions, accountsTable, categoriesTable
     note: transaction.note,
     action: null,
   }));
+
   return (
     <Table dataSource={dataSource} size="middle">
       <Column title="DATE" dataIndex="date" key="date" />

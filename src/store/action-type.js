@@ -12,3 +12,12 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+
+export const CHANGE_AUTH = 'CHANGE_AUTH';
+
+export const GLOBAL_LOADING = 'GLOBAL_LOADING';
+
+export const GET_PAYEES = 'GET_PAYEES';
+export const ADD_PAYEE = 'ADD_PAYEE';
+export const UPDATE_PAYEE = 'UPDATE_PAYEE';
+export const DELETE_PAYEE = 'DELETE_PAYEE';

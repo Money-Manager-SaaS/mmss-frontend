@@ -10,9 +10,6 @@ const axios = require('axios').create({
     try {
       data = JSON.parse(data);
       // console.log(data);
-      if (data.status === 401) {
-        window.location.reload();
-      }
     } catch (e) {
       data = {};
     }

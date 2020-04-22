@@ -1,15 +1,10 @@
 import * as TYPES from '../action-type';
 
-import { getTransactions } from '../../api/transaction';
-
 const transaction = {
-  get_transactions(props) {
-    return async (dispatch) => {
-      let Data = await getTransactions(props);
-      dispatch({
-        type: TYPES.GET_TRANSACTIONS,
-        Data,
-      });
+  get_transactions(data) {
+    return {
+      type: TYPES.GET_TRANSACTIONS,
+      data,
     };
   },
   add_transaction(data) {

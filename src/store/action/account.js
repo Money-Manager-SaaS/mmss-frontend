@@ -1,16 +1,10 @@
 import * as TYPES from '../action-type';
 
-import { getAccounts } from '../../api/account';
-
 const account = {
-  get_accounts(props) {
-    return async (dispatch) => {
-      let Data = await getAccounts(props);
-
-      dispatch({
-        type: TYPES.GET_ACCOUNTS,
-        Data,
-      });
+  get_accounts(data) {
+    return {
+      type: TYPES.GET_ACCOUNTS,
+      data,
     };
   },
   add_account(data) {

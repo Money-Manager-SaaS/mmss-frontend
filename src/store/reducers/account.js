@@ -1,12 +1,5 @@
 import * as TYPES from '../action-type';
-
-function CreateAccountsTable(accounts) {
-  const result = {};
-  accounts.forEach((account) => {
-    result[account.id] = account.name;
-  });
-  return result;
-}
+import { CreateIdNameTable } from '../../utils';
 
 export default function account(
   state = {
@@ -19,11 +12,9 @@ export default function account(
   switch (action.type) {
     case TYPES.GET_ACCOUNTS:
       {
-        const { status, data } = action.Data;
-        if (status === 200) {
-          state.accounts = data.accounts;
-          state.accountsTable = CreateAccountsTable(data.accounts);
-        }
+        const { data } = action;
+        state.accounts = data;
+        state.accountsTable = CreateIdNameTable(data);
       }
       break;
     case TYPES.ADD_ACCOUNT:

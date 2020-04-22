@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import action from '@/store/action';
-
+import { toastr } from 'react-redux-toastr';
 import { Tabs, Row, Col, Button } from 'antd';
 
 import { HomeOutlined, AreaChartOutlined, PlusOutlined } from '@ant-design/icons';
@@ -9,12 +9,28 @@ import './Overall.css';
 import CreateForm from '@/components/Forms/CreateForm';
 import DataTable from './DataTable';
 
+import { getTransactions } from '../../api/transaction';
+
 function Overall(props) {
-  const { transactions, get_transactions, accountsTable, categoriesTable } = props;
+  const { transactions, get_transactions, accountsTable, categoriesTable, global_loading } = props;
 
   // Get transactions
   useEffect(() => {
-    get_transactions();
+    global_loading();
+    getTransactions()
+      .then((data) => {
+        if (data.status === 200) {
+          get_transactions(data.data);
+          global_loading(false);
+        } else {
+          throw new Error('Not Get Transactions');
+        }
+      })
+      .catch((err) => {
+        global_loading(false);
+        toastr.error('Opps', 'Not Get Transactions');
+        console.log(err);
+      });
   }, [get_transactions]);
 
   const [visible, setVisible] = useState(false);
@@ -79,7 +95,7 @@ function Overall(props) {
   );
 }
 
-export default connect(
-  (state) => ({ ...state.transaction, ...state.account, ...state.category }),
-  action.transaction
-)(Overall);
+export default connect((state) => ({ ...state.transaction, ...state.account, ...state.category }), {
+  ...action.transaction,
+  ...action.globalLoading,
+})(Overall);

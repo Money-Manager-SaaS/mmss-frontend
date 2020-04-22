@@ -1,4 +1,4 @@
-import { Overall, Profile } from './views';
+import { Overall, Profile, Category, Payee, Account } from './views';
 import React from 'react';
 import {
   PicRightOutlined,
@@ -7,11 +7,13 @@ import {
   UsergroupAddOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
+import AuthHOC from './components/AuthHOC';
+
 const routes = [
   {
     path: '/',
     name: 'Overall',
-    component: Overall,
+    component: AuthHOC(Overall),
     icon: <BookOutlined />,
   },
   {
@@ -25,25 +27,25 @@ const routes = [
   {
     path: '/accounts',
     name: 'Accounts',
-    component: null,
+    component: AuthHOC(Account),
     icon: <AccountBookOutlined />,
   },
   {
     path: '/categories',
     name: 'Categories',
-    component: null,
+    component: AuthHOC(Category),
     icon: <PicRightOutlined />,
   },
   {
     path: '/payees',
     name: 'Payees',
-    component: null,
+    component: AuthHOC(Payee),
     icon: <UsergroupAddOutlined />,
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: Profile,
+    component: AuthHOC(Profile),
     icon: <SmileOutlined />,
   },
 ];
