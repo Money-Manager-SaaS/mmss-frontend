@@ -1,4 +1,3 @@
-import { Overall, Profile, Category, Payee, Account, Login, Register } from './views';
 import React from 'react';
 import {
   PicRightOutlined,
@@ -7,6 +6,7 @@ import {
   UsergroupAddOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
+import { Overall, Profile, Category, Payee, Account, Login, Register } from './views';
 import AuthHOC from './components/AuthHOC';
 
 export const loginRoutes = [

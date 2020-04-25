@@ -3,8 +3,8 @@ import { Form, Input, Select, Row, Col, Checkbox, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { setEmail } from '../../utils';
 import action from '@/store/action';
+import { setEmail } from '../../utils';
 
 const formItemLayout = {
   labelCol: {
