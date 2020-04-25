@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import {Form,Input,Select,Row,Col,Checkbox,Button,} from 'antd';
+import { Form, Input, Select, Row, Col, Checkbox, Button } from 'antd';
+import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { setEmail } from '../../utils';
+import action from '@/store/action';
 
 const formItemLayout = {
   labelCol: {
@@ -32,24 +37,23 @@ const tailFormItemLayout = {
   },
 };
 
-const Registe = () => {
+const Registe = ({ change_auth }) => {
   const [form] = Form.useForm();
 
-  const onFinish = values => {
+  const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
-  return (
 
-    
-    
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-      <Form.Item><h1>Sign Up</h1></Form.Item>
+  const mockLogin = (e) => {
+    e.preventDefault();
+    change_auth({ email: '39260972@qq.com', auth: true });
+    setEmail('39260972@qq.com');
+  };
+  return (
+    <Form {...formItemLayout} form={form} name="register" onFinish={onFinish} scrollToFirstError>
+      <Form.Item>
+        <h1>Sign Up</h1>
+      </Form.Item>
       <Form.Item
         name="email"
         label="E-mail"
@@ -109,16 +113,21 @@ const Registe = () => {
           <a href="">I agree with terms and conditions</a>
         </Checkbox>
       </Form.Item>
-      <Form.Item><br/>
-        <a href='login'>Already have an account? Sign in here</a></Form.Item>
+      <Form.Item>
+        <br />
+        <Link to="/login">Already have an account? Sign in here</Link>
+      </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Sign up
         </Button>
       </Form.Item>
+      <Button type="primary" htmlType="submit" className="login-form-button" onClick={mockLogin}>
+        Mock Register
+      </Button>
     </Form>
   );
 };
 
-export default Registe
+export default connect(null, { change_auth: action.user.change_auth })(Registe);

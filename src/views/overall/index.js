@@ -16,21 +16,23 @@ function Overall(props) {
 
   // Get transactions
   useEffect(() => {
-    global_loading();
-    getTransactions()
-      .then((data) => {
-        if (data.status === 200) {
-          get_transactions(data.data);
+    if (transactions.length === 0) {
+      global_loading();
+      getTransactions()
+        .then((data) => {
+          if (data.status === 200) {
+            get_transactions(data.data);
+            global_loading(false);
+          } else {
+            throw new Error('Not Get Transactions');
+          }
+        })
+        .catch((err) => {
           global_loading(false);
-        } else {
-          throw new Error('Not Get Transactions');
-        }
-      })
-      .catch((err) => {
-        global_loading(false);
-        toastr.error('Opps', 'Not Get Transactions');
-        console.log(err);
-      });
+          toastr.error('Opps', 'Not Get Transactions');
+          console.log(err);
+        });
+    }
   }, [get_transactions]);
 
   const [visible, setVisible] = useState(false);
