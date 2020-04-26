@@ -2,18 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import action from '@/store/action';
 import { toastr } from 'react-redux-toastr';
-import { Tabs, Row, Col, Button } from 'antd';
+import { Tabs, Row, Col, Button, DatePicker, Select } from 'antd';
 
 import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
 import './Overall.css';
+import moment from 'moment';
 import CreateForm from './CreateForm';
 import DataTable from './DataTable';
-import moment from 'moment';
 import { getTransactions } from '../../api/transaction';
-
-import { DatePicker } from 'antd';
-
-import { Select } from 'antd';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -111,13 +107,9 @@ function Overall(props) {
                   onClick={() => {
                     toastr.success(
                       'search data',
-                      dateFrom.format('YYYY:MM:DD') +
-                        ' ' +
-                        dateTo.format('YYYY:MM:DD') +
-                        ' ' +
-                        payee +
-                        ' ' +
-                        categories.toString()
+                      `${dateFrom.format('YYYY:MM:DD')} ${dateTo.format(
+                        'YYYY:MM:DD'
+                      )} ${payee} ${categories.toString()}`
                     );
                   }}
                 >
