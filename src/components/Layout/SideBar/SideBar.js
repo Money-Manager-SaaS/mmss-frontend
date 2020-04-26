@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu, Typography, Avatar, Divider } from 'antd';
 
 import Logo from '../../../assets/images/logo.png';
 import './SideBarStyle.css';
 import routes from '../../../routes';
 
-export default function SideBar() {
+function SideBar({ history }) {
+  const {
+    location: { pathname },
+  } = history;
+
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -21,11 +25,11 @@ export default function SideBar() {
         <Typography className="logoName">MM Cloud</Typography>
       )}
       <Divider className="divider" />
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" className="menu">
+      <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline" className="menu">
         {routes.map(
-          (route, index) =>
+          (route) =>
             route.name && (
-              <Menu.Item key={index}>
+              <Menu.Item key={route.path}>
                 <Link to={route.path}>
                   {route.icon}
                   <span>{route.name}</span>
@@ -37,3 +41,4 @@ export default function SideBar() {
     </Layout.Sider>
   );
 }
+export default withRouter(SideBar);
