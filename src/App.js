@@ -16,7 +16,7 @@ import { toastr } from 'react-redux-toastr';
 import { loginRoutes } from './routes';
 const history = createBrowserHistory();
 
-function GetAccount({ change_auth, get_accounts, get_categories, get_payees, children, auth }) {
+function GetAccount({ change_auth, get_accounts, get_categories, get_payees, auth }) {
   useEffect(() => {
     console.log('Getting user account');
     if (auth || !!getEmail()) {
@@ -42,17 +42,7 @@ function GetAccount({ change_auth, get_accounts, get_categories, get_payees, chi
         });
     }
   }, [change_auth, get_accounts, get_categories, get_payees, auth]);
-  return <>{children}</>;
-}
 
-const ConnectGetAccount = connect((state) => ({ auth: state.user.auth }), {
-  get_accounts: action.account.get_accounts,
-  get_categories: action.category.get_categories,
-  change_auth: action.user.change_auth,
-  get_payees: action.payee.get_payees,
-})(GetAccount);
-
-function Root({ globalLoading, auth }) {
   const LoginPages = () => (
     <Switch>
       {loginRoutes.map((route, index) => (
@@ -74,11 +64,19 @@ function Root({ globalLoading, auth }) {
   );
 
   return (
-    <>
-      <GlobalLoading loading={globalLoading} />
-      <ConnectedRouter history={history}>{auth ? <AuthPages /> : <LoginPages />}</ConnectedRouter>
-    </>
+    <ConnectedRouter history={history}>{auth ? <AuthPages /> : <LoginPages />}</ConnectedRouter>
   );
+}
+
+const ConnectGetAccount = connect((state) => ({ auth: state.user.auth }), {
+  get_accounts: action.account.get_accounts,
+  get_categories: action.category.get_categories,
+  change_auth: action.user.change_auth,
+  get_payees: action.payee.get_payees,
+})(GetAccount);
+
+function Root({ globalLoading, auth }) {
+  return <GlobalLoading loading={globalLoading} />;
 }
 
 const ConnectGlobalLoading = connect(
@@ -90,10 +88,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <ConnectGetAccount>
-          <ConnectGlobalLoading />
-          <ReduxToastr position="bottom-center" transitionIn="fadeIn" transitionOut="fadeOut" />
-        </ConnectGetAccount>
+        <ConnectGlobalLoading />
+        <ConnectGetAccount />
+
+        <ReduxToastr position="bottom-center" transitionIn="fadeIn" transitionOut="fadeOut" />
       </Provider>
     );
   }

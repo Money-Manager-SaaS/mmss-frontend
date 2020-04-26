@@ -42,21 +42,24 @@ const mockPayees = [
 export const mockGetUser = () => {
   return new Promise((resolve, reject) => {
     Promise.all([getAccounts(), getCategories()]).then(([accountsData, categoriesData]) => {
-      const data = {
-        data: {
-          accounts: accountsData.data.accounts,
-          categories: categoriesData.data.categories,
-          email: '39260972@qq.com',
-          payees: mockPayees,
-        },
-        status: 200,
-        message: 'Get User Successfully',
-      };
-
-      const failedData = {
-        status: 401,
-        message: 'Get User Failed',
-      };
+      let data;
+      if (accountsData.status === 401 || categoriesData.status === 401) {
+        data = {
+          status: 401,
+          message: 'Get User Failed',
+        };
+      } else {
+        data = {
+          data: {
+            accounts: accountsData.data.accounts,
+            categories: categoriesData.data.categories,
+            email: '39260972@qq.com',
+            payees: mockPayees,
+          },
+          status: 200,
+          message: 'Get User Successfully',
+        };
+      }
 
       resolve(data);
     });
