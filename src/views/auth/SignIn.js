@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setEmail } from '../../utils';
 import action from '@/store/action';
+
+
 const Login = ({ change_auth }) => {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
   };
@@ -30,7 +36,7 @@ const Login = ({ change_auth }) => {
         rules={[{ required: true, message: 'Please input your name or Email!' }]}
       >
         <p>Username/Email</p>
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onchange={() => this.state.username = this.value } />
       </Form.Item>
       <Form.Item
         name="password"
@@ -41,6 +47,7 @@ const Login = ({ change_auth }) => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+          onchange={() => this.state.password = this.value}
         />
       </Form.Item>
 
