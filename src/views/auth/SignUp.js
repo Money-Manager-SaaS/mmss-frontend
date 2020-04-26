@@ -38,7 +38,12 @@ const tailFormItemLayout = {
 };
 
 const Registe = ({ change_auth }) => {
-  const [form] = Form.useForm();
+
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [cfmPassword, setCfmPassword] = useState('');
+
+const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -68,7 +73,7 @@ const Registe = ({ change_auth }) => {
           },
         ]}
       >
-        <Input />
+        <Input value={username} onChange={(e) => setUserName(e.target.value)} />
       </Form.Item>
 
       <Form.Item
@@ -82,7 +87,7 @@ const Registe = ({ change_auth }) => {
         ]}
         hasFeedback
       >
-        <Input.Password />
+        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)}/>
       </Form.Item>
 
       <Form.Item
@@ -106,7 +111,7 @@ const Registe = ({ change_auth }) => {
           }),
         ]}
       >
-        <Input.Password />
+        <Input.Password value={cfmPassword} onChange={(e) => setCfmPassword(e.target.value)} />
       </Form.Item>
       <Form.Item>
         <Checkbox>
