@@ -36,7 +36,7 @@ const Login = ({ change_auth }) => {
         rules={[{ required: true, message: 'Please input your name or Email!' }]}
       >
         <p>Username/Email</p>
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => this.state.username = e.target.value } />
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setUserName(e.target.value) } />
       </Form.Item>
       <Form.Item
         name="password"
@@ -47,7 +47,7 @@ const Login = ({ change_auth }) => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
-          onChange={(e) => this.state.password = e.target.value}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
 
