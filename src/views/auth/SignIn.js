@@ -3,14 +3,12 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setEmail } from '../../utils';
 import action from '@/store/action';
-
+import { setEmail } from '../../utils';
 
 const Login = ({ change_auth }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -36,7 +34,11 @@ const Login = ({ change_auth }) => {
         rules={[{ required: true, message: 'Please input your name or Email!' }]}
       >
         <p>Username/Email</p>
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" onChange={(e) => setUserName(e.target.value) } />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
+          onChange={(e) => setUserName(e.target.value)}
+        />
       </Form.Item>
       <Form.Item
         name="password"
