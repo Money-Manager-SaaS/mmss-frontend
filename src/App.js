@@ -14,8 +14,8 @@ import { setEmail, removeEmail, getEmail } from './utils';
 import { toastr } from 'react-redux-toastr';
 import { loginRoutes } from './routes';
 
-import SideBar from './components/Layout/SideBar/SideBar';
-import UserInfo from './components/Layout/UserInfo/UserInfo';
+import SideBar from './components/SideBar/SideBar';
+import UserInfo from './components/UserInfo/UserInfo';
 import { Layout } from 'antd';
 
 const history = createBrowserHistory();
