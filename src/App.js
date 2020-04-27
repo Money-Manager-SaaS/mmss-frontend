@@ -9,11 +9,15 @@ import action from '@/store/action';
 import routes from './routes';
 import store from './store';
 import GlobalLoading from './components/GlobalLoading';
-import Layout from './components/Layout/Layout';
 import { mockGetUser } from './api/user';
 import { setEmail, removeEmail, getEmail } from './utils';
 import { toastr } from 'react-redux-toastr';
 import { loginRoutes } from './routes';
+
+import SideBar from './components/Layout/SideBar/SideBar';
+import UserInfo from './components/Layout/UserInfo/UserInfo';
+import { Layout } from 'antd';
+
 const history = createBrowserHistory();
 
 function GetAccount({ change_auth, get_accounts, get_categories, get_payees, auth }) {
@@ -53,13 +57,17 @@ function GetAccount({ change_auth, get_accounts, get_categories, get_payees, aut
   );
 
   const AuthPages = () => (
-    <Layout>
-      <Switch>
-        {routes.map((route, index) => (
-          <Route exact key={index} path={route.path} component={route.component} />
-        ))}
-        <Redirect to="/" />
-      </Switch>
+      <Layout style={{ minHeight: '100vh', backgroundColor: 'rgb(240, 242, 245)' }}>
+      <SideBar />
+      <UserInfo />
+      <div>
+          <Switch>
+            {routes.map((route, index) => (
+              <Route exact key={index} path={route.path} component={route.component} />
+            ))}
+            <Redirect to="/" />
+          </Switch>
+      </div>
     </Layout>
   );
 
