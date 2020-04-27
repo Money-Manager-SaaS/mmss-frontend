@@ -1,22 +1,20 @@
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import React, { Component, useEffect } from 'react';
-import ReduxToastr from 'react-redux-toastr';
+import ReduxToastr, { toastr } from 'react-redux-toastr';
 import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { Provider, connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import action from '@/store/action';
-import routes from './routes';
+import { Layout } from 'antd';
+import routes, { loginRoutes } from './routes';
 import store from './store';
 import GlobalLoading from './components/GlobalLoading';
 import { mockGetUser } from './api/user';
 import { setEmail, removeEmail, getEmail } from './utils';
-import { toastr } from 'react-redux-toastr';
-import { loginRoutes } from './routes';
 
 import SideBar from './components/SideBar/SideBar';
 import UserInfo from './components/UserInfo/UserInfo';
-import { Layout } from 'antd';
 
 const history = createBrowserHistory();
 
@@ -33,7 +31,7 @@ function GetAccount({ change_auth, get_accounts, get_categories, get_payees, aut
             get_categories(data.data.categories);
             get_payees(data.data.payees);
           } else if (data.status === 401) {
-            //No Auth
+            // No Auth
             removeEmail();
             change_auth({ email: '', auth: false });
             get_accounts([]);
@@ -57,16 +55,16 @@ function GetAccount({ change_auth, get_accounts, get_categories, get_payees, aut
   );
 
   const AuthPages = () => (
-      <Layout style={{ minHeight: '100vh', backgroundColor: 'rgb(240, 242, 245)' }}>
+    <Layout style={{ minHeight: '100vh', backgroundColor: 'rgb(240, 242, 245)' }}>
       <SideBar />
       <UserInfo />
       <div>
-          <Switch>
-            {routes.map((route, index) => (
-              <Route exact key={index} path={route.path} component={route.component} />
-            ))}
-            <Redirect to="/" />
-          </Switch>
+        <Switch>
+          {routes.map((route, index) => (
+            <Route exact key={index} path={route.path} component={route.component} />
+          ))}
+          <Redirect to="/" />
+        </Switch>
       </div>
     </Layout>
   );

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import './UserInfoStyle.css';
 import { connect } from 'react-redux';
-import { removeEmail } from '../../utils';
 import action from '@/store/action';
+import { removeEmail } from '../../utils';
+
 const menu = (
   <Menu>
     <Menu.Item>
@@ -26,7 +27,9 @@ function UserInfo({ email, change_auth }) {
     <div className="user-info">
       <Dropdown overlay={menu}>
         <Link className="ant-dropdown-link" to="/profile">
-          <Typography className="user-name">Hi {email}</Typography>{' '}
+          <Typography className="user-name">
+Hi{email}</Typography>
+{' '}
           <DownOutlined className="arrow-down" />
         </Link>
       </Dropdown>
