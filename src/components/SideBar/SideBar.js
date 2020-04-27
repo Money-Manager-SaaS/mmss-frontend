@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu, Typography, Avatar, Divider } from 'antd';
 
-import Logo from '../../../assets/images/logo.png';
+import Logo from '../../assets/images/logo.png';
 import './SideBarStyle.css';
-import routes from '../../../routes';
+import routes from '../../routes';
 
 function SideBar({ history }) {
   const {

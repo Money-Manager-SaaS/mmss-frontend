@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import './UserInfoStyle.css';
 import { connect } from 'react-redux';
-import { removeEmail } from '../../../utils';
+import { removeEmail } from '../../utils';
 import action from '@/store/action';
 const menu = (
   <Menu>
