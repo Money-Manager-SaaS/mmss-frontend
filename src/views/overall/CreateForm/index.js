@@ -14,10 +14,10 @@ export default function CreateForm() {
   return (
     <Form {...layout}>
       <Form.Item label="Date" name="date">
-        <DatePicker defaultValue={moment(new Date())} format="MM/DD/YYYY" />
+        <DatePicker initialValues={moment(new Date())} format="MM/DD/YYYY" />
       </Form.Item>
       <Form.Item label="Type" name="type">
-        <Radio.Group defaultValue="withdraw">
+        <Radio.Group initialValues="withdraw">
           <Radio value="withdraw">Withdraw</Radio>
           <Radio value="transfer">Transfer</Radio>
           <Radio value="desposit">Desposit</Radio>
@@ -41,7 +41,7 @@ export default function CreateForm() {
       </Form.Item>
       <Form.Item label="Amount" name="amount">
         <InputNumber
-          defaultValue={0}
+          initialValues={0}
           formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
         />
