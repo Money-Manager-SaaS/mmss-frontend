@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { EditableCell, EditableRow } from '../../utils/editable';
+import moment from 'moment';
 
 export default function DataTable({
   transactions,
@@ -16,7 +17,7 @@ export default function DataTable({
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
-        date: new Date(transaction.createdAt).toLocaleString('en-GB'),
+        date: moment(transaction.createdAt).format('MM/DD/YYYY'),
         account: accountsTable[transaction.accountID],
         to: accountsTable[transaction.toAccountID],
         amount: '$' + transaction.amount.toFixed(2),

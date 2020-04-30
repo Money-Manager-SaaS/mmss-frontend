@@ -1,20 +1,23 @@
 .main-content {
-  margin-left: 2em;
-  margin-top: 3em;
+  min-width: 85vw;
+  padding: 5px;
 }
 
 .content {
   background-color: white;
-  padding: 1em;
+  padding: 10px;
   border-radius: 5px;
-  min-height: 85vh;
 }
 
-.addBtn {
-  width: 48px;
-  height: 48px;
+.section-search {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
 }
-
+.search-field {
+  margin: auto 4px;
+}
 .editbtn {
   color: #13c2c2;
   border-color: #13c2c2;

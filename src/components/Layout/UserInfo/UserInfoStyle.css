@@ -1,8 +1,8 @@
 .user-info {
   vertical-align: middle;
   position: absolute;
-  top: 1em;
-  right: 1em;
+  top: 20px;
+  right: 20px;
 }
 .dropdown {
   cursor: pointer;
@@ -21,13 +21,13 @@
   margin-left: 1em;
   background-color: #13c2c2;
   vertical-align: middle;
-  line-height: 3.3;
-  width: 48px;
-  height: 48px;
+  line-height: 2.5;
+  width: 36px;
+  height: 36px;
 }
 
 .btn {
-  background-color: #00474f;
+  background-color: #13c2c2;
   color: white;
   width: 100px;
 }

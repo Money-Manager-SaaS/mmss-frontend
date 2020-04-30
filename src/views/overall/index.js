@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import action from '@/store/action';
 import { toastr } from 'react-redux-toastr';
-import { Tabs, Row, Col, Button, DatePicker, Select } from 'antd';
+import { Tabs, Row, Col, Button, DatePicker, Select, Input } from 'antd';
 
 import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
 import './Overall.css';
@@ -71,26 +71,38 @@ function Overall(props) {
           key="1"
         >
           <Row>
-            <Col span={15} style={{ textAlign: 'center' }}>
-              <div style={{ display: 'flex' }}>
+            <Col span={18} style={{ textAlign: 'center' }}>
+              <div className="section-search">
                 <RangePicker
-                  format="YYYY-MM-DD"
+                  style={{ maxWidth: 160 }}
+                  format="MM-DD-YYYY"
                   onOk={confirmSearchDate}
                   value={[dateFrom, dateTo]}
                   showTime={{
                     defaultValue: moment('00:00:00', 'HH:mm:ss'),
                   }}
                 />
-                <Select placeholder="Select a Payee" onChange={confirmSearchPayee} value={payee}>
+                <Select className="search-field" placeholder="Select Accounts"></Select>
+                <Select className="search-field" placeholder="Select Types"></Select>
+                <Select
+                  className="search-field"
+                  mode="multiple"
+                  style={{ minWidth: 160 }}
+                  placeholder="Select Payees"
+                  onChange={confirmSearchPayee}
+                  optionLabelProp="label"
+                  value={payee}
+                >
                   {Object.keys(payeesTable).map((key, index) => (
-                    <Option key={index} value={key}>
+                    <Option key={index} value={key} label={payeesTable[key]}>
                       {payeesTable[key]}
                     </Option>
                   ))}
                 </Select>
                 <Select
                   mode="multiple"
-                  style={{ width: '30%', minWidth: 200 }}
+                  className="search-field"
+                  style={{ minWidth: 160 }}
                   placeholder="Select Categories"
                   value={categories}
                   onChange={confirmSearchCategories}
@@ -102,6 +114,7 @@ function Overall(props) {
                     </Option>
                   ))}
                 </Select>
+                <Input.Search className="search-field" style={{ maxWidth: 120 }}></Input.Search>
                 <Button
                   type="primary"
                   onClick={() => {
@@ -113,7 +126,7 @@ function Overall(props) {
                     );
                   }}
                 >
-                  Search
+                  CLEAR ALL
                 </Button>
               </div>
               <DataTable
@@ -124,8 +137,7 @@ function Overall(props) {
                 typesTable={typesTable}
               />
             </Col>
-            <Col span={1} />
-            <Col span={8}>
+            <Col span={6}>
               <CreateForm />
             </Col>
           </Row>
