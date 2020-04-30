@@ -19,7 +19,7 @@ export default function DataTable({
         date: new Date(transaction.createdAt).toLocaleString('en-GB'),
         account: accountsTable[transaction.accountID],
         to: accountsTable[transaction.toAccountID],
-        amount: '$' + transaction.amount.toFixed(2),
+        amount: `$${transaction.amount.toFixed(2)}`,
         type: typesTable[transaction.transferType],
         payee: payeesTable[transaction.payeeId],
         category: categoriesTable[transaction.categoryID],
@@ -30,7 +30,7 @@ export default function DataTable({
   }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable]);
 
   const handleDelete = (row) => {
-    //api call delete to backand with id(row.key) as parameter
+    // api call delete to backand with id(row.key) as parameter
     setDataSource(dataSource.filter((item) => item.key !== row.key));
   };
 
@@ -68,7 +68,7 @@ export default function DataTable({
   };
 
   const handleSave = (row) => {
-    //api call put row.notes to backand with id(row.key) as parameter
+    // api call put row.notes to backand with id(row.key) as parameter
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
     const item = newData[index];
