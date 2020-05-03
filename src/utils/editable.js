@@ -1,84 +1,63 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Input, Form } from 'antd';
-
-const EditableContext = React.createContext();
-
-export const EditableRow = ({ index, ...props }) => {
-  const [form] = Form.useForm();
-  return (
-    <Form form={form} component={false}>
-      <EditableContext.Provider value={form}>
-        <tr {...props} />
-      </EditableContext.Provider>
-    </Form>
-  );
-};
+import React, { useState } from 'react';
+import { Input, Form, Select } from 'antd';
+const { Option } = Select;
 
 export const EditableCell = ({
-  title,
-  editable,
-  children,
+  editing,
   dataIndex,
+  title,
+  inputType,
   record,
-  handleSave,
+  index,
+  children,
+  selectTable,
   ...restProps
 }) => {
-  const [editing, setEditing] = useState(false);
-  const inputRef = useRef();
-  const form = useContext(EditableContext);
-  useEffect(() => {
-    if (editing) {
-      inputRef.current.focus();
-    }
-  }, [editing]);
+  const [value, setValue] = useState();
 
-  const toggleEdit = () => {
-    setEditing(!editing);
-    form.setFieldsValue({
-      [dataIndex]: record[dataIndex],
-    });
-  };
-
-  const save = async (e) => {
-    try {
-      const values = await form.validateFields();
-      toggleEdit();
-      handleSave({ ...record, ...values });
-    } catch (errInfo) {
-      console.log('Save failed:', errInfo);
-    }
-  };
-
-  let childNode = children;
-
-  if (editable) {
-    childNode = editing ? (
-      <Form.Item
-        style={{
-          margin: 0,
-        }}
-        name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
-      >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-      </Form.Item>
-    ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{
-          paddingRight: 24,
-        }}
-        onClick={toggleEdit}
-      >
-        {children}
-      </div>
-    );
+  function onChange(value) {
+    setValue(value);
   }
 
-  return <td {...restProps}>{childNode}</td>;
+  const inputNode =
+    inputType === 'select' ? (
+      <Select
+        className="search-field"
+        style={{ minWidth: 160 }}
+        placeholder="Select Categories"
+        value={value}
+        onChange={onChange}
+        optionLabelProp="label"
+      >
+        {Object.keys(selectTable).map((key, index) => (
+          <Option key={index} value={key} label={selectTable[key]}>
+            {selectTable[key]}
+          </Option>
+        ))}
+      </Select>
+    ) : (
+      <Input />
+    );
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
 };

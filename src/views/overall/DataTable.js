@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'antd';
+import { Table, Button, Popconfirm, Form } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { EditableCell, EditableRow } from '../../utils/editable';
+import { EditableCell } from '../../utils/editable';
 import moment from 'moment';
 
 export default function DataTable({
@@ -35,64 +35,139 @@ export default function DataTable({
     setDataSource(dataSource.filter((item) => item.key !== row.key));
   };
 
+  const [form] = Form.useForm();
+
+  const edit = (record) => {
+    form.setFieldsValue({
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const save = (key) => {
+    try {
+      console.log(form);
+      let row = form.getFieldsValue();
+      const newData = [...dataSource];
+      const index = newData.findIndex((item) => key === item.key);
+      console.log(row, key, index);
+      if (index > -1) {
+        const item = newData[index];
+        if (item.category !== row.category) {
+          row = { ...row, category: categoriesTable[row.category] };
+        }
+        newData.splice(index, 1, row);
+        setDataSource(newData);
+        setEditingKey('');
+      } else {
+        newData.push(row);
+        setDataSource(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
   const columnsSet = [
-    { title: 'DATE', dataIndex: 'date', key: 'date' },
-    { title: 'ACCOUNT', dataIndex: 'account', key: 'account' },
-    { title: 'TO', dataIndex: 'to', key: 'to' },
-    { title: 'AMOUNT', dataIndex: 'amount', key: 'amount' },
-    { title: 'TYPE', dataIndex: 'type', key: 'type' },
-    { title: 'PAYEE', dataIndex: 'payee', key: 'payee' },
-    { title: 'CATEGORY', dataIndex: 'category', key: 'category' },
+    { title: 'DATE', dataIndex: 'date', key: 'date', editable: true },
+    { title: 'ACCOUNT', dataIndex: 'account', key: 'account', editable: true },
+    { title: 'TO', dataIndex: 'to', key: 'to', editable: true },
+    { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
+    { title: 'TYPE', dataIndex: 'type', key: 'type', editable: true },
+    { title: 'PAYEE', dataIndex: 'payee', key: 'payee', editable: true },
+    {
+      title: 'CATEGORY',
+      dataIndex: 'category',
+      key: 'category',
+      editable: true,
+      inputType: 'select',
+      selectTable: categoriesTable,
+    },
     { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true },
     {
       title: 'action',
       key: 'action',
-      render: (row) => (
-        <Button
-          onClick={() => {
-            handleDelete(row);
-          }}
-          shape="circle-outline"
-          className="deletebtn"
-        >
-          <DeleteOutlined />
-        </Button>
-      ),
+      render: (row, record) => {
+        const editable = isEditing(record);
+        return (
+          <>
+            {editable ? (
+              <div>
+                <button
+                  onClick={() => save(record.key)}
+                  style={{
+                    marginRight: 8,
+                  }}
+                >
+                  Save
+                </button>
+
+                <button onClick={cancel}>Cancel</button>
+              </div>
+            ) : (
+              <Popconfirm title="Sure ?" onConfirm={cancel}>
+                <Button
+                  disabled={editingKey !== ''}
+                  onClick={() => edit(record)}
+                  shape="circle-outline"
+                  className="deletebtn"
+                >
+                  <EditOutlined />
+                </Button>{' '}
+              </Popconfirm>
+            )}
+            <Button
+              onClick={() => {
+                handleDelete(row);
+              }}
+              shape="circle-outline"
+              className="deletebtn"
+            >
+              <DeleteOutlined />
+            </Button>
+          </>
+        );
+      },
     },
   ];
 
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
-
-  const handleSave = (row) => {
-    //api call put row.notes to backand with id(row.key) as parameter
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    console.log(`changing transaction notes... ID is ${row.key}`, row, item);
-    newData.splice(index, 1, row);
-    setDataSource(newData);
-  };
-
-  const columns = columnsSet.map((col) => {
+  const [editingKey, setEditingKey] = useState('');
+  const isEditing = (record) => record.key === editingKey;
+  const mergedColumns = columnsSet.map((col) => {
     if (!col.editable) {
       return col;
     }
+
     return {
       ...col,
       onCell: (record) => ({
         record,
-        editable: col.editable,
+        inputType: col.inputType ? col.inputType : 'text',
         dataIndex: col.dataIndex,
         title: col.title,
-        handleSave,
+        editing: isEditing(record),
+        selectTable: col.selectTable,
       }),
     };
   });
 
-  return <Table dataSource={dataSource} size="middle" columns={columns} components={components} />;
+  return (
+    <Form form={form} component={false}>
+      <Table
+        dataSource={dataSource}
+        size="middle"
+        columns={mergedColumns}
+        components={{
+          body: {
+            cell: EditableCell,
+          },
+        }}
+      />
+    </Form>
+  );
 }
