@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -63,6 +63,7 @@ const Login = ({ change_auth }) => {
       <Button type="primary" htmlType="submit" className="login-form-button" onClick={mockLogin}>
         Mock Login
       </Button>
+      {username}
     </Form>
   );
 };
