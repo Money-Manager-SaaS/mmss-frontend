@@ -18,12 +18,12 @@
 .search-field {
   margin: auto 4px;
 }
-.editbtn {
+.edit-save-btn {
   color: #13c2c2;
   border-color: #13c2c2;
   margin: auto 2px;
 }
-.editbtn:hover {
+.edit-save-btn:hover {
   background-color: #13c2c2;
   color: white;
 }
@@ -38,4 +38,16 @@
   background-color: #ff7a45;
   border-color: #ff7a45;
   color: white;
+}
+
+.cancelbtn {
+  color: #f5222d;
+  border-color: #f5222d;
+  background-color: white;
+}
+
+.cancelbtn:hover {
+  color: white;
+  border-color: #f5222d;
+  background-color: #f5222d;
 }

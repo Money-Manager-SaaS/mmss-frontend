@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Popconfirm, Form } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Button, Popconfirm, Form, Tooltip } from 'antd';
+import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons';
 import { EditableCell } from '../../utils/editable';
 import moment from 'moment';
 
@@ -98,38 +98,52 @@ export default function DataTable({
           <>
             {editable ? (
               <div>
-                <button
-                  onClick={() => save(record.key)}
-                  style={{
-                    marginRight: 8,
-                  }}
-                >
-                  Save
-                </button>
-
-                <button onClick={cancel}>Cancel</button>
+                <Tooltip placement="top" title="Save">
+                  <Button
+                    className="edit-save-btn"
+                    shape="circle-outline"
+                    onClick={() => save(record.key)}
+                    style={{
+                      marginRight: 8,
+                    }}
+                    icon={<SaveOutlined />}
+                  />
+                </Tooltip>
+                <Tooltip placement="top" title="Cancel">
+                  <Button
+                    className="cancelbtn"
+                    shape="circle"
+                    onClick={cancel}
+                    icon={<CloseOutlined />}
+                  />
+                </Tooltip>
               </div>
             ) : (
-              <Popconfirm title="Sure ?" onConfirm={cancel}>
-                <Button
-                  disabled={editingKey !== ''}
-                  onClick={() => edit(record)}
-                  shape="circle-outline"
-                  className="deletebtn"
-                >
-                  <EditOutlined />
-                </Button>{' '}
-              </Popconfirm>
+              <>
+                <Popconfirm title="Sure ?" onConfirm={cancel}>
+                  <Tooltip placement="top" title="Edit">
+                    <Button
+                      disabled={editingKey !== ''}
+                      onClick={() => edit(record)}
+                      shape="circle-outline"
+                      className="edit-save-btn"
+                      icon={<EditOutlined />}
+                    />
+                  </Tooltip>
+                </Popconfirm>
+                <Tooltip placement="top" title="Delete">
+                  <Button
+                    onClick={() => {
+                      handleDelete(row);
+                    }}
+                    disabled={editingKey !== ''}
+                    shape="circle-outline"
+                    className="deletebtn"
+                    icon={<DeleteOutlined />}
+                  />
+                </Tooltip>
+              </>
             )}
-            <Button
-              onClick={() => {
-                handleDelete(row);
-              }}
-              shape="circle-outline"
-              className="deletebtn"
-            >
-              <DeleteOutlined />
-            </Button>
           </>
         );
       },

@@ -16,3 +16,7 @@
   width: 100px;
   margin: auto 1em;
 }
+
+.select-radio {
+  display: block;
+}

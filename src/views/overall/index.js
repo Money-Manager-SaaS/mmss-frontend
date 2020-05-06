@@ -71,7 +71,7 @@ function Overall(props) {
           key="1"
         >
           <Row>
-            <Col span={18} style={{ textAlign: 'center' }}>
+            <Col span={20} style={{ textAlign: 'center' }}>
               <div className="section-search">
                 <RangePicker
                   style={{ maxWidth: 160 }}
@@ -137,7 +137,7 @@ function Overall(props) {
                 typesTable={typesTable}
               />
             </Col>
-            <Col span={6}>
+            <Col span={4}>
               <CreateForm />
             </Col>
           </Row>

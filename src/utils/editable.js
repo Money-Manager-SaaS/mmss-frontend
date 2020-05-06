@@ -23,7 +23,7 @@ export const EditableCell = ({
     inputType === 'select' ? (
       <Select
         className="search-field"
-        style={{ minWidth: 160 }}
+        style={{ minWidth: 80 }}
         placeholder="Select Categories"
         value={value}
         onChange={onChange}
@@ -36,7 +36,7 @@ export const EditableCell = ({
         ))}
       </Select>
     ) : (
-      <Input />
+      <Input style={{ maxWidth: 100 }} />
     );
   return (
     <td {...restProps}>
