@@ -38,6 +38,12 @@
   color: white;
 }
 
+.deletebtn:focus {
+  background-color: #ff7a45;
+  border-color: #ff7a45;
+  color: white;
+}
+
 .cancelbtn {
   color: #f5222d;
   border-color: #f5222d;
