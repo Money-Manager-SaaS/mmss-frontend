@@ -117,28 +117,30 @@ export default function DataTable({
               </Space>
             ) : (
               <Space>
-                <Popconfirm title="Sure ?" onConfirm={cancel}>
-                  <Tooltip placement="top" title="Edit">
+                <Tooltip placement="top" title="Edit">
+                  <Button
+                    disabled={editingKey !== ''}
+                    onClick={() => edit(record)}
+                    shape="circle-outline"
+                    className="edit-save-btn"
+                    icon={<EditOutlined />}
+                  />
+                </Tooltip>
+                <Popconfirm
+                  title="Sure ?"
+                  onConfirm={() => {
+                    handleDelete(row);
+                  }}
+                >
+                  <Tooltip placement="top" title="Delete">
                     <Button
                       disabled={editingKey !== ''}
-                      onClick={() => edit(record)}
                       shape="circle-outline"
-                      className="edit-save-btn"
-                      icon={<EditOutlined />}
+                      className="deletebtn"
+                      icon={<DeleteOutlined />}
                     />
                   </Tooltip>
                 </Popconfirm>
-                <Tooltip placement="top" title="Delete">
-                  <Button
-                    onClick={() => {
-                      handleDelete(row);
-                    }}
-                    disabled={editingKey !== ''}
-                    shape="circle-outline"
-                    className="deletebtn"
-                    icon={<DeleteOutlined />}
-                  />
-                </Tooltip>
               </Space>
             )}
           </>
