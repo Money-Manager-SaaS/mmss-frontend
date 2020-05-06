@@ -21,7 +21,6 @@
 .edit-save-btn {
   color: #13c2c2;
   border-color: #13c2c2;
-  margin: auto 2px;
 }
 .edit-save-btn:hover {
   background-color: #13c2c2;
@@ -31,7 +30,6 @@
 .deletebtn {
   color: #ff7a45;
   border-color: #ff7a45;
-  margin: auto 2px;
 }
 
 .deletebtn:hover {

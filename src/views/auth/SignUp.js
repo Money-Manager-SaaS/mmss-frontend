@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Checkbox, Button } from 'antd';
+import React from 'react';
+import { Form, Input, Checkbox, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -110,7 +110,7 @@ const Registe = ({ change_auth }) => {
       </Form.Item>
       <Form.Item>
         <Checkbox>
-          <a href="">I agree with terms and conditions</a>
+          <a href="/#">I agree with terms and conditions</a>
         </Checkbox>
       </Form.Item>
       <Form.Item>

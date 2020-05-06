@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Popconfirm, Form, Tooltip } from 'antd';
+import { Table, Button, Popconfirm, Form, Tooltip, Space } from 'antd';
 import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons';
 import { EditableCell } from '../../utils/editable';
 import moment from 'moment';
@@ -97,15 +97,12 @@ export default function DataTable({
         return (
           <>
             {editable ? (
-              <div>
+              <Space>
                 <Tooltip placement="top" title="Save">
                   <Button
                     className="edit-save-btn"
                     shape="circle-outline"
                     onClick={() => save(record.key)}
-                    style={{
-                      marginRight: 8,
-                    }}
                     icon={<SaveOutlined />}
                   />
                 </Tooltip>
@@ -117,9 +114,9 @@ export default function DataTable({
                     icon={<CloseOutlined />}
                   />
                 </Tooltip>
-              </div>
+              </Space>
             ) : (
-              <>
+              <Space>
                 <Popconfirm title="Sure ?" onConfirm={cancel}>
                   <Tooltip placement="top" title="Edit">
                     <Button
@@ -142,7 +139,7 @@ export default function DataTable({
                     icon={<DeleteOutlined />}
                   />
                 </Tooltip>
-              </>
+              </Space>
             )}
           </>
         );

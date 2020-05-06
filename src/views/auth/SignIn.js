@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -30,6 +30,7 @@ const Login = ({ change_auth }) => {
         <h1>Sign In</h1>
       </Form.Item>
       <Form.Item
+        value={username}
         name="username"
         rules={[{ required: true, message: 'Please input your name or Email!' }]}
       >
@@ -41,6 +42,7 @@ const Login = ({ change_auth }) => {
         />
       </Form.Item>
       <Form.Item
+        value={password}
         name="password"
         rules={[{ required: true, message: 'Please input your Password!' }]}
       >
@@ -63,7 +65,6 @@ const Login = ({ change_auth }) => {
       <Button type="primary" htmlType="submit" className="login-form-button" onClick={mockLogin}>
         Mock Login
       </Button>
-      {username}
     </Form>
   );
 };
