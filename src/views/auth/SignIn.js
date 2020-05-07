@@ -6,6 +6,7 @@ import { setEmail } from '../../utils';
 
 import { Form, Input, Button, Row, Col, Typography, Divider } from 'antd';
 import signLogo from '@/assets/images/sign-logo.png';
+import smallLogo from '@/assets/images/mini-logo.png';
 import './Sign.css';
 
 const Login = ({ change_auth }) => {
@@ -35,6 +36,10 @@ const Login = ({ change_auth }) => {
             initialValues={{ remember: true }}
             onFinish={onFinish}
           >
+            <div className="mobile-logo">
+              <img src={smallLogo} alt="mmcloud" className="small-logo" />
+              <span className="mobile-title">MM Cloud</span>
+            </div>
             <Form.Item>
               <Typography className="sign-title">SIGN IN</Typography>
               <Divider className="divider" />
@@ -72,7 +77,7 @@ const Login = ({ change_auth }) => {
               </Button>
             </Form.Item>
             <Button type="primary" htmlType="submit" className="sign-button" onClick={mockLogin}>
-              Mock Login
+              MOCK LOGIN
             </Button>
           </Form>
         </Col>

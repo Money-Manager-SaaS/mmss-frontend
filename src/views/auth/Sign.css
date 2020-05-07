@@ -100,3 +100,40 @@
   font-style: normal;
   letter-spacing: 1px;
 }
+.mobile-logo {
+  display: none;
+}
+
+.small-logo {
+  height: 36px;
+  margin-right: 10px;
+}
+.mobile-title {
+  font-family: GillSans;
+  font-size: 3.6rem;
+  font-weight: light;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-align: right;
+  color: #006d75;
+}
+@media screen and (max-width: 768px) {
+  .mobile-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .sign-title {
+    font-size: 2.5rem;
+  }
+
+  .text-field,
+  .sign-button {
+    width: 240px;
+  }
+  .description {
+    font-size: 1.2rem;
+  }
+}
