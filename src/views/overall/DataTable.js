@@ -38,8 +38,11 @@ export default function DataTable({
   const [form] = Form.useForm();
 
   const edit = (record) => {
+    console.log(record, { ...record, date: moment(record.date) });
     form.setFieldsValue({
       ...record,
+      amount: Number(record.amount.substring(1)),
+      date: moment(record.date),
     });
     setEditingKey(record.key);
   };
@@ -60,6 +63,22 @@ export default function DataTable({
         if (item.category !== row.category) {
           row = { ...row, category: categoriesTable[row.category] };
         }
+        if (item.payee !== row.payee) {
+          row = { ...row, payee: payeesTable[row.payee] };
+        }
+        if (item.to !== row.to) {
+          row = { ...row, to: accountsTable[row.to] };
+        }
+        if (item.account !== row.account) {
+          row = { ...row, account: accountsTable[row.account] };
+        }
+        if (item.type !== row.type) {
+          row = { ...row, type: typesTable[row.type] };
+        }
+        if (item.date !== row.date) {
+          row = { ...row, date: moment(row.date).format('MM/DD/YYYY') };
+        }
+        row = { ...row, amount: '$' + Number(row.amount).toFixed(2) };
         newData.splice(index, 1, row);
         setDataSource(newData);
         setEditingKey('');
@@ -75,17 +94,45 @@ export default function DataTable({
 
   const columnsSet = [
     { title: 'DATE', dataIndex: 'date', key: 'date', editable: true },
-    { title: 'ACCOUNT', dataIndex: 'account', key: 'account', editable: true },
-    { title: 'TO', dataIndex: 'to', key: 'to', editable: true },
+    {
+      title: 'ACCOUNT',
+      dataIndex: 'account',
+      key: 'account',
+      editable: true,
+
+      selectTable: accountsTable,
+    },
+    {
+      title: 'TO',
+      dataIndex: 'to',
+      key: 'to',
+      editable: true,
+
+      selectTable: accountsTable,
+    },
     { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
-    { title: 'TYPE', dataIndex: 'type', key: 'type', editable: true },
-    { title: 'PAYEE', dataIndex: 'payee', key: 'payee', editable: true },
+    {
+      title: 'TYPE',
+      dataIndex: 'type',
+      key: 'type',
+      editable: true,
+
+      selectTable: typesTable,
+    },
+    {
+      title: 'PAYEE',
+      dataIndex: 'payee',
+      key: 'payee',
+      editable: true,
+
+      selectTable: payeesTable,
+    },
     {
       title: 'CATEGORY',
       dataIndex: 'category',
       key: 'category',
       editable: true,
-      inputType: 'select',
+
       selectTable: categoriesTable,
     },
     { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true },
@@ -160,7 +207,7 @@ export default function DataTable({
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.inputType ? col.inputType : 'text',
+
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

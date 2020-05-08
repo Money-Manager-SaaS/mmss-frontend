@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { Input, Form, Select } from 'antd';
+import React from 'react';
+import { Input, Form, Select, DatePicker } from 'antd';
+
+import moment from 'moment';
+
 const { Option } = Select;
 
 export const EditableCell = ({
@@ -13,31 +16,34 @@ export const EditableCell = ({
   selectTable,
   ...restProps
 }) => {
-  const [value, setValue] = useState();
+  const InputNode = () => {
+    switch (dataIndex) {
+      case 'note':
+        return <Input.TextArea style={{ minWidth: 100, maxWidth: 200 }} />;
+      case 'amount':
+        return <Input type={'number'} style={{ maxWidth: 100 }} />;
+      case 'date':
+        return (
+          <DatePicker allowClear={false} initialValues={moment(new Date())} format="MM/DD/YYYY" />
+        );
+      default:
+        return (
+          <Select
+            className="search-field"
+            style={{ minWidth: 80 }}
+            placeholder={title}
+            optionLabelProp="label"
+          >
+            {Object.keys(selectTable).map((key, index) => (
+              <Option key={index} value={key} label={selectTable[key]}>
+                {selectTable[key]}
+              </Option>
+            ))}
+          </Select>
+        );
+    }
+  };
 
-  function onChange(value) {
-    setValue(value);
-  }
-
-  const inputNode =
-    inputType === 'select' ? (
-      <Select
-        className="search-field"
-        style={{ minWidth: 80 }}
-        placeholder="Select Categories"
-        value={value}
-        onChange={onChange}
-        optionLabelProp="label"
-      >
-        {Object.keys(selectTable).map((key, index) => (
-          <Option key={index} value={key} label={selectTable[key]}>
-            {selectTable[key]}
-          </Option>
-        ))}
-      </Select>
-    ) : (
-      <Input style={{ maxWidth: 100 }} />
-    );
   return (
     <td {...restProps}>
       {editing ? (
@@ -53,7 +59,7 @@ export const EditableCell = ({
             },
           ]}
         >
-          {inputNode}
+          {InputNode()}
         </Form.Item>
       ) : (
         children
