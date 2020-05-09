@@ -1,49 +1,19 @@
-import React, { useState } from 'react';
-import { Form, Input, Select, Row, Col, Checkbox, Button } from 'antd';
+import React, {useState} from 'react';
+import { Form, Input, Button, Row, Col, Typography, Divider, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { setEmail } from '../../utils';
 import action from '@/store/action';
-
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
+import signLogo from '@/assets/images/sign-logo.png';
+import smallLogo from '@/assets/images/mini-logo.png';
+import './Sign.css';
 
 const Registe = ({ change_auth }) => {
-
+  // const [form] = Form.useForm();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [cfmPassword, setCfmPassword] = useState('');
-
-const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -55,83 +25,102 @@ const [form] = Form.useForm();
     setEmail('39260972@qq.com');
   };
   return (
-    <Form {...formItemLayout} form={form} name="register" onFinish={onFinish} scrollToFirstError>
-      <Form.Item>
-        <h1>Sign Up</h1>
-      </Form.Item>
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-      >
-        <Input value={username} onChange={(e) => setUserName(e.target.value)} />
-      </Form.Item>
+    <Row>
+      <Col className="left-section" md={12}>
+        <Typography className="app-name">MM CLOUD</Typography>
+        <img src={signLogo} alt="mmcloud" className="app-logo" />
+      </Col>
+      <Col className="right-section" xs={24} sm={24} md={12}>
+        <Form name="register" onFinish={onFinish} scrollToFirstError>
+          <div className="mobile-logo">
+            <img src={smallLogo} alt="mmcloud" className="small-logo" />
+            <span className="mobile-title">MM Cloud</span>
+          </div>
+          <Form.Item>
+            <Typography className="sign-title">SIGN UP</Typography>
+            <Divider className="divider" />
+          </Form.Item>
 
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)}/>
-      </Form.Item>
+          <Form.Item
+            className="item-label"
+            name="email"
+            rules={[
+              {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+              },
+              {
+                required: true,
+                message: 'Please input your E-mail!',
+              },
+            ]}
+          >
+            <Typography className="item-label">Username/Email</Typography>
+            <Input className="text-field" placeholder="Username" 
+            value={username} onChange={(e) => setUserName(e.target.value)}/>
+          </Form.Item>
 
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+            hasFeedback
+          >
+            <Typography className="item-label">Password</Typography>
+            <Input.Password className="text-field" placeholder="Password" 
+            value={password} onChange={(e) => setPassword(e.target.value)}/>
+          </Form.Item>
 
-              return Promise.reject('The two passwords that you entered do not match!');
-            },
-          }),
-        ]}
-      >
-        <Input.Password value={cfmPassword} onChange={(e) => setCfmPassword(e.target.value)} />
-      </Form.Item>
-      <Form.Item>
-        <Checkbox>
-          <a href="">I agree with terms and conditions</a>
-        </Checkbox>
-      </Form.Item>
-      <Form.Item>
-        <br />
-        <Link to="/login">Already have an account? Sign in here</Link>
-      </Form.Item>
+          <Form.Item
+            name="confirm"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
 
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Sign up
-        </Button>
-      </Form.Item>
-      <Button type="primary" htmlType="submit" className="login-form-button" onClick={mockLogin}>
-        Mock Register
-      </Button>
-    </Form>
+                  return Promise.reject('The two passwords that you entered do not match!');
+                },
+              }),
+            ]}
+          >
+            <Typography className="item-label">Confirm Password</Typography>
+            <Input.Password className="text-field" placeholder="Confirm Password"
+            value={cfmPassword} onChange={(e) => setCfmPassword(e.target.value)} />
+          </Form.Item>
+          <Form.Item className="description">
+            <Checkbox>
+              <a href="/#" className="text-color">
+                I agree with terms and conditions
+              </a>
+            </Checkbox>
+          </Form.Item>
+          <Form.Item className="description">
+            <Link to="/login">Already have an account? Sign in here</Link>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="sign-button">
+              SIGN UP
+            </Button>
+          </Form.Item>
+          <Button type="primary" htmlType="submit" className="sign-button" onClick={mockLogin}>
+            Mock Register
+          </Button>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
