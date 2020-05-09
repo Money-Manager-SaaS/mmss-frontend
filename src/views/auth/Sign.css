@@ -89,6 +89,11 @@
   text-align: center;
 }
 
+.text-color {
+  color: #00474f;
+  font-size: 1.2rem;
+}
+
 .sign-button {
   margin-top: 20px;
   width: 280px;
