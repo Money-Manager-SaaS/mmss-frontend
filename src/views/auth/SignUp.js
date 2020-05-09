@@ -9,9 +9,8 @@ import signLogo from '@/assets/images/sign-logo.png';
 import smallLogo from '@/assets/images/mini-logo.png';
 import './Sign.css';
 
-
 const Registe = ({ change_auth }) => {
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
@@ -29,17 +28,19 @@ const Registe = ({ change_auth }) => {
         <img src={signLogo} alt="mmcloud" className="app-logo" />
       </Col>
       <Col className="right-section" xs={24} sm={24} md={12}>
-        <Form  name="register" onFinish={onFinish} scrollToFirstError>
-          <Form.Item><Typography className="sign-title">SIGN Up</Typography>
+        <Form name="register" onFinish={onFinish} scrollToFirstError>
+          <Form.Item>
+            <Typography className="sign-title">SIGN UP</Typography>
             <Divider className="divider" />
           </Form.Item>
 
           <div className="mobile-logo">
-              <img src={smallLogo} alt="mmcloud" className="small-logo" />
-              <span className="mobile-title">MM Cloud</span>
-            </div>
+            <img src={smallLogo} alt="mmcloud" className="small-logo" />
+            <span className="mobile-title">MM Cloud</span>
+          </div>
 
-          <Form.Item className="item-label"
+          <Form.Item
+            className="item-label"
             name="email"
             rules={[
               {
@@ -53,8 +54,7 @@ const Registe = ({ change_auth }) => {
             ]}
           >
             <Typography className="item-label">Username/Email</Typography>
-            <Input className="text-field"
-              placeholder="Username" />
+            <Input className="text-field" placeholder="Username" />
           </Form.Item>
 
           <Form.Item
@@ -68,8 +68,7 @@ const Registe = ({ change_auth }) => {
             hasFeedback
           >
             <Typography className="item-label">Password</Typography>
-            <Input.Password className="text-field"
-              placeholder="Username" />
+            <Input.Password className="text-field" placeholder="Username" />
           </Form.Item>
 
           <Form.Item
@@ -93,8 +92,7 @@ const Registe = ({ change_auth }) => {
             ]}
           >
             <Typography className="item-label">Password</Typography>
-            <Input.Password className="text-field"
-              placeholder="Username" />
+            <Input.Password className="text-field" placeholder="Username" />
           </Form.Item>
           <Form.Item className="description">
             <Checkbox>
@@ -102,18 +100,17 @@ const Registe = ({ change_auth }) => {
             </Checkbox>
           </Form.Item>
           <Form.Item className="description">
-
             <Link to="/login">Already have an account? Sign in here</Link>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="sign-button">
               SIGN UP
-        </Button>
+            </Button>
           </Form.Item>
           <Button type="primary" htmlType="submit" className="sign-button" onClick={mockLogin}>
             Mock Register
-      </Button>
+          </Button>
         </Form>
       </Col>
     </Row>
