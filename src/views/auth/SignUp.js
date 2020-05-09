@@ -91,11 +91,13 @@ const Registe = ({ change_auth }) => {
             ]}
           >
             <Typography className="item-label">Confirm Password</Typography>
-            <Input.Password className="text-field" placeholder="Password" />
+            <Input.Password className="text-field" placeholder="Confirm Password" />
           </Form.Item>
           <Form.Item className="description">
             <Checkbox>
-              <a href="/#">I agree with terms and conditions</a>
+              <a href="/#" className="text-color">
+                I agree with terms and conditions
+              </a>
             </Checkbox>
           </Form.Item>
           <Form.Item className="description">
