@@ -29,15 +29,14 @@ const Registe = ({ change_auth }) => {
       </Col>
       <Col className="right-section" xs={24} sm={24} md={12}>
         <Form name="register" onFinish={onFinish} scrollToFirstError>
-          <Form.Item>
-            <Typography className="sign-title">SIGN UP</Typography>
-            <Divider className="divider" />
-          </Form.Item>
-
           <div className="mobile-logo">
             <img src={smallLogo} alt="mmcloud" className="small-logo" />
             <span className="mobile-title">MM Cloud</span>
           </div>
+          <Form.Item>
+            <Typography className="sign-title">SIGN UP</Typography>
+            <Divider className="divider" />
+          </Form.Item>
 
           <Form.Item
             className="item-label"
