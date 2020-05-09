@@ -90,7 +90,7 @@ const Registe = ({ change_auth }) => {
               }),
             ]}
           >
-            <Typography className="item-label">Confirem Password</Typography>
+            <Typography className="item-label">Confirm Password</Typography>
             <Input.Password className="text-field" placeholder="Password" />
           </Form.Item>
           <Form.Item className="description">
