@@ -67,7 +67,7 @@ const Registe = ({ change_auth }) => {
             hasFeedback
           >
             <Typography className="item-label">Password</Typography>
-            <Input.Password className="text-field" placeholder="Username" />
+            <Input.Password className="text-field" placeholder="Password" />
           </Form.Item>
 
           <Form.Item
@@ -90,8 +90,8 @@ const Registe = ({ change_auth }) => {
               }),
             ]}
           >
-            <Typography className="item-label">Password</Typography>
-            <Input.Password className="text-field" placeholder="Username" />
+            <Typography className="item-label">Confirem Password</Typography>
+            <Input.Password className="text-field" placeholder="Password" />
           </Form.Item>
           <Form.Item className="description">
             <Checkbox>
