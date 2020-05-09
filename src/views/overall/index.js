@@ -22,6 +22,8 @@ function Overall(props) {
   const [dateFrom, setDateFrom] = useState(moment().subtract(3, 'day'));
   const [dateTo, setDateTo] = useState(moment());
   const [payee, setPayee] = useState();
+  const [accounts, setAccounts] = useState();
+  const [types, setTypes] = useState();
 
   const [categories, setCategories] = useState([]);
 
@@ -32,6 +34,14 @@ function Overall(props) {
 
   function confirmSearchCategories(value) {
     setCategories(value);
+  }
+
+  function confirmSearchAccounts(value) {
+    setAccounts(value);
+  }
+
+  function confirmSearchTypes(value) {
+    setTypes(value);
   }
 
   function confirmSearchDate(value) {
@@ -82,8 +92,33 @@ function Overall(props) {
                     defaultValue: moment('00:00:00', 'HH:mm:ss'),
                   }}
                 />
-                <Select className="search-field" placeholder="Select Accounts"></Select>
-                <Select className="search-field" placeholder="Select Types"></Select>
+                <Select className="search-field"
+                  style={{ minWidth: 160 }}
+                  placeholder="Select Accounts"
+                  value={accounts}
+                  onChange={confirmSearchAccounts}
+                  optionLabelProp="label"
+                >
+                  {Object.keys(accountsTable).map((key, index) => (
+                    <Option key={index} value={key} label={accountsTable[key]}>
+                      {accountsTable[key]}
+                    </Option>
+                  ))}
+                </Select>
+                <Select className="search-field"
+                  style={{ minWidth: 160 }}
+                  placeholder="Select Types"
+                  value={types}
+                  onChange={confirmSearchTypes}
+                  optionLabelProp="label"
+                  >
+                    {Object.keys(typesTable).map((key, index) => (
+                    <Option key={index} value={key} label={typesTable[key]}>
+                      {typesTable[key]}
+                    </Option>
+                  ))}
+
+                </Select>
                 <Select
                   className="search-field"
                   mode="multiple"
