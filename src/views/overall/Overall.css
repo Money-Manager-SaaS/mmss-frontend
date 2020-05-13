@@ -9,15 +9,6 @@
   border-radius: 5px;
 }
 
-.section-search {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  align-items: center;
-}
-.search-field {
-  margin: auto 4px;
-}
 .edit-save-btn {
   color: #13c2c2;
   border-color: #13c2c2;

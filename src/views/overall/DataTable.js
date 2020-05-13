@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Popconfirm, Form, Tooltip, Space } from 'antd';
 import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons';
-import { EditableCell } from '../../utils/editable';
+import { EditableCell } from 'utils/editable';
 import moment from 'moment';
 
 export default function DataTable({
@@ -132,7 +132,6 @@ export default function DataTable({
       dataIndex: 'category',
       key: 'category',
       editable: true,
-
       selectTable: categoriesTable,
     },
     { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true },
@@ -141,57 +140,57 @@ export default function DataTable({
       key: 'action',
       render: (row, record) => {
         const editable = isEditing(record);
-        return (
-          <>
-            {editable ? (
-              <Space>
-                <Tooltip placement="top" title="Save">
-                  <Button
-                    className="edit-save-btn"
-                    shape="circle-outline"
-                    onClick={() => save(record.key)}
-                    icon={<SaveOutlined />}
-                  />
-                </Tooltip>
-                <Tooltip placement="top" title="Cancel">
-                  <Button
-                    className="cancelbtn"
-                    shape="circle"
-                    onClick={cancel}
-                    icon={<CloseOutlined />}
-                  />
-                </Tooltip>
-              </Space>
-            ) : (
-              <Space>
-                <Tooltip placement="top" title="Edit">
-                  <Button
-                    disabled={editingKey !== ''}
-                    onClick={() => edit(record)}
-                    shape="circle-outline"
-                    className="edit-save-btn"
-                    icon={<EditOutlined />}
-                  />
-                </Tooltip>
-                <Popconfirm
-                  title="Sure ?"
-                  onConfirm={() => {
-                    handleDelete(row);
-                  }}
-                >
-                  <Tooltip placement="top" title="Delete">
-                    <Button
-                      disabled={editingKey !== ''}
-                      shape="circle-outline"
-                      className="deletebtn"
-                      icon={<DeleteOutlined />}
-                    />
-                  </Tooltip>
-                </Popconfirm>
-              </Space>
-            )}
-          </>
+
+        const SaveCancel = () => (
+          <Space>
+            <Tooltip placement="top" title="Save">
+              <Button
+                className="edit-save-btn"
+                shape="circle-outline"
+                onClick={() => save(record.key)}
+                icon={<SaveOutlined />}
+              />
+            </Tooltip>
+            <Tooltip placement="top" title="Cancel">
+              <Button
+                className="cancelbtn"
+                shape="circle"
+                onClick={cancel}
+                icon={<CloseOutlined />}
+              />
+            </Tooltip>
+          </Space>
         );
+
+        const EditDelete = () => (
+          <Space>
+            <Tooltip placement="top" title="Edit">
+              <Button
+                disabled={editingKey !== ''}
+                onClick={() => edit(record)}
+                shape="circle-outline"
+                className="edit-save-btn"
+                icon={<EditOutlined />}
+              />
+            </Tooltip>
+            <Popconfirm
+              title="Sure ?"
+              onConfirm={() => {
+                handleDelete(row);
+              }}
+            >
+              <Tooltip placement="top" title="Delete">
+                <Button
+                  disabled={editingKey !== ''}
+                  shape="circle-outline"
+                  className="deletebtn"
+                  icon={<DeleteOutlined />}
+                />
+              </Tooltip>
+            </Popconfirm>
+          </Space>
+        );
+        return <>{editable ? <SaveCancel /> : <EditDelete />}</>;
       },
     },
   ];
@@ -202,12 +201,10 @@ export default function DataTable({
     if (!col.editable) {
       return col;
     }
-
     return {
       ...col,
       onCell: (record) => ({
         record,
-
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

@@ -3,7 +3,7 @@ import { Form, Input, Button, Row, Col, Typography, Divider, Checkbox } from 'an
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { setEmail } from '../../utils';
+import { setEmail } from 'utils';
 import action from '@/store/action';
 import signLogo from '@/assets/images/sign-logo.png';
 import smallLogo from '@/assets/images/mini-logo.png';
