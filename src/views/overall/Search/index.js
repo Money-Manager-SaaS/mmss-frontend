@@ -172,7 +172,7 @@ function Search({
         onChange={confirmSearchNote}
         className="search-field"
         style={{ maxWidth: 120 }}
-      ></Input.Search>
+      />
       <Button type="primary" onClick={() => {}}>
         CLEAR ALL
       </Button>
