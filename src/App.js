@@ -5,15 +5,15 @@ import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { Provider, connect } from 'react-redux';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import action from '@/store/action';
-import routes from './routes';
-import store from './store';
-import GlobalLoading from './components/GlobalLoading';
-import Layout from './components/Layout/Layout';
-import { mockGetUser } from './api/user';
-import { setEmail, removeEmail, getEmail } from './utils';
+import action from 'store/action';
+import routes from 'routes';
+import store from 'store';
+import GlobalLoading from 'components/GlobalLoading';
+import Layout from 'components/Layout/Layout';
+import { mockGetUser } from 'api/user';
+import { setEmail, removeEmail, getEmail } from 'utils';
 import { toastr } from 'react-redux-toastr';
-import { loginRoutes } from './routes';
+import { loginRoutes } from 'routes';
 const history = createBrowserHistory();
 
 function GetAccount({ change_auth, get_accounts, get_categories, get_payees, auth }) {

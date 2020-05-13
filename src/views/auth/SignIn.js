@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import action from '@/store/action';
-import { setEmail } from '../../utils';
+import { setEmail } from 'utils';
 
 import { Form, Input, Button, Row, Col, Typography, Divider } from 'antd';
 import signLogo from '@/assets/images/sign-logo.png';
