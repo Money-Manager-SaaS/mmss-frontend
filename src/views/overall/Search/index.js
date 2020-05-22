@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { toastr } from 'react-redux-toastr';
 import { Button, DatePicker, Select, Input } from 'antd';
-import { connect } from 'react-redux';
-import action from 'store/action';
+
 import './Search.css';
 import moment from 'moment';
 
@@ -14,7 +13,7 @@ const { RangePicker } = DatePicker;
 
 let firstTimeLoad = true;
 
-function Search({
+export default function Search({
   setTransactions,
   accountsTable,
   categoriesTable,
@@ -179,5 +178,3 @@ function Search({
     </div>
   );
 }
-
-export default connect(null, action.globalLoading)(Search);

@@ -8,28 +8,33 @@ export default function account(
   },
   action
 ) {
-  state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case TYPES.GET_ACCOUNTS:
       {
         const { data } = action;
-        state.accounts = data;
-        state.accountsTable = CreateIdNameTable(data);
+        state = { accounts: data, accountsTable: CreateIdNameTable(data) };
       }
       break;
     case TYPES.ADD_ACCOUNT:
-      state.accounts.push(action.data);
-
+      {
+        const { data } = action;
+        const newAccounts = [...state.accounts, data];
+        state = { accounts: newAccounts, accountsTable: CreateIdNameTable(newAccounts) };
+      }
       break;
     case TYPES.DELETE_ACCOUNT:
-      state.accounts = state.accounts.filter((item) => item.id !== action.data.id);
-
+      {
+        const { id } = action;
+        const newAccounts = state.accounts.filter((item) => item.id !== id);
+        state = { accounts: newAccounts, accountsTable: CreateIdNameTable(newAccounts) };
+      }
       break;
     case TYPES.UPDATE_ACCOUNT:
-      state.accounts = state.accounts.map((item) =>
-        item.id !== action.data.id ? item : { ...item, ...action.data }
-      );
-
+      {
+        const { data } = action;
+        const newAccounts = state.accounts.map((item) => (item.id !== data.id ? item : data));
+        state = { accounts: newAccounts, accountsTable: CreateIdNameTable(newAccounts) };
+      }
       break;
     default:
       break;

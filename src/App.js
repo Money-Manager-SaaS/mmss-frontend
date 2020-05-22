@@ -91,7 +91,12 @@ class App extends Component {
         <ConnectGlobalLoading />
         <ConnectGetAccount />
 
-        <ReduxToastr position="bottom-center" transitionIn="fadeIn" transitionOut="fadeOut" />
+        <ReduxToastr
+          position="bottom-center"
+          transitionIn="fadeIn"
+          transitionOut="fadeOut"
+          timeOut={1200}
+        />
       </Provider>
     );
   }

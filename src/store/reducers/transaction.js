@@ -6,28 +6,22 @@ export default function transaction(
   },
   action
 ) {
-  state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case TYPES.GET_TRANSACTIONS:
-      {
-        const { transactions } = action.data;
-
-        state.transactions = transactions;
-      }
+      state = { transactions: action.data };
       break;
     case TYPES.ADD_TRANSACTION:
-      state.transactions.push(action.data);
-
+      state = { transactions: [...state.transactions, action.data] };
       break;
     case TYPES.DELETE_TRANSACTION:
-      state.transactions = state.transactions.filter((item) => item.id !== action.data.id);
-
+      state = { transactions: state.transactions.filter((item) => item.id !== action.id) };
       break;
     case TYPES.UPDATE_TRANSACTION:
-      state.transactions = state.transactions.map((item) =>
-        item.id !== action.data.id ? item : { ...item, ...action.data }
-      );
-
+      state = {
+        transactions: state.transactions.map((item) =>
+          item.id !== action.data.id ? item : action.data
+        ),
+      };
       break;
     default:
       break;

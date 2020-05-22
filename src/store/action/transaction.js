@@ -13,10 +13,10 @@ const transaction = {
       data,
     };
   },
-  delete_transaction(data) {
+  delete_transaction(id) {
     return {
       type: TYPES.DELETE_TRANSACTION,
-      data,
+      id,
     };
   },
   update_transaction(data) {

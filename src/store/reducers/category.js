@@ -8,27 +8,33 @@ export default function category(
   },
   action
 ) {
-  state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case TYPES.GET_CATEGORIES:
       {
         const { data } = action;
-        state.categories = data;
-        state.categoriesTable = CreateIdNameTable(data);
+        state = { categories: data, categoriesTable: CreateIdNameTable(data) };
       }
       break;
     case TYPES.ADD_CATEGORY:
-      state.categories.push(action.data);
-
+      {
+        const { data } = action;
+        const newCategories = [...state.categories, data];
+        state = { categories: newCategories, categoriesTable: CreateIdNameTable(newCategories) };
+      }
       break;
     case TYPES.DELETE_CATEGORY:
-      state.categories = state.categories.filter((item) => item.id !== action.data.id);
-
+      {
+        const { id } = action;
+        const newCategories = state.categories.filter((item) => item.id !== id);
+        state = { categories: newCategories, categoriesTable: CreateIdNameTable(newCategories) };
+      }
       break;
     case TYPES.UPDATE_CATEGORY:
-      state.categories = state.categories.map((item) =>
-        item.id !== action.data.id ? item : { ...item, ...action.data }
-      );
+      {
+        const { data } = action;
+        const newCategories = state.categories.map((item) => (item.id !== data.id ? item : data));
+        state = { categories: newCategories, categoriesTable: CreateIdNameTable(newCategories) };
+      }
       break;
     default:
       break;

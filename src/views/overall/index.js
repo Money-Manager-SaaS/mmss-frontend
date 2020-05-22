@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { Tabs, Row, Col } from 'antd';
-
+import action from 'store/action';
 import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
 import './Overall.css';
 
@@ -12,7 +12,7 @@ import Search from './Search';
 
 function Overall(props) {
   const typesTable = { '-1': 'Withdraw', '0': 'Transfer', '1': 'Deposit' };
-  const { accountsTable, categoriesTable, payeesTable } = props;
+  const { accountsTable, categoriesTable, payeesTable, categories, global_loading } = props;
   const [transactions, setTransactions] = useState([]);
 
   return (
@@ -36,6 +36,7 @@ function Overall(props) {
                 payeesTable={payeesTable}
                 typesTable={typesTable}
                 setTransactions={setTransactions}
+                global_loading={global_loading}
               />
               <DataTable
                 transactions={transactions}
@@ -43,10 +44,20 @@ function Overall(props) {
                 categoriesTable={categoriesTable}
                 payeesTable={payeesTable}
                 typesTable={typesTable}
+                setTransactions={setTransactions}
+                global_loading={global_loading}
               />
             </Col>
             <Col span={4}>
-              <CreateForm />
+              <CreateForm
+                setTransactions={setTransactions}
+                categories={categories}
+                accountsTable={accountsTable}
+                categoriesTable={categoriesTable}
+                payeesTable={payeesTable}
+                typesTable={typesTable}
+                global_loading={global_loading}
+              />
             </Col>
           </Row>
         </Tabs.TabPane>
@@ -65,6 +76,7 @@ function Overall(props) {
   );
 }
 
-export default connect((state) => ({ ...state.account, ...state.category, ...state.payee }))(
-  Overall
-);
+export default connect(
+  (state) => ({ ...state.account, ...state.category, ...state.payee }),
+  action.globalLoading
+)(Overall);
