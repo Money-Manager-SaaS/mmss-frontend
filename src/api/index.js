@@ -5,7 +5,7 @@ const axios = require('axios').create({
   timeout: 10000,
   withCredentials: true, // 允许跨域 cookie
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  maxContentLength: 20000,
+
   transformResponse: function (data) {
     try {
       data = JSON.parse(data);

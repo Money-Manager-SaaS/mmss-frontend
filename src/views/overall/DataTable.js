@@ -3,6 +3,9 @@ import { Table, Button, Popconfirm, Form, Tooltip, Space } from 'antd';
 import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons';
 import { EditableCell } from 'utils/editable';
 import moment from 'moment';
+import { deleteTransaction } from 'api/transaction';
+
+import { toastr } from 'react-redux-toastr';
 
 export default function DataTable({
   transactions,
@@ -10,6 +13,8 @@ export default function DataTable({
   categoriesTable,
   payeesTable,
   typesTable,
+  global_loading,
+  setTransactions,
 }) {
   const [dataSource, setDataSource] = useState([]);
 
@@ -17,7 +22,9 @@ export default function DataTable({
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
-        date: moment(transaction.createdAt).format('MM/DD/YYYY'),
+        date: moment(transaction.date ? transaction.date : transaction.createdAt).format(
+          'MM/DD/YYYY'
+        ),
         account: accountsTable[transaction.accountID],
         to: accountsTable[transaction.toAccountID],
         amount: '$' + transaction.amount.toFixed(2),
@@ -31,8 +38,28 @@ export default function DataTable({
   }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable]);
 
   const handleDelete = (row) => {
-    //api call delete to backand with id(row.key) as parameter
-    setDataSource(dataSource.filter((item) => item.key !== row.key));
+    global_loading();
+    console.log(
+      row,
+      transactions.filter((t) => t.id === row.key)
+    );
+    const data = { id: row.key };
+    deleteTransaction(data)
+      .then((res) => {
+        console.log(res.status === 200);
+        if (res.status === 200) {
+          setTransactions((transactions) => transactions.filter((t) => t.id !== row.key));
+          toastr.success('OK', 'Delete Transaction Successfully');
+        } else {
+          toastr.warning('Failed', 'Delete Transaction Failed');
+        }
+        global_loading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        global_loading(false);
+        toastr.error('Error', 'Error');
+      });
   };
 
   const [form] = Form.useForm();
@@ -78,8 +105,10 @@ export default function DataTable({
         if (item.date !== row.date) {
           row = { ...row, date: moment(row.date).format('MM/DD/YYYY') };
         }
-        row = { ...row, amount: '$' + Number(row.amount).toFixed(2) };
+        row = { ...row, key, amount: '$' + Number(row.amount).toFixed(2) };
         newData.splice(index, 1, row);
+
+        console.log(row);
         setDataSource(newData);
         setEditingKey('');
       } else {

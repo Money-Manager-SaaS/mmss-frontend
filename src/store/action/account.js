@@ -13,10 +13,10 @@ const account = {
       data,
     };
   },
-  delete_account(data) {
+  delete_account(id) {
     return {
       type: TYPES.DELETE_ACCOUNT,
-      data,
+      id,
     };
   },
   update_account(data) {

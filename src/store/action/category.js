@@ -14,10 +14,10 @@ const category = {
       data,
     };
   },
-  delete_category(data) {
+  delete_category(id) {
     return {
       type: TYPES.DELETE_CATEGORY,
-      data,
+      id,
     };
   },
   update_category(data) {

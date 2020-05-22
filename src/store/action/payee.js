@@ -13,10 +13,10 @@ const payee = {
       data,
     };
   },
-  delete_payee(data) {
+  delete_payee(id) {
     return {
       type: TYPES.DELETE_PAYEE,
-      data,
+      id,
     };
   },
   update_payee(data) {

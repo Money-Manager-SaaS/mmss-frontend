@@ -8,29 +8,33 @@ export default function payee(
   },
   action
 ) {
-  state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case TYPES.GET_PAYEES:
       {
         const { data } = action;
-        state.payees = data;
-
-        state.payeesTable = CreateIdNameTable(data);
+        state = { payees: data, payeesTable: CreateIdNameTable(data) };
       }
       break;
     case TYPES.ADD_PAYEE:
-      state.payees.push(action.data);
-
+      {
+        const { data } = action;
+        const newPayees = [...state.payees, data];
+        state = { payees: newPayees, payeesTable: CreateIdNameTable(newPayees) };
+      }
       break;
     case TYPES.DELETE_PAYEE:
-      state.payees = state.payees.filter((item) => item.id !== action.data.id);
-
+      {
+        const { id } = action;
+        const newPayees = state.payees.filter((item) => item.id !== id);
+        state = { payees: newPayees, payeesTable: CreateIdNameTable(newPayees) };
+      }
       break;
     case TYPES.UPDATE_PAYEE:
-      state.payees = state.payees.map((item) =>
-        item.id !== action.data.id ? item : { ...item, ...action.data }
-      );
-
+      {
+        const { data } = action;
+        const newPayees = state.payees.map((item) => (item.id !== data.id ? item : data));
+        state = { payees: newPayees, payeesTable: CreateIdNameTable(newPayees) };
+      }
       break;
     default:
       break;
