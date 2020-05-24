@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 import './UserInfoStyle.css';
 import { connect } from 'react-redux';
 import { removeEmail } from '../../../utils';
-import action from '@/store/action';
+import action from '../../../store/action';
 const menu = (
   <Menu>
     <Menu.Item>
@@ -17,7 +17,7 @@ const menu = (
   </Menu>
 );
 
-function UserInfo({ email, change_auth }) {
+export function UserInfo({ email, change_auth }) {
   const logout = () => {
     removeEmail();
     change_auth({ email: '', auth: false });
