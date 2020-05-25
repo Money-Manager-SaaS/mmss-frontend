@@ -7,7 +7,6 @@ import { createTransaction } from 'api/transaction';
 import './CreateForm.css';
 import { toastr } from 'react-redux-toastr';
 
-import transaction from 'store/reducers/transaction';
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },

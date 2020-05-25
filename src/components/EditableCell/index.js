@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const { Option } = Select;
 
-export const EditableCell = ({
+export default ({
   editing,
   dataIndex,
   title,
@@ -35,7 +35,7 @@ export const EditableCell = ({
             optionLabelProp="label"
           >
             {Object.keys(selectTable).map((key, index) => (
-              <Option key={index} value={key} label={selectTable[key]}>
+              <Option key={index} value={Number(key)} label={selectTable[key]}>
                 {selectTable[key]}
               </Option>
             ))}
