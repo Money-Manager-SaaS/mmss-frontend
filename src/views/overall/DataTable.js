@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Popconfirm, Form, Tooltip, Space } from 'antd';
 import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-design/icons';
-import { EditableCell } from 'utils/editable';
+import EditableCell from 'components/EditableCell';
 import moment from 'moment';
-import { deleteTransaction } from 'api/transaction';
+import { deleteTransaction, updateTransaction } from 'api/transaction';
 
 import { toastr } from 'react-redux-toastr';
+
+function valueIsNumber(num) {
+  return typeof num === 'number' ? num : '';
+}
 
 export default function DataTable({
   transactions,
@@ -29,7 +33,7 @@ export default function DataTable({
         to: accountsTable[transaction.toAccountID],
         amount: '$' + transaction.amount.toFixed(2),
         type: typesTable[transaction.transferType],
-        payee: payeesTable[transaction.payeeId],
+        payee: payeesTable[transaction.payeeID],
         category: categoriesTable[transaction.categoryID],
         note: transaction.note,
         action: null,
@@ -39,14 +43,10 @@ export default function DataTable({
 
   const handleDelete = (row) => {
     global_loading();
-    console.log(
-      row,
-      transactions.filter((t) => t.id === row.key)
-    );
+
     const data = { id: row.key };
     deleteTransaction(data)
       .then((res) => {
-        console.log(res.status === 200);
         if (res.status === 200) {
           setTransactions((transactions) => transactions.filter((t) => t.id !== row.key));
           toastr.success('OK', 'Delete Transaction Successfully');
@@ -65,7 +65,6 @@ export default function DataTable({
   const [form] = Form.useForm();
 
   const edit = (record) => {
-    console.log(record, { ...record, date: moment(record.date) });
     form.setFieldsValue({
       ...record,
       amount: Number(record.amount.substring(1)),
@@ -79,46 +78,50 @@ export default function DataTable({
   };
 
   const save = (key) => {
-    try {
-      console.log(form);
-      let row = form.getFieldsValue();
-      const newData = [...dataSource];
-      const index = newData.findIndex((item) => key === item.key);
-      console.log(row, key, index);
-      if (index > -1) {
-        const item = newData[index];
-        if (item.category !== row.category) {
-          row = { ...row, category: categoriesTable[row.category] };
-        }
-        if (item.payee !== row.payee) {
-          row = { ...row, payee: payeesTable[row.payee] };
-        }
-        if (item.to !== row.to) {
-          row = { ...row, to: accountsTable[row.to] };
-        }
-        if (item.account !== row.account) {
-          row = { ...row, account: accountsTable[row.account] };
-        }
-        if (item.type !== row.type) {
-          row = { ...row, type: typesTable[row.type] };
-        }
-        if (item.date !== row.date) {
-          row = { ...row, date: moment(row.date).format('MM/DD/YYYY') };
-        }
-        row = { ...row, key, amount: '$' + Number(row.amount).toFixed(2) };
-        newData.splice(index, 1, row);
+    let row = form.getFieldsValue();
+    const newData = [...dataSource];
+    const index = newData.findIndex((item) => key === item.key);
+    console.log(row, key, index);
 
-        console.log(row);
-        setDataSource(newData);
-        setEditingKey('');
-      } else {
-        newData.push(row);
-        setDataSource(newData);
-        setEditingKey('');
+    const data = {
+      id: key,
+      date: row.date,
+      transferType: valueIsNumber(row.type),
+      categoryID: valueIsNumber(row.category),
+      accountID: valueIsNumber(row.account),
+      payeeID: valueIsNumber(row.payee),
+      amount: Number(row.amount),
+      toAccountID: valueIsNumber(row.to),
+      note: row.note,
+    };
+
+    for (const key in data) {
+      if (data[key] === '' || data[key] === undefined) {
+        delete data[key];
       }
-    } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
     }
+    console.log(data);
+
+    updateTransaction(data)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          setTransactions((transactions) =>
+            transactions.map((transaction) => (transaction.id === data.id ? res.data : transaction))
+          );
+
+          toastr.success('OK', 'Update Transaction Successfully');
+        } else {
+          toastr.warning('Failed', 'Update Transaction Failed');
+        }
+        setEditingKey('');
+        global_loading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        global_loading(false);
+        toastr.error('Error', 'Error');
+      });
   };
 
   const columnsSet = [
@@ -136,7 +139,6 @@ export default function DataTable({
       dataIndex: 'to',
       key: 'to',
       editable: true,
-
       selectTable: accountsTable,
     },
     { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
@@ -145,7 +147,6 @@ export default function DataTable({
       dataIndex: 'type',
       key: 'type',
       editable: true,
-
       selectTable: typesTable,
     },
     {
@@ -153,7 +154,6 @@ export default function DataTable({
       dataIndex: 'payee',
       key: 'payee',
       editable: true,
-
       selectTable: payeesTable,
     },
     {
@@ -169,7 +169,6 @@ export default function DataTable({
       key: 'action',
       render: (row, record) => {
         const editable = isEditing(record);
-
         const SaveCancel = () => (
           <Space>
             <Tooltip placement="top" title="Save">

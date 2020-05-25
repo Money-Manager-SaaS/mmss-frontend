@@ -115,6 +115,7 @@ export default function Search({
         onChange={confirmSearchAccount}
         optionLabelProp="label"
       >
+        <Option value={''} label={''}></Option>
         {Object.keys(accountsTable).map((key, index) => (
           <Option key={index} value={key} label={accountsTable[key]}>
             {accountsTable[key]}
@@ -129,6 +130,7 @@ export default function Search({
         onChange={confirmSearchType}
         optionLabelProp="label"
       >
+        <Option value={''} label={''}></Option>
         {Object.keys(typesTable).map((key, index) => (
           <Option key={index} value={key} label={typesTable[key]}>
             {typesTable[key]}
