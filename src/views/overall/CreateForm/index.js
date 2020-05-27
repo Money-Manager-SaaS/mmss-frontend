@@ -90,6 +90,7 @@ export default function CreateForm({
   };
 
   return (
+    <div className="create-one">
     <Form {...layout}>
       <Form.Item label="Date" name="date">
         <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
@@ -225,5 +226,6 @@ export default function CreateForm({
         </Button>{' '}
       </div>
     </Form>
+    </div>
   );
 }

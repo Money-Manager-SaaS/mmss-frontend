@@ -20,3 +20,12 @@
 .select-radio {
   display: block;
 }
+
+.create-one {
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+.ant-form-item-label {
+  text-align: left;
+}
