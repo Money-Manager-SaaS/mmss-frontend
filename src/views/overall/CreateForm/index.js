@@ -91,76 +91,76 @@ export default function CreateForm({
 
   return (
     <div className="create-one">
-    <Form {...layout}>
-      <Form.Item label="Date" name="date">
-        <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
-      </Form.Item>
-      <Form.Item label="Type" name="type">
-        <Radio.Group onChange={confirmType} value={transferType} defaultValue={transferType}>
-          {Object.keys(typesTable).map((key) => (
-            <Radio key={key} value={Number(key)} className="select-radio">
-              {typesTable[key]}
-            </Radio>
-          ))}
-        </Radio.Group>
-      </Form.Item>
-      <Form.Item label="Account" name="account">
-        <Select
-          className="search-field"
-          placeholder="Account"
-          value={accountID}
-          optionLabelProp="label"
-          onChange={setAccountID}
-        >
-          {Object.keys(accountsTable).map((key, index) => (
-            <Option key={index} value={Number(key)} label={accountsTable[key]}>
-              {accountsTable[key]}
-            </Option>
-          ))}
-        </Select>{' '}
-      </Form.Item>
+      <Form {...layout}>
+        <Form.Item label="Date" name="date">
+          <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
+        </Form.Item>
+        <Form.Item label="Type" name="type">
+          <Radio.Group onChange={confirmType} value={transferType} defaultValue={transferType}>
+            {Object.keys(typesTable).map((key) => (
+              <Radio key={key} value={Number(key)} className="select-radio">
+                {typesTable[key]}
+              </Radio>
+            ))}
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item label="Account" name="account">
+          <Select
+            className="search-field"
+            placeholder="Account"
+            value={accountID}
+            optionLabelProp="label"
+            onChange={setAccountID}
+          >
+            {Object.keys(accountsTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={accountsTable[key]}>
+                {accountsTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
 
-      <Form.Item label="To" name="to">
-        <Select
-          className="search-field"
-          placeholder="To Account"
-          value={toAccountID}
-          optionLabelProp="label"
-          onChange={setToAccountID}
-        >
-          <Option value={''} label={''}></Option>
-          {Object.keys(accountsTable).map((key, index) => (
-            <Option key={index} value={Number(key)} label={accountsTable[key]}>
-              {accountsTable[key]}
-            </Option>
-          ))}
-        </Select>{' '}
-      </Form.Item>
-      <Form.Item label="Amount" name="amount">
-        <InputNumber
-          value={amount}
-          onChange={setAmount}
-          formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-        />
-      </Form.Item>
-      <Form.Item label="Payee" name="payee">
-        <Select
-          className="search-field"
-          placeholder="Payee"
-          value={payeeID}
-          optionLabelProp="label"
-          onChange={setPayeeID}
-        >
-          <Option value={''} label={''}></Option>
-          {Object.keys(payeesTable).map((key, index) => (
-            <Option key={index} value={Number(key)} label={payeesTable[key]}>
-              {payeesTable[key]}
-            </Option>
-          ))}
-        </Select>{' '}
-      </Form.Item>
-      {/* <Form.Item label="Payee" name="payee">
+        <Form.Item label="To" name="to">
+          <Select
+            className="search-field"
+            placeholder="To Account"
+            value={toAccountID}
+            optionLabelProp="label"
+            onChange={setToAccountID}
+          >
+            <Option value="" label="" />
+            {Object.keys(accountsTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={accountsTable[key]}>
+                {accountsTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+        <Form.Item label="Amount" name="amount">
+          <InputNumber
+            value={amount}
+            onChange={setAmount}
+            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+          />
+        </Form.Item>
+        <Form.Item label="Payee" name="payee">
+          <Select
+            className="search-field"
+            placeholder="Payee"
+            value={payeeID}
+            optionLabelProp="label"
+            onChange={setPayeeID}
+          >
+            <Option value="" label="" />
+            {Object.keys(payeesTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={payeesTable[key]}>
+                {payeesTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+        {/* <Form.Item label="Payee" name="payee">
         <Select
           showSearch
           style={{ width: 140 }}
@@ -177,23 +177,23 @@ export default function CreateForm({
           )}
         ></Select>
       </Form.Item> */}
-      <Form.Item label="Category" name="category">
-        <Select
-          className="search-field"
-          placeholder="Account"
-          value={categoryID}
-          optionLabelProp="label"
-          onChange={setCategoryID}
-        >
-          {Object.keys(categoriesTable).map((key, index) => (
-            <Option key={index} value={Number(key)} label={categoriesTable[key]}>
-              {categoriesTable[key]}
-            </Option>
-          ))}
-        </Select>{' '}
-      </Form.Item>
+        <Form.Item label="Category" name="category">
+          <Select
+            className="search-field"
+            placeholder="Account"
+            value={categoryID}
+            optionLabelProp="label"
+            onChange={setCategoryID}
+          >
+            {Object.keys(categoriesTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={categoriesTable[key]}>
+                {categoriesTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
 
-      {/* <Form.Item label="Category" name="category">
+        {/* <Form.Item label="Category" name="category">
         <Select
           showSearch
           style={{ width: 140 }}
@@ -210,22 +210,22 @@ export default function CreateForm({
           )}
         ></Select>
       </Form.Item> */}
-      <Form.Item label="Note" name="note">
-        <Input.TextArea
-          value={note}
-          onChange={(e) => {
-            setNote(e.target.value);
-          }}
-          rows={3}
-          style={{ width: 160 }}
-        />
-      </Form.Item>
-      <div style={{ width: '100%', textAlign: 'center' }}>
-        <Button onClick={createTheTransaction} type="primary">
-          Create Transaction
-        </Button>{' '}
-      </div>
-    </Form>
+        <Form.Item label="Note" name="note">
+          <Input.TextArea
+            value={note}
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
+            rows={3}
+            style={{ width: 160 }}
+          />
+        </Form.Item>
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <Button onClick={createTheTransaction} type="primary">
+            Create Transaction
+          </Button>{' '}
+        </div>
+      </Form>
     </div>
   );
 }
