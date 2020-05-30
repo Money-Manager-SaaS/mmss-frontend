@@ -9,7 +9,7 @@ import { toastr } from 'react-redux-toastr';
 
 const { Option } = Select;
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
 
@@ -90,20 +90,12 @@ export default function CreateForm({
   };
 
   return (
-    <div className="create-one">
-      <Form {...layout}>
+    <div className="create-one" style={{width: '100%', textAlign: 'center'}}>
+      <Form {...layout} layout="inline">
         <Form.Item label="Date" name="date">
           <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
         </Form.Item>
-        <Form.Item label="Type" name="type">
-          <Radio.Group onChange={confirmType} value={transferType} defaultValue={transferType}>
-            {Object.keys(typesTable).map((key) => (
-              <Radio key={key} value={Number(key)} className="select-radio">
-                {typesTable[key]}
-              </Radio>
-            ))}
-          </Radio.Group>
-        </Form.Item>
+
         <Form.Item label="Account" name="account">
           <Select
             className="search-field"
@@ -118,6 +110,16 @@ export default function CreateForm({
               </Option>
             ))}
           </Select>{' '}
+        </Form.Item>
+
+        <Form.Item label="Type" name="type">
+          <Select onChange={confirmType} value={transferType} defaultValue={transferType}>
+            {Object.keys(typesTable).map((key) => (
+              <Radio key={key} value={Number(key)} className="select-radio">
+                {typesTable[key]}
+              </Radio>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item label="To" name="to">
@@ -211,13 +213,12 @@ export default function CreateForm({
         ></Select>
       </Form.Item> */}
         <Form.Item label="Note" name="note">
-          <Input.TextArea
+          <Input
             value={note}
             onChange={(e) => {
               setNote(e.target.value);
             }}
             rows={3}
-            style={{ width: 160 }}
           />
         </Form.Item>
         <div style={{ width: '100%', textAlign: 'center' }}>
