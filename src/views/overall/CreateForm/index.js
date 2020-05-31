@@ -92,11 +92,11 @@ export default function CreateForm({
   return (
     <div className="create-one" style={{width: '100%', textAlign: 'center'}}>
       <Form {...layout} layout="inline">
-        <Form.Item label="Date" name="date">
+        <Form.Item label="Date" name="date" labelCol={{span:5}} wrapperCol={{span: 14}}>
           <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
         </Form.Item>
 
-        <Form.Item label="Account" name="account">
+        <Form.Item label="Account" name="account" labelCol={{span:10}} wrapperCol={{span: 14}}>
           <Select
             className="search-field"
             placeholder="Account"
@@ -112,7 +112,7 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Type" name="type">
+        <Form.Item label="Type" name="type" labelCol={{span:7}} wrapperCol={{span: 14}}>
           <Select onChange={confirmType} value={transferType} defaultValue={transferType}>
             {Object.keys(typesTable).map((key) => (
               <Radio key={key} value={Number(key)} className="select-radio">
@@ -122,7 +122,7 @@ export default function CreateForm({
           </Select>
         </Form.Item>
 
-        <Form.Item label="To" name="to">
+        <Form.Item label="To" name="to" labelCol={{span:7}} wrapperCol={{span: 14}}>
           <Select
             className="search-field"
             placeholder="To Account"
@@ -138,7 +138,7 @@ export default function CreateForm({
             ))}
           </Select>{' '}
         </Form.Item>
-        <Form.Item label="Amount" name="amount">
+        <Form.Item label="Amount" name="amount" labelCol={{span:10}} wrapperCol={{span: 14}}>
           <InputNumber
             value={amount}
             onChange={setAmount}
@@ -146,7 +146,7 @@ export default function CreateForm({
             parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
           />
         </Form.Item>
-        <Form.Item label="Payee" name="payee">
+        <Form.Item label="Payee" name="payee" labelCol={{span:10}} wrapperCol={{span: 14}}>
           <Select
             className="search-field"
             placeholder="Payee"
@@ -179,7 +179,7 @@ export default function CreateForm({
           )}
         ></Select>
       </Form.Item> */}
-        <Form.Item label="Category" name="category">
+        <Form.Item label="Category" name="category" labelCol={{span:10}} wrapperCol={{span: 14}}>
           <Select
             className="search-field"
             placeholder="Account"
@@ -212,7 +212,7 @@ export default function CreateForm({
           )}
         ></Select>
       </Form.Item> */}
-        <Form.Item label="Note" name="note">
+        <Form.Item label="Note" name="note" labelCol={{span:4}} wrapperCol={{span: 14}}>
           <Input
             value={note}
             onChange={(e) => {
