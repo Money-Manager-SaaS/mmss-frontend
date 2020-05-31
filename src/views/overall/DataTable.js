@@ -252,6 +252,9 @@ export default function DataTable({
             cell: EditableCell,
           },
         }}
+        pagination={{
+          position: ["bottomCenter"]
+        }}
       />
     </Form>
   );
