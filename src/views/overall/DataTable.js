@@ -125,7 +125,13 @@ export default function DataTable({
   };
 
   const columnsSet = [
-    { title: 'DATE', dataIndex: 'date', key: 'date', editable: true },
+    { title: 'DATE', dataIndex: 'date', key: 'date', editable: true,
+    showSorterTooltip: true,
+    sorter: (a, b) => {
+      let aDate = new Date(a.date.replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$1/$2/$3"));
+      let bDate = new Date(b.date.replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$1/$2/$3"));
+      return aDate - bDate},
+  },
     {
       title: 'ACCOUNT',
       dataIndex: 'account',
