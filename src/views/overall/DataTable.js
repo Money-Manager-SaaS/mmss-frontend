@@ -163,7 +163,22 @@ export default function DataTable({
       editable: true,
       selectTable: categoriesTable,
     },
-    { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true },
+    { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true,
+      render: (text, record, index) => {
+        let newText = ""
+        if(text.length > 10) {
+          newText = text.substring(0, 10);
+          newText = newText + "..."
+        }
+        else
+        {
+          newText = text;
+        }
+        return <Tooltip placement="topLeft" title={text} arrowPointAtCenter>
+                {newText}
+              </Tooltip>;
+      }, 
+    },
     {
       title: 'action',
       key: 'action',
