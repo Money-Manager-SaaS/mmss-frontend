@@ -25,24 +25,15 @@ export default function DataTable({
 
   useEffect(() => {
     let allAccounts = new Set();
-    for(let transaction in transactions)
-    {
-        console.log("here %obj", transaction.accountID);
-        allAccounts.add(accountsTable[transaction.accountID]);
-        //to: accountsTable[transaction.toAccountID],
-        //type: typesTable[transaction.transferType],
-        //payee: payeesTable[transaction.payeeID],
-        //category: categoriesTable[transaction.categoryID],
+    for (let transaction of transactions) {
+      allAccounts.add(accountsTable[transaction.accountID]);
     }
-    console.log("%obj", allAccounts)
     let fAccounts = [];
-    for (let account in allAccounts)
-    {
-        fAccounts.push({text: account, value: account})
+    for (let account of allAccounts) {
+      fAccounts.push({ text: account, value: account });
     }
     setAccounts(fAccounts);
-    //console.dir(fAccounts);
-
+    console.log(fAccounts);
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
@@ -145,19 +136,24 @@ export default function DataTable({
   };
 
   const columnsSet = [
-    { title: 'DATE', dataIndex: 'date', key: 'date', editable: true,
-    showSorterTooltip: true,
-    sorter: (a, b) => {
-      let aDate = new Date(a.date.replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$1/$2/$3"));
-      let bDate = new Date(b.date.replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$1/$2/$3"));
-      return aDate - bDate},
-  },
+    {
+      title: 'DATE',
+      dataIndex: 'date',
+      key: 'date',
+      editable: true,
+      showSorterTooltip: true,
+      sorter: (a, b) => {
+        let aDate = new Date(a.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$1/$2/$3'));
+        let bDate = new Date(b.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$1/$2/$3'));
+        return aDate - bDate;
+      },
+    },
     {
       title: 'ACCOUNT',
       dataIndex: 'account',
       key: 'account',
       editable: true,
-      filters: [],
+      filters: accounts,
       onFilter: (value, record) => record.account.indexOf(value) === 0,
       selectTable: accountsTable,
     },
@@ -167,8 +163,8 @@ export default function DataTable({
       key: 'to',
       editable: true,
       selectTable: accountsTable,
-      filters: [],
-      onFilter: () => {},
+      filters: accounts,
+      onFilter: (value, record) => (record.to ? record.to.indexOf(value) === 0 : false),
     },
     { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
     {
@@ -192,21 +188,25 @@ export default function DataTable({
       editable: true,
       selectTable: categoriesTable,
     },
-    { title: 'NOTE', dataIndex: 'note', key: 'note', editable: true,
+    {
+      title: 'NOTE',
+      dataIndex: 'note',
+      key: 'note',
+      editable: true,
       render: (text, record, index) => {
-        let newText = ""
-        if(text.length > 10) {
+        let newText = '';
+        if (text.length > 10) {
           newText = text.substring(0, 10);
-          newText = newText + "..."
-        }
-        else
-        {
+          newText = newText + '...';
+        } else {
           newText = text;
         }
-        return <Tooltip placement="topLeft" title={text} arrowPointAtCenter>
-                {newText}
-              </Tooltip>;
-      }, 
+        return (
+          <Tooltip placement="topLeft" title={text} arrowPointAtCenter>
+            {newText}
+          </Tooltip>
+        );
+      },
     },
     {
       title: 'action',
@@ -297,7 +297,7 @@ export default function DataTable({
           },
         }}
         pagination={{
-          position: ["bottomCenter"]
+          position: ['bottomCenter'],
         }}
       />
     </Form>
