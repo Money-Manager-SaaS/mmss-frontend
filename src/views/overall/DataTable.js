@@ -25,6 +25,13 @@ export default function DataTable({
 
   useEffect(() => {
     let allAccounts = new Set();
+
+    transactions.map((transaction) => {
+      //console.log("here %obj", transaction.accountID);
+      allAccounts.add(accountsTable[transaction.accountID]);
+    });
+
+    /*
     for(let transaction in transactions)
     {
         console.log("here %obj", transaction.accountID);
@@ -34,14 +41,14 @@ export default function DataTable({
         //payee: payeesTable[transaction.payeeID],
         //category: categoriesTable[transaction.categoryID],
     }
-    console.log("%obj", allAccounts)
+    */
     let fAccounts = [];
-    for (let account in allAccounts)
-    {
-        fAccounts.push({text: account, value: account})
-    }
+    [...allAccounts].map((account)=>{
+      fAccounts.push({text: account, value: account});
+    });
     setAccounts(fAccounts);
-    //console.dir(fAccounts);
+    //
+    //console.log("here %o", fAccounts);
 
     setDataSource(
       transactions.map((transaction) => ({
@@ -157,8 +164,11 @@ export default function DataTable({
       dataIndex: 'account',
       key: 'account',
       editable: true,
-      filters: [],
-      onFilter: (value, record) => record.account.indexOf(value) === 0,
+      filters: accounts,
+      onFilter: (value, record) => {
+        //console.log("here %obj", accounts);
+        return record.account.indexOf(value) === 0;
+      },
       selectTable: accountsTable,
     },
     {
