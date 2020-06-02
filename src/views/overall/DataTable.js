@@ -21,10 +21,10 @@ export default function DataTable({
   setTransactions,
 }) {
   const [dataSource, setDataSource] = useState([]);
-  const [accounts, setAccounts] = useState(new Set([]));
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    let allAccounts = [];
+    let allAccounts = new Set();
     for(let transaction in transactions)
     {
         allAccounts.push(accountsTable[transaction.accountID]);
