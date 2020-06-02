@@ -14,7 +14,7 @@ exports[`UserInfo render pure jest user info snapshot render without redux statu
     <article
       className="ant-typography user-name"
     >
-      Hi 
+      Hi
       a@a.com
     </article>
      

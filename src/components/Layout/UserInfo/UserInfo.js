@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Avatar, Button, Dropdown, Menu } from 'antd';
+import { Avatar, Button, Dropdown, Menu, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import './UserInfoStyle.css';
@@ -28,9 +28,9 @@ export function UserInfo({ email, change_auth }) {
       <Dropdown overlay={menu}>
         <Link className="ant-dropdown-link" to="/profile">
           <Typography className="user-name">
-Hi{email}</Typography>
-{' '}
-          <DownOutlined className="arrow-down" />
+            Hi{email}</Typography>
+          {' '}
+          <DownOutlined className="arrow-down"/>
         </Link>
       </Dropdown>
       <Avatar className="user-symbol">J</Avatar>
@@ -42,5 +42,5 @@ Hi{email}</Typography>
 }
 
 export default connect((state) => ({ email: state.user.email }), {
-  change_auth: action.user.change_auth,
+  change_auth: action.user.change_auth
 })(UserInfo);
