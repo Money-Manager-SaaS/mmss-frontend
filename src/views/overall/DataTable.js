@@ -21,8 +21,25 @@ export default function DataTable({
   setTransactions,
 }) {
   const [dataSource, setDataSource] = useState([]);
+  const [accounts, setAccounts] = useState(new Set([]));
 
   useEffect(() => {
+    let allAccounts = [];
+    for(let transaction in transactions)
+    {
+        allAccounts.push(accountsTable[transaction.accountID]);
+        //to: accountsTable[transaction.toAccountID],
+        //type: typesTable[transaction.transferType],
+        //payee: payeesTable[transaction.payeeID],
+        //category: categoriesTable[transaction.categoryID],
+    }
+    let fAccounts = [];
+    for (let account in allAccounts)
+    {
+        fAccounts.push({text: account, value: account})
+    }
+    setAccounts(fAccounts);
+
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
@@ -137,7 +154,8 @@ export default function DataTable({
       dataIndex: 'account',
       key: 'account',
       editable: true,
-
+      filters: {...accounts},
+      onFilter: (value, record) => record.account.indexOf(value) === 0,
       selectTable: accountsTable,
     },
     {
@@ -146,6 +164,8 @@ export default function DataTable({
       key: 'to',
       editable: true,
       selectTable: accountsTable,
+      filters: [],
+      onFilter: () => {},
     },
     { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
     {
