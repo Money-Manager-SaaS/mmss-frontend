@@ -27,18 +27,21 @@ export default function DataTable({
     let allAccounts = new Set();
     for(let transaction in transactions)
     {
-        allAccounts.push(accountsTable[transaction.accountID]);
+        console.log("here %obj", transaction.accountID);
+        allAccounts.add(accountsTable[transaction.accountID]);
         //to: accountsTable[transaction.toAccountID],
         //type: typesTable[transaction.transferType],
         //payee: payeesTable[transaction.payeeID],
         //category: categoriesTable[transaction.categoryID],
     }
+    console.log("%obj", allAccounts)
     let fAccounts = [];
     for (let account in allAccounts)
     {
         fAccounts.push({text: account, value: account})
     }
     setAccounts(fAccounts);
+    //console.dir(fAccounts);
 
     setDataSource(
       transactions.map((transaction) => ({
@@ -154,7 +157,7 @@ export default function DataTable({
       dataIndex: 'account',
       key: 'account',
       editable: true,
-      filters: {...accounts},
+      filters: [],
       onFilter: (value, record) => record.account.indexOf(value) === 0,
       selectTable: accountsTable,
     },
