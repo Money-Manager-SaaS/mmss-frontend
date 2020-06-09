@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { Tabs, Row, Col } from 'antd';
@@ -14,6 +14,19 @@ function Overall(props) {
   const typesTable = { '-1': 'Withdraw', '0': 'Transfer', '1': 'Deposit' };
   const { accountsTable, categoriesTable, payeesTable, categories, global_loading } = props;
   const [transactions, setTransactions] = useState([]);
+
+  const handleShowCreate = (e) => {
+    if (e.keyCode === 67 && e.ctrlKey) {
+      console.log('You Press Ctrl + C put something inside.');
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleShowCreate);
+    return () => {
+      document.removeEventListener('keydown', handleShowCreate);
+    };
+  }, []);
 
   return (
     <div className="main-content">
@@ -62,7 +75,6 @@ function Overall(props) {
               />
             </Col>
           </Row>
-
         </Tabs.TabPane>
         <Tabs.TabPane
           className="content"
