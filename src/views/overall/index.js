@@ -6,14 +6,13 @@ import action from 'store/action';
 import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
 import './Overall.css';
 
-import CreateForm from './CreateForm';
+import BindedCreateForm from './CreateForm';
 import DataTable from './TransactionTable';
 import Search from './Search';
 
 function Overall(props) {
   const typesTable = { '-1': 'Withdraw', '0': 'Transfer', '1': 'Deposit' };
   const { accountsTable, categoriesTable, payeesTable, categories, global_loading } = props;
-  const [transactions, setTransactions] = useState([]);
 
   const handleShowCreate = (e) => {
     if (e.keyCode === 67 && e.ctrlKey) {
@@ -48,7 +47,6 @@ function Overall(props) {
                 categoriesTable={categoriesTable}
                 payeesTable={payeesTable}
                 typesTable={typesTable}
-                setTransactions={setTransactions}
                 global_loading={global_loading}
               />
               <DataTable
@@ -62,8 +60,7 @@ function Overall(props) {
           </Row>
           <Row>
             <Col span={24}>
-              <CreateForm
-                setTransactions={setTransactions}
+              <BindedCreateForm
                 categories={categories}
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
