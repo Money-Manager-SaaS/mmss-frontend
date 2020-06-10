@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Radio, Form, Select, InputNumber, Input, Button, DatePicker } from 'antd';
+import { connect } from 'react-redux';
 
 import moment from 'moment';
 
@@ -13,13 +14,13 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-export default function CreateForm({
+function CreateForm({
   accountsTable,
   categoriesTable,
   payeesTable,
   typesTable,
   global_loading,
-  setTransactions,
+  displayNewTransaction
 }) {
   const [date, setDate] = useState(moment());
   const [transferType, setTransferType] = useState(-1);
@@ -56,11 +57,11 @@ export default function CreateForm({
     createTransaction(data)
       .then((res) => {
         if (res.status === 200) {
-          setTransactions((transactions) => [...transactions, res.data]);
           setPayeeID('');
           setAmount('');
           setToAccountID('');
           setNote('');
+          displayNewTransaction();
           toastr.success('OK', 'Create Transaction Successfully');
         } else {
           toastr.warning('Failed', 'Create Transaction Failed');
@@ -200,3 +201,8 @@ export default function CreateForm({
     </div>
   );
 }
+
+export default connect(
+  (state) => ({ ...state.account, ...state.category, ...state.payee }),
+  (action) => ({...action.globalLoading, ...action.displayNewTransaction}),
+)(CreateForm);
