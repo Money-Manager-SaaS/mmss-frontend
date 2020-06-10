@@ -48,7 +48,6 @@ export default function DataTable({
       fAccounts.push({ text: account, value: account });
     }
     setAccounts(fAccounts);
-    console.log(fAccounts);
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
@@ -65,7 +64,7 @@ export default function DataTable({
         action: null,
       }))
     );
-  }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable]);
+  }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable, global_loading]);
 
   const handleDelete = (row) => {
     global_loading();
@@ -105,9 +104,6 @@ export default function DataTable({
 
   const save = (key) => {
     let row = form.getFieldsValue();
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => key === item.key);
-    console.log(row, key, index);
 
     const data = {
       id: key,
@@ -126,12 +122,10 @@ export default function DataTable({
         delete data[key];
       }
     }
-    console.log(data);
 
     updateTransaction(data)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           setTransactions((transactions) =>
             transactions.map((transaction) => (transaction.id === data.id ? res.data : transaction))
           );
