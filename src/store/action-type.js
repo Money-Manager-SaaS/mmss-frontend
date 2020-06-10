@@ -17,4 +17,5 @@ export const ADD_PAYEE = 'ADD_PAYEE';
 export const UPDATE_PAYEE = 'UPDATE_PAYEE';
 export const DELETE_PAYEE = 'DELETE_PAYEE';
 
+export const DISPLAY_NEW_TRANSACTION = 'DISPLAY_NEW_TRANSACTION';
 
