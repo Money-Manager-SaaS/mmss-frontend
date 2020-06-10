@@ -6,12 +6,10 @@ export default function newTransactionIndex(
   },
   action
 ) {
-  state = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case TYPES.DISPLAY_NEW_TRANSACTION:
-      {
-        state.newTransIndex = state.newTransIndex + 1;
-      }
+      state = { newTransIndex: state.newTransIndex + 1 };
+
       break;
     default:
       break;

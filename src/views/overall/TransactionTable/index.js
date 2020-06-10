@@ -5,40 +5,44 @@ import EditableCell from 'components/EditableCell';
 import moment from 'moment';
 import { deleteTransaction, updateTransaction } from 'api/transaction';
 import { getTransactions } from 'api/transaction';
-
+import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 
 function valueIsNumber(num) {
   return typeof num === 'number' ? num : '';
 }
 
-export default function DataTable({
+function DataTable({
   accountsTable,
   categoriesTable,
   payeesTable,
   typesTable,
   global_loading,
+  newTransIndex,
 }) {
   const [dataSource, setDataSource] = useState([]);
   const [accounts, setAccounts] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
+    console.log(newTransIndex);
     getTransactions()
-        .then((data) => {
-          if (data.status === 200) {
-            setTransactions(data.data.transactions);
-          } else {
-            toastr.warning('Opps', 'Not Get Transactions');
-          }
-          global_loading(false);
-        })
-        .catch((err) => {
-          toastr.error('Error', 'Not Get Transactions');
-          global_loading(false);
-          console.log(err);
-        });
+      .then((data) => {
+        if (data.status === 200) {
+          setTransactions(data.data.transactions);
+        } else {
+          toastr.warning('Opps', 'Not Get Transactions');
+        }
+        global_loading(false);
+      })
+      .catch((err) => {
+        toastr.error('Error', 'Not Get Transactions');
+        global_loading(false);
+        console.log(err);
+      });
+  }, [global_loading, newTransIndex]);
 
+  useEffect(() => {
     let allAccounts = new Set();
     for (let transaction of transactions) {
       allAccounts.add(accountsTable[transaction.accountID]);
@@ -48,6 +52,9 @@ export default function DataTable({
       fAccounts.push({ text: account, value: account });
     }
     setAccounts(fAccounts);
+  }, [accountsTable, transactions]);
+
+  useEffect(() => {
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
@@ -64,7 +71,7 @@ export default function DataTable({
         action: null,
       }))
     );
-  }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable, global_loading]);
+  }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable]);
 
   const handleDelete = (row) => {
     global_loading();
@@ -204,7 +211,8 @@ export default function DataTable({
       editable: true,
       render: (text, record, index) => {
         let newText = '';
-        if (text.length > 10) {
+
+        if (text && text.length > 10) {
           newText = text.substring(0, 10);
           newText = newText + '...';
         } else {
@@ -312,3 +320,4 @@ export default function DataTable({
     </Form>
   );
 }
+export default connect((state) => state.displayNewTransactions)(DataTable);

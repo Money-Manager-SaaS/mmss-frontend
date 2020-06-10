@@ -8,4 +8,4 @@ const displayNewTransaction = {
   },
 };
 
-export default user;
+export default displayNewTransaction;

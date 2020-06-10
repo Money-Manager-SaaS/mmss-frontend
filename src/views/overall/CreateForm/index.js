@@ -3,7 +3,7 @@ import { Form, Select, InputNumber, Input, Button, DatePicker } from 'antd';
 import { connect } from 'react-redux';
 
 import moment from 'moment';
-
+import action from 'store/action';
 import { createTransaction } from 'api/transaction';
 import './CreateForm.css';
 import { toastr } from 'react-redux-toastr';
@@ -20,7 +20,7 @@ function CreateForm({
   payeesTable,
   typesTable,
   global_loading,
-  displayNewTransaction
+  display_new_transaction,
 }) {
   const [date, setDate] = useState(moment());
   const [transferType, setTransferType] = useState(-1);
@@ -49,7 +49,7 @@ function CreateForm({
     };
 
     for (const key in data) {
-      if (data[key] === '') {
+      if (data[key] === '' && key !== 'note') {
         delete data[key];
       }
     }
@@ -61,7 +61,7 @@ function CreateForm({
           setAmount('');
           setToAccountID('');
           setNote('');
-          displayNewTransaction();
+          display_new_transaction();
           toastr.success('OK', 'Create Transaction Successfully');
         } else {
           toastr.warning('Failed', 'Create Transaction Failed');
@@ -163,11 +163,7 @@ function CreateForm({
             ))}
           </Select>{' '}
         </Form.Item>
-        <Form.Item
-          label="Category"
-          labelCol={{ span: 10 }}
-          wrapperCol={{ span: 14 }}
-        >
+        <Form.Item label="Category" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
           <Select
             className="search-field"
             placeholder="Account"
@@ -201,7 +197,7 @@ function CreateForm({
   );
 }
 
-export default connect(
-  (state) => ({ ...state.account, ...state.category, ...state.payee }),
-  (action) => ({...action.globalLoading, ...action.displayNewTransaction}),
-)(CreateForm);
+export default connect((state) => ({ ...state.account, ...state.category, ...state.payee }), {
+  ...action.globalLoading,
+  ...action.displayNewTransactions,
+})(CreateForm);
