@@ -6,8 +6,6 @@ import { Button, DatePicker, Select, Input } from 'antd';
 import './Search.css';
 import moment from 'moment';
 
-import { getTransactions } from 'api/transaction';
-
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -58,20 +56,6 @@ export default function Search({
   useEffect(() => {
     if (firstTimeLoad) {
       global_loading();
-      getTransactions()
-        .then((data) => {
-          if (data.status === 200) {
-            setTransactions(data.data.transactions);
-          } else {
-            toastr.warning('Opps', 'Not Get Transactions');
-          }
-          global_loading(false);
-        })
-        .catch((err) => {
-          toastr.error('Error', 'Not Get Transactions');
-          global_loading(false);
-          console.log(err);
-        });
       firstTimeLoad = false;
     } else {
       const currentNote = noteRef.current.input.input.value;
@@ -79,7 +63,6 @@ export default function Search({
         if (currentNote === note) {
           const data = { dateFrom, dateTo, payees, categories, type, account, note };
           console.log('Searching', data);
-          // getTransactions(data).then(data=>setTransactions(data.data))
         }
       }, 500);
       return () => {
