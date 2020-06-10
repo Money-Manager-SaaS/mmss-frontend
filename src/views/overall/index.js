@@ -52,12 +52,10 @@ function Overall(props) {
                 global_loading={global_loading}
               />
               <DataTable
-                transactions={transactions}
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
                 payeesTable={payeesTable}
                 typesTable={typesTable}
-                setTransactions={setTransactions}
                 global_loading={global_loading}
               />
             </Col>

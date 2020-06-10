@@ -4,6 +4,7 @@ import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-
 import EditableCell from 'components/EditableCell';
 import moment from 'moment';
 import { deleteTransaction, updateTransaction } from 'api/transaction';
+import { getTransactions } from 'api/transaction';
 
 import { toastr } from 'react-redux-toastr';
 
@@ -12,18 +13,32 @@ function valueIsNumber(num) {
 }
 
 export default function DataTable({
-  transactions,
   accountsTable,
   categoriesTable,
   payeesTable,
   typesTable,
   global_loading,
-  setTransactions,
 }) {
   const [dataSource, setDataSource] = useState([]);
   const [accounts, setAccounts] = useState([]);
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
+    getTransactions()
+        .then((data) => {
+          if (data.status === 200) {
+            setTransactions(data.data.transactions);
+          } else {
+            toastr.warning('Opps', 'Not Get Transactions');
+          }
+          global_loading(false);
+        })
+        .catch((err) => {
+          toastr.error('Error', 'Not Get Transactions');
+          global_loading(false);
+          console.log(err);
+        });
+
     let allAccounts = new Set();
     for (let transaction of transactions) {
       allAccounts.add(accountsTable[transaction.accountID]);
