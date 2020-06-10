@@ -162,23 +162,6 @@ export default function CreateForm({
             ))}
           </Select>{' '}
         </Form.Item>
-        {/* <Form.Item label="Payee" name="payee">
-        <Select
-          showSearch
-          style={{ width: 140 }}
-          placeholder="Search payee"
-          dropdownRender={(menu) => (
-            <div>
-              {menu}
-              <Divider style={{ margin: '4px 0' }} />
-              <Space style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                <Input style={{ width: 80 }} />
-                <Button type="primary" shape="circle" icon={<PlusOutlined />} />
-              </Space>
-            </div>
-          )}
-        ></Select>
-      </Form.Item> */}
         <Form.Item
           label="Category"
           name="category"
@@ -199,24 +182,6 @@ export default function CreateForm({
             ))}
           </Select>{' '}
         </Form.Item>
-
-        {/* <Form.Item label="Category" name="category">
-        <Select
-          showSearch
-          style={{ width: 140 }}
-          placeholder="Search category"
-          dropdownRender={(menu) => (
-            <div>
-              {menu}
-              <Divider style={{ margin: '4px 0' }} />
-              <Space style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                <Input style={{ width: 80 }} />
-                <Button type="primary" shape="circle" icon={<PlusOutlined />} />
-              </Space>
-            </div>
-          )}
-        ></Select>
-      </Form.Item> */}
         <Form.Item label="Note" name="note" labelCol={{ span: 4 }} wrapperCol={{ span: 14 }}>
           <Input
             value={note}

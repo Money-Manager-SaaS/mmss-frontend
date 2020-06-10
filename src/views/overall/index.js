@@ -7,7 +7,7 @@ import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
 import './Overall.css';
 
 import CreateForm from './CreateForm';
-import DataTable from './DataTable';
+import DataTable from './TransactionTable';
 import Search from './Search';
 
 function Overall(props) {
