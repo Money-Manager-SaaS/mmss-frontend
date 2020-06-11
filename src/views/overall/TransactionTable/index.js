@@ -52,7 +52,7 @@ function DataTable({
       fAccounts.push({ text: account, value: account });
     }
     setAccounts(fAccounts);
-  }, [accountsTable, transactions]);
+  }, [accountsTable]);
 
   useEffect(() => {
     setDataSource(
@@ -71,7 +71,7 @@ function DataTable({
         action: null,
       }))
     );
-  }, [transactions, accountsTable, categoriesTable, payeesTable, typesTable]);
+  }, [accountsTable, categoriesTable, payeesTable, typesTable]);
 
   const handleDelete = (row) => {
     global_loading();
