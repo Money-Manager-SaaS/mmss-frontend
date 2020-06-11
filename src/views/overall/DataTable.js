@@ -195,7 +195,7 @@ export default function DataTable({
       editable: true,
       render: (text, record, index) => {
         let newText = '';
-        if (text.length > 10) {
+        if (text && text.length > 10) {
           newText = text.substring(0, 10);
           newText = newText + '...';
         } else {
