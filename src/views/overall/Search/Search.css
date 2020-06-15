@@ -7,3 +7,7 @@
 .search-field {
   margin: auto 4px;
 }
+
+ul {
+  padding-inline-start: 0px;
+}

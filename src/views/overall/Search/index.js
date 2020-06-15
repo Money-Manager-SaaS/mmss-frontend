@@ -101,7 +101,7 @@ export default function Search({
            <li style={{display: "inline-block"}}>
                <RangePicker
                 allowClear={false}
-                style={{ maxWidth: 160 }}
+                style={{ maxWidth: 300}}
                 format="MM-DD-YYYY"
                 onOk={confirmSearchDate}
                 value={[dateFrom, dateTo]}
