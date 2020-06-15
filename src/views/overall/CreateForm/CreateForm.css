@@ -24,3 +24,11 @@
 .ant-form-item-label {
   text-align: left;
 }
+
+ul {
+  padding-inline-start: 0px;
+}
+
+.ant-form-item-label > label {
+  display: inline-block
+}
