@@ -46,3 +46,67 @@
   border-color: #f5222d;
   background-color: #f5222d;
 }
+
+.date {
+  width: 40px;
+}
+
+.account {
+  width: 40px;
+}
+
+.to {
+  width: 40px;
+}
+
+.amount {
+  width: 40px;
+}
+
+.type {
+  width: 40px;
+}
+
+.payee {
+  width: 40px;
+}
+
+.category {
+  width: 40px;
+}
+
+.note {
+  width: 200px;
+  min-width: 200px;
+}
+
+.ant-tabs-nav-scroll {
+  /*border-style: solid;*/
+  margin-left: 16px;
+}
+
+/*
+.section-search {
+  border-style: solid;
+}
+*/
+
+/*
+.ant-table-content {
+  border-style: solid;
+}
+*/
+
+.create-one {
+  /*border-style: solid;*/
+  text-align: left;
+}
+
+.ant-form-item-control-input-content > div {
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.section-search {
+  text-align: left;
+}

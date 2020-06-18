@@ -4,7 +4,7 @@ import { SaveOutlined, EditOutlined, DeleteOutlined, CloseOutlined } from '@ant-
 import EditableCell from 'components/EditableCell';
 import moment from 'moment';
 import { deleteTransaction, updateTransaction } from 'api/transaction';
-
+import './Overall.css'
 import { toastr } from 'react-redux-toastr';
 
 function valueIsNumber(num) {
@@ -147,6 +147,7 @@ export default function DataTable({
         let bDate = new Date(b.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$1/$2/$3'));
         return aDate - bDate;
       },
+      className: 'date'
     },
     {
       title: 'ACCOUNT',
@@ -156,6 +157,7 @@ export default function DataTable({
       filters: accounts,
       onFilter: (value, record) => record.account.indexOf(value) === 0,
       selectTable: accountsTable,
+      className: 'account'
     },
     {
       title: 'TO',
@@ -165,14 +167,16 @@ export default function DataTable({
       selectTable: accountsTable,
       filters: accounts,
       onFilter: (value, record) => (record.to ? record.to.indexOf(value) === 0 : false),
+      className: 'to'
     },
-    { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true },
+    { title: 'AMOUNT', dataIndex: 'amount', key: 'amount', editable: true, className: 'amount' },
     {
       title: 'TYPE',
       dataIndex: 'type',
       key: 'type',
       editable: true,
       selectTable: typesTable,
+      className: 'type'
     },
     {
       title: 'PAYEE',
@@ -180,6 +184,7 @@ export default function DataTable({
       key: 'payee',
       editable: true,
       selectTable: payeesTable,
+      className: 'payee'
     },
     {
       title: 'CATEGORY',
@@ -187,6 +192,7 @@ export default function DataTable({
       key: 'category',
       editable: true,
       selectTable: categoriesTable,
+      className: 'category'
     },
     {
       title: 'NOTE',
@@ -195,8 +201,8 @@ export default function DataTable({
       editable: true,
       render: (text, record, index) => {
         let newText = '';
-        if (text && text.length > 10) {
-          newText = text.substring(0, 10);
+        if (text && text.length > 25) {
+          newText = text.substring(0, 25);
           newText = newText + '...';
         } else {
           newText = text;
@@ -207,6 +213,7 @@ export default function DataTable({
           </Tooltip>
         );
       },
+      className: 'note'
     },
     {
       title: 'action',
@@ -264,6 +271,7 @@ export default function DataTable({
         );
         return <>{editable ? <SaveCancel /> : <EditDelete />}</>;
       },
+      className: 'action'
     },
   ];
 

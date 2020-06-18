@@ -89,7 +89,7 @@ export default function CreateForm({
   };
 
   return (
-    <div className="create-one" style={{ width: '100%', textAlign: 'center' }}>
+    <div className="create-one" style={{ width: '92%' }}>
       <Form {...layout} layout="inline">
         <ul>
           <li style={{display: "inline-block"}}> 

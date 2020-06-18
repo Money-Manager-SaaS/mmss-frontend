@@ -42,7 +42,7 @@ function Overall(props) {
           key="1"
         >
           <Row>
-            <Col span={24} style={{ textAlign: 'center' }}>
+            <Col span={22} style={{ textAlign: 'center' }}>
               <Search
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
