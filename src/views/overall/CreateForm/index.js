@@ -8,9 +8,7 @@ import './CreateForm.css';
 import { toastr } from 'react-redux-toastr';
 
 const { Option } = Select;
-const layout = {
-
-};
+const layout = {};
 
 export default function CreateForm({
   accountsTable,
@@ -89,121 +87,111 @@ export default function CreateForm({
   };
 
   return (
-    <div className="create-one" style={{ width: '92%' }}>
-      <Form {...layout} layout="inline">
-        <ul>
-          <li style={{display: "inline-block"}}> 
-            <Form.Item name="date">
-              <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item name="account">
-              <Select
-                className="search-field"
-                placeholder="Account"
-                value={accountID}
-                optionLabelProp="label"
-                onChange={setAccountID}
-              >
-                {Object.keys(accountsTable).map((key, index) => (
-                  <Option key={index} value={Number(key)} label={accountsTable[key]}>
-                    {accountsTable[key]}
-                  </Option>
-                ))}
-              </Select>{' '}
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item name="type">
-              <Select onChange={confirmType} value={transferType} defaultValue={transferType}>
-                {Object.keys(typesTable).map((key) => (
-                  <Radio key={key} value={Number(key)} className="select-radio">
-                    {typesTable[key]}
-                  </Radio>
-                ))}
-              </Select>
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item name="to">
-              <Select
-                className="search-field"
-                placeholder="To Account"
-                value={toAccountID}
-                optionLabelProp="label"
-                onChange={setToAccountID}
-              >
-                {Object.keys(accountsTable).map((key, index) => (
-                  <Option key={index} value={Number(key)}>
-                    {accountsTable[key]}
-                  </Option>
-                ))}
-              </Select>{' '}
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item  name="amount">
-              <InputNumber
-                value={amount}
-                onChange={setAmount}
-                formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-              />
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item label="Payee" name="payee">
-              <Select
-                className="search-field"
-                placeholder="Payee"
-                value={payeeID}
-                optionLabelProp="label"
-                onChange={setPayeeID}
-              >
-                <Option value="" label="" />
-                {Object.keys(payeesTable).map((key, index) => (
-                  <Option key={index} value={Number(key)} label={payeesTable[key]}>
-                    {payeesTable[key]}
-                  </Option>
-                ))}
-              </Select>{' '}
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item
-            label="Category"
-            name="category"
-            labelCol={{ span: 10 }}
-            wrapperCol={{ span: 14 }}
-            >
-              <Select
-                className="search-field"
-                placeholder="Account"
-                value={categoryID}
-                optionLabelProp="label"
-                onChange={setCategoryID}
-              >
-                {Object.keys(categoriesTable).map((key, index) => (
-                  <Option key={index} value={Number(key)} label={categoriesTable[key]}>
-                    {categoriesTable[key]}
-                  </Option>
-                ))}
-              </Select>{' '}
-            </Form.Item>
-          </li>
-          <li style={{display: "inline-block"}}>
-            <Form.Item label="Note" name="note" labelCol={{ span: 4 }} wrapperCol={{ span: 14 }}>
-              <Input
-                value={note}
-                onChange={(e) => {
-                  setNote(e.target.value);
-                }}
-                rows={3}
-              />
-            </Form.Item>
-          </li>
-        </ul>
+    <div className="create-one">
+      <Form {...layout}>
+        <Form.Item label="Date" name="date">
+          <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
+        </Form.Item>
+
+        <Form.Item label="Account" name="account">
+          <Select
+            className="search-field"
+            placeholder="Account"
+            value={accountID}
+            optionLabelProp="label"
+            onChange={setAccountID}
+          >
+            {Object.keys(accountsTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={accountsTable[key]}>
+                {accountsTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+
+        <Form.Item label="Type" name="type">
+          <Select onChange={confirmType} value={transferType} defaultValue={transferType}>
+            {Object.keys(typesTable).map((key) => (
+              <Radio key={key} value={Number(key)} className="select-radio">
+                {typesTable[key]}
+              </Radio>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="To" name="to">
+          <Select
+            className="search-field"
+            placeholder="To Account"
+            value={toAccountID}
+            optionLabelProp="label"
+            onChange={setToAccountID}
+          >
+            {Object.keys(accountsTable).map((key, index) => (
+              <Option key={index} value={Number(key)}>
+                {accountsTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+
+        <Form.Item label="Amount" name="amount">
+          <InputNumber
+            value={amount}
+            onChange={setAmount}
+            formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+          />
+        </Form.Item>
+
+        <Form.Item label="Payee" name="payee">
+          <Select
+            className="search-field"
+            placeholder="Payee"
+            value={payeeID}
+            optionLabelProp="label"
+            onChange={setPayeeID}
+          >
+            <Option value="" label="" />
+            {Object.keys(payeesTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={payeesTable[key]}>
+                {payeesTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+
+        <Form.Item
+          label="Category"
+          name="category"
+          labelCol={{ span: 10 }}
+          wrapperCol={{ span: 14 }}
+        >
+          <Select
+            className="search-field"
+            placeholder="Account"
+            value={categoryID}
+            optionLabelProp="label"
+            onChange={setCategoryID}
+          >
+            {Object.keys(categoriesTable).map((key, index) => (
+              <Option key={index} value={Number(key)} label={categoriesTable[key]}>
+                {categoriesTable[key]}
+              </Option>
+            ))}
+          </Select>{' '}
+        </Form.Item>
+
+        <Form.Item label="Note" name="note" labelCol={{ span: 4 }} wrapperCol={{ span: 14 }}>
+          <Input
+            value={note}
+            onChange={(e) => {
+              setNote(e.target.value);
+            }}
+            rows={3}
+          />
+        </Form.Item>
+
         <div style={{ width: '100%', textAlign: 'center' }}>
           <Button onClick={createTheTransaction} type="primary">
             Create Transaction

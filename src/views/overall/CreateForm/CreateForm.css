@@ -1,9 +1,8 @@
 .ant-modal-title {
   text-align: center;
   color: #00474f;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
-
 .ant-modal-content {
   border: 20px solid rgba(255, 255, 255, 0.5);
 }
@@ -23,12 +22,4 @@
 
 .ant-form-item-label {
   text-align: left;
-}
-
-ul {
-  padding-inline-start: 0px;
-}
-
-.ant-form-item-label > label {
-  display: inline-block
 }

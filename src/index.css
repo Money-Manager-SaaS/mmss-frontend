@@ -4,10 +4,17 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 html {
+  margin: 0;
   font-size: 10px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 code {

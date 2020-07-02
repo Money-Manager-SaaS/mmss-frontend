@@ -5,10 +5,10 @@ import { Layout as AntdLayout } from 'antd';
 
 export default function Layout(props) {
   return (
-    <AntdLayout style={{ minHeight: '100vh', backgroundColor: 'rgb(240, 242, 245)' }}>
+    <AntdLayout style={{ height: '100%', backgroundColor: 'rgb(240, 242, 245)' }}>
       <SideBar />
       <UserInfo />
-      <div>{props.children}</div>
+      <div style={{ flex: 1 }}>{props.children}</div>
     </AntdLayout>
   );
 }

@@ -29,7 +29,10 @@ function Overall(props) {
   }, []);
 
   return (
-    <div className="main-content">
+    <div
+      className="main-content"
+      style={{ height: 'calc(100% - 70px)', width: 'calc(100% - 40px)' }}
+    >
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane
           className="content"
@@ -41,8 +44,20 @@ function Overall(props) {
           }
           key="1"
         >
-          <Row>
-            <Col span={22} style={{ textAlign: 'center' }}>
+          <Row style={{ height: '95%', overflowY: 'scroll' }} className="data-table">
+            <Col span={4}>
+              {' '}
+              <CreateForm
+                setTransactions={setTransactions}
+                categories={categories}
+                accountsTable={accountsTable}
+                categoriesTable={categoriesTable}
+                payeesTable={payeesTable}
+                typesTable={typesTable}
+                global_loading={global_loading}
+              />
+            </Col>
+            <Col span={20}>
               <Search
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
@@ -52,6 +67,7 @@ function Overall(props) {
                 global_loading={global_loading}
               />
               <DataTable
+                style={{ height: '60%' }}
                 transactions={transactions}
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
@@ -62,7 +78,7 @@ function Overall(props) {
               />
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col span={24}>
               <CreateForm
                 setTransactions={setTransactions}
@@ -74,9 +90,9 @@ function Overall(props) {
                 global_loading={global_loading}
               />
             </Col>
-          </Row>
+          </Row> */}
         </Tabs.TabPane>
-        <Tabs.TabPane
+        {/* <Tabs.TabPane
           className="content"
           tab={
             <span>
@@ -85,7 +101,7 @@ function Overall(props) {
             </span>
           }
           key="2"
-        />
+        /> */}
       </Tabs>
     </div>
   );

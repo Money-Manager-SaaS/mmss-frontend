@@ -11,7 +11,7 @@ function SideBar({ history }) {
     location: { pathname },
   } = history;
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
   };
