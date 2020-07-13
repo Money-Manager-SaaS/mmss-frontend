@@ -5,7 +5,9 @@ import {
   AccountBookOutlined,
   BookOutlined,
   UsergroupAddOutlined,
-  SmileOutlined,
+  UserOutlined,
+  SettingOutlined,
+  LineChartOutlined,
 } from '@ant-design/icons';
 import AuthHOC from './components/AuthHOC';
 
@@ -22,11 +24,28 @@ export const loginRoutes = [
 const routes = [
   {
     path: '/',
-    name: 'Overall',
+    name: 'Transactions',
     component: AuthHOC(Overall),
     icon: <BookOutlined />,
   },
-
+  {
+    path: '/reports',
+    name: 'Reports',
+    component: null,
+    icon: <LineChartOutlined />,
+  },
+  {
+    path: '/settings',
+    name: 'Setting',
+    component: null,
+    icon: <SettingOutlined />,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: AuthHOC(Profile),
+    icon: <UserOutlined />,
+  },
   {
     path: '/accounts',
     name: 'Accounts',
@@ -44,12 +63,6 @@ const routes = [
     name: 'Payees',
     component: AuthHOC(Payee),
     icon: <UsergroupAddOutlined />,
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: AuthHOC(Profile),
-    icon: <SmileOutlined />,
   },
 ];
 
