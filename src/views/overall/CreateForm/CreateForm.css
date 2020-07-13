@@ -16,10 +16,14 @@
   margin: auto 1em;
 }
 
-.select-radio {
-  display: block;
-}
-
 .ant-form-item-label {
   text-align: left;
+}
+
+.input-field {
+  width: 140px;
+}
+
+.smaller-width {
+  width: 125px;
 }

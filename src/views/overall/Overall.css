@@ -8,8 +8,12 @@
   padding: 10px;
   border-radius: 5px;
 }
-.data-table::-webkit-scrollbar {
+.data-section::-webkit-scrollbar {
   display: none;
+}
+
+.section-padding {
+  padding: 20px;
 }
 
 .edit-save-btn {
@@ -51,36 +55,38 @@
 }
 
 .date {
-  width: 40px;
+  width: 10%;
 }
 
 .account {
-  width: 40px;
+  width: 12%;
 }
 
 .to {
-  width: 40px;
+  width: 12%;
 }
 
 .amount {
-  width: 40px;
+  width: 10%;
 }
 
 .type {
-  width: 40px;
+  width: 8%;
 }
 
 .payee {
-  width: 40px;
+  width: 10%;
 }
 
 .category {
-  width: 40px;
+  width: 10%;
 }
 
 .note {
-  width: 200px;
-  min-width: 200px;
+  width: 20%;
+}
+.action {
+  width: 10%;
 }
 
 .ant-tabs-nav-scroll {
@@ -99,11 +105,6 @@
   border-style: solid;
 }
 */
-
-.create-one {
-  /*border-style: solid;*/
-  text-align: left;
-}
 
 .ant-form-item-control-input-content > div {
   padding-left: 0px;

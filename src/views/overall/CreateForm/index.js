@@ -87,15 +87,21 @@ export default function CreateForm({
   };
 
   return (
-    <div className="create-one">
+    <div className="form-wrapper">
       <Form {...layout}>
-        <Form.Item label="Date" name="date">
-          <DatePicker allowClear={false} onOk={confirmDate} value={date} defaultValue={date} />
+        <Form.Item label="Date" name="date" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+          <DatePicker
+            className="input-field smaller-width"
+            allowClear={false}
+            onOk={confirmDate}
+            value={date}
+            defaultValue={date}
+          />
         </Form.Item>
 
-        <Form.Item label="Account" name="account">
+        <Form.Item label="Account" name="account" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
           <Select
-            className="search-field"
+            className="input-field"
             placeholder="Account"
             value={accountID}
             optionLabelProp="label"
@@ -109,19 +115,24 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Type" name="type">
-          <Select onChange={confirmType} value={transferType} defaultValue={transferType}>
+        <Form.Item label="Type" name="type" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+          <Select
+            className="input-field"
+            onChange={confirmType}
+            value={transferType}
+            defaultValue={transferType}
+          >
             {Object.keys(typesTable).map((key) => (
-              <Radio key={key} value={Number(key)} className="select-radio">
+              <Radio className="input-field" key={key} value={Number(key)}>
                 {typesTable[key]}
               </Radio>
             ))}
           </Select>
         </Form.Item>
 
-        <Form.Item label="To" name="to">
+        <Form.Item label="To" name="to" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
           <Select
-            className="search-field"
+            className="input-field"
             placeholder="To Account"
             value={toAccountID}
             optionLabelProp="label"
@@ -135,8 +146,9 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Amount" name="amount">
+        <Form.Item label="Amount" name="amount" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
           <InputNumber
+            className="input-field smaller-width"
             value={amount}
             onChange={setAmount}
             formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -144,9 +156,9 @@ export default function CreateForm({
           />
         </Form.Item>
 
-        <Form.Item label="Payee" name="payee">
+        <Form.Item label="Payee" name="payee" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
           <Select
-            className="search-field"
+            className="input-field"
             placeholder="Payee"
             value={payeeID}
             optionLabelProp="label"
@@ -168,7 +180,7 @@ export default function CreateForm({
           wrapperCol={{ span: 14 }}
         >
           <Select
-            className="search-field"
+            className="input-field"
             placeholder="Account"
             value={categoryID}
             optionLabelProp="label"
@@ -182,8 +194,9 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Note" name="note" labelCol={{ span: 4 }} wrapperCol={{ span: 14 }}>
-          <Input
+        <Form.Item label="Note" name="note" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+          <Input.TextArea
+            className="input-field smaller-width "
             value={note}
             onChange={(e) => {
               setNote(e.target.value);

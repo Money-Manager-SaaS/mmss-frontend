@@ -1,13 +1,9 @@
 .section-search {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   align-items: center;
 }
 .search-field {
   margin: auto 4px;
-}
-
-ul {
-  padding-inline-start: 0px;
 }

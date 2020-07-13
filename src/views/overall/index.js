@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Tabs, Row, Col } from 'antd';
 import action from 'store/action';
-import { HomeOutlined, AreaChartOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import './Overall.css';
 
 import CreateForm from './CreateForm';
@@ -44,20 +44,8 @@ function Overall(props) {
           }
           key="1"
         >
-          <Row style={{ height: '95%', overflowY: 'scroll' }} className="data-table">
-            <Col span={4}>
-              {' '}
-              <CreateForm
-                setTransactions={setTransactions}
-                categories={categories}
-                accountsTable={accountsTable}
-                categoriesTable={categoriesTable}
-                payeesTable={payeesTable}
-                typesTable={typesTable}
-                global_loading={global_loading}
-              />
-            </Col>
-            <Col span={20}>
+          <Row style={{ height: '95%', overflowY: 'scroll' }} className="data-section">
+            <Col span={20} className="section-padding">
               <Search
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
@@ -77,9 +65,8 @@ function Overall(props) {
                 global_loading={global_loading}
               />
             </Col>
-          </Row>
-          {/* <Row>
-            <Col span={24}>
+            <Col span={4} className="section-padding">
+              {' '}
               <CreateForm
                 setTransactions={setTransactions}
                 categories={categories}
@@ -90,7 +77,7 @@ function Overall(props) {
                 global_loading={global_loading}
               />
             </Col>
-          </Row> */}
+          </Row>
         </Tabs.TabPane>
         {/* <Tabs.TabPane
           className="content"
