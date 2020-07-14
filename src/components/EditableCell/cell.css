@@ -1,0 +1,4 @@
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+  text-overflow: ellipsis;
+  width: 1px;
+}

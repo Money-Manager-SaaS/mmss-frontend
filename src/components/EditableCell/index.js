@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Form, Select, DatePicker } from 'antd';
 
 import moment from 'moment';
-
+import './cell.css';
 const { Option } = Select;
 
 export default ({
@@ -21,7 +21,7 @@ export default ({
       case 'note':
         return <Input.TextArea style={{ minWidth: 100, maxWidth: 200 }} />;
       case 'amount':
-        return <Input type={'number'} style={{ maxWidth: 100 }} />;
+        return <Input type={'number'} style={{ maxWidth: 110 }} />;
       case 'date':
         return (
           <DatePicker allowClear={false} initialValues={moment(new Date())} format="MM/DD/YYYY" />
@@ -30,7 +30,7 @@ export default ({
         return (
           <Select
             className="search-field"
-            style={{ minWidth: 80 }}
+            style={{ width: '100%' }}
             placeholder={title}
             optionLabelProp="label"
           >
@@ -51,6 +51,8 @@ export default ({
           name={dataIndex}
           style={{
             margin: 0,
+            padding: 0,
+            width: '100%',
           }}
           rules={[
             {

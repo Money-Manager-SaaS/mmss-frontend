@@ -12,32 +12,47 @@ function SideBar({ history }) {
   } = history;
 
   const [collapsed, setCollapsed] = useState(true);
-  const onCollapse = (collapsed) => {
-    setCollapsed(collapsed);
+
+  const onMouseOver = () => {
+    setCollapsed(false);
   };
+  const onMouseOut = () => {
+    setCollapsed(true);
+  };
+
   return (
-    <Layout.Sider collapsible collapsed={collapsed} onCollapse={onCollapse} className="sidebar">
-      {collapsed ? (
+    <Layout.Sider
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      collapsed={collapsed}
+      className="sidebar"
+    >
+      <div>
         <div className="logo">
           <Avatar shape="square" size={48} src={Logo} />
         </div>
-      ) : (
-        <Typography className="logoName">MM Cloud</Typography>
-      )}
-      <Divider className="divider" />
-      <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline" className="menu">
-        {routes.map(
-          (route) =>
-            route.name && (
-              <Menu.Item key={route.path}>
-                <Link to={route.path}>
-                  {route.icon}
-                  <span>{route.name}</span>
-                </Link>
-              </Menu.Item>
-            )
-        )}
-      </Menu>
+        {/* {collapsed ? (
+          <div className="logo">
+            <Avatar shape="square" size={48} src={Logo} />
+          </div>
+        ) : (
+          <Typography className="logoName">MM Cloud</Typography>
+        )} */}
+        <Divider className="divider" />
+        <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline" className="menu">
+          {routes.map(
+            (route) =>
+              route.name && (
+                <Menu.Item key={route.path}>
+                  <Link to={route.path}>
+                    {route.icon}
+                    <span>{route.name}</span>
+                  </Link>
+                </Menu.Item>
+              )
+          )}
+        </Menu>
+      </div>
     </Layout.Sider>
   );
 }

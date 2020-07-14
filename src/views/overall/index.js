@@ -55,7 +55,6 @@ function Overall(props) {
                 global_loading={global_loading}
               />
               <DataTable
-                style={{ height: '60%' }}
                 transactions={transactions}
                 accountsTable={accountsTable}
                 categoriesTable={categoriesTable}
