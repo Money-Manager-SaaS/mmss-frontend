@@ -89,7 +89,7 @@ export default function CreateForm({
   return (
     <div className="form-wrapper">
       <Form {...layout}>
-        <Form.Item label="Date" name="date" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Date" name="date" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <DatePicker
             className="input-field smaller-width"
             allowClear={false}
@@ -99,7 +99,7 @@ export default function CreateForm({
           />
         </Form.Item>
 
-        <Form.Item label="Account" name="account" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Account" name="account" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <Select
             className="input-field"
             placeholder="Account"
@@ -115,7 +115,7 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Type" name="type" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Type" name="type" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <Select
             className="input-field"
             onChange={confirmType}
@@ -130,7 +130,7 @@ export default function CreateForm({
           </Select>
         </Form.Item>
 
-        <Form.Item label="To" name="to" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="To" name="to" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <Select
             className="input-field"
             placeholder="To Account"
@@ -146,7 +146,7 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Amount" name="amount" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Amount" name="amount" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <InputNumber
             className="input-field smaller-width"
             value={amount}
@@ -156,7 +156,7 @@ export default function CreateForm({
           />
         </Form.Item>
 
-        <Form.Item label="Payee" name="payee" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Payee" name="payee" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <Select
             className="input-field"
             placeholder="Payee"
@@ -176,8 +176,8 @@ export default function CreateForm({
         <Form.Item
           label="Category"
           name="category"
-          labelCol={{ span: 10 }}
-          wrapperCol={{ span: 14 }}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
         >
           <Select
             className="input-field"
@@ -194,7 +194,7 @@ export default function CreateForm({
           </Select>{' '}
         </Form.Item>
 
-        <Form.Item label="Note" name="note" labelCol={{ span: 10 }} wrapperCol={{ span: 14 }}>
+        <Form.Item label="Note" name="note" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
           <Input.TextArea
             className="input-field smaller-width "
             value={note}

@@ -20,10 +20,10 @@
   text-align: left;
 }
 
-.input-field {
+.smaller-width {
   width: 140px;
 }
 
-.smaller-width {
-  width: 125px;
+.ant-form-item .ant-select {
+  width: 140px;
 }
