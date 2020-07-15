@@ -1,4 +1,4 @@
-import { Overall, Profile, Category, Payee, Account, Login, Register } from './views';
+import { Overall, Profile, Category, Payee, Account, Login, Register, Setting } from './views';
 import React from 'react';
 import {
   PicRightOutlined,
@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/settings',
     name: 'Setting',
-    component: null,
+    component: Setting,
     icon: <SettingOutlined />,
   },
   {
@@ -46,24 +46,24 @@ const routes = [
     component: AuthHOC(Profile),
     icon: <UserOutlined />,
   },
-  {
-    path: '/accounts',
-    name: 'Accounts',
-    component: AuthHOC(Account),
-    icon: <AccountBookOutlined />,
-  },
-  {
-    path: '/categories',
-    name: 'Categories',
-    component: AuthHOC(Category),
-    icon: <PicRightOutlined />,
-  },
-  {
-    path: '/payees',
-    name: 'Payees',
-    component: AuthHOC(Payee),
-    icon: <UsergroupAddOutlined />,
-  },
+  // {
+  //   path: '/accounts',
+  //   name: 'Accounts',
+  //   component: AuthHOC(Account),
+  //   icon: <AccountBookOutlined />,
+  // },
+  // {
+  //   path: '/categories',
+  //   name: 'Categories',
+  //   component: AuthHOC(Category),
+  //   icon: <PicRightOutlined />,
+  // },
+  // {
+  //   path: '/payees',
+  //   name: 'Payees',
+  //   component: AuthHOC(Payee),
+  //   icon: <UsergroupAddOutlined />,
+  // },
 ];
 
 export default routes;
