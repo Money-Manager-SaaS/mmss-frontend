@@ -9,7 +9,7 @@ import { PicRightOutlined, AccountBookOutlined, UsergroupAddOutlined } from '@an
 export default function Setting() {
   return (
     <div className="main-content">
-      <Tabs defaultActiveKey="1">
+      <Tabs defaultActiveKey="1" type="card">
         <Tabs.TabPane
           tab={
             <span>

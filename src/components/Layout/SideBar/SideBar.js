@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Layout, Menu, Typography, Avatar, Divider } from 'antd';
+import { Layout, Menu, Avatar, Divider } from 'antd';
 
 import Logo from '../../../assets/images/logo.png';
 import './SideBarStyle.css';

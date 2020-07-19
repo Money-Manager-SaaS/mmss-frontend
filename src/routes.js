@@ -1,14 +1,6 @@
-import { Overall, Profile, Category, Payee, Account, Login, Register, Setting } from './views';
+import { Overall, Profile, Login, Register, Setting } from './views';
 import React from 'react';
-import {
-  PicRightOutlined,
-  AccountBookOutlined,
-  BookOutlined,
-  UsergroupAddOutlined,
-  UserOutlined,
-  SettingOutlined,
-  LineChartOutlined,
-} from '@ant-design/icons';
+import { BookOutlined, UserOutlined, SettingOutlined, LineChartOutlined } from '@ant-design/icons';
 import AuthHOC from './components/AuthHOC';
 
 export const loginRoutes = [
