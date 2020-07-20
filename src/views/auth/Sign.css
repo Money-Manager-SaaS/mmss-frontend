@@ -65,6 +65,10 @@
   border: solid 2px #13c2c2;
 }
 
+.heading {
+  margin-bottom: 50px;
+}
+
 .item-label {
   font-family: Lato;
   font-size: 1.5rem;

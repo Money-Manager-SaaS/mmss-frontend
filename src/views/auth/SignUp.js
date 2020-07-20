@@ -36,84 +36,85 @@ export default ({ history }) => {
             <img src={smallLogo} alt="mmcloud" className="small-logo" />
             <span className="mobile-title">MM Cloud</span>
           </div>
-          <Form.Item>
+          <div className="heading">
             <Typography className="sign-title">SIGN UP</Typography>
             <Divider className="divider" />
-          </Form.Item>
+          </div>
 
-          <Form.Item
-            className="item-label"
-            name="email"
-            label={<Typography className="item-label">Username/Email</Typography>}
-            rules={[
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!',
-              },
-            ]}
-          >
-            {/* <Typography className="item-label">Username/Email</Typography> */}
-            <Input
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              className="text-field"
-              placeholder="Username"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label={<Typography className="item-label">Password</Typography>}
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-            hasFeedback
-          >
-            {/* <Typography className="item-label">Password</Typography> */}
-            <Input.Password
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="text-field"
-              placeholder="Password"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="confirm"
-            label={<Typography className="item-label">Confirm Password</Typography>}
-            dependencies={['password']}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-
-                  return Promise.reject('The two passwords that you entered do not match!');
+          <Form.Item>
+            <Typography className="item-label">Username/Email</Typography>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  type: 'email',
+                  message: 'The input is not valid E-mail!',
                 },
-              }),
-            ]}
-          >
-            {/* <Typography className="item-label">Confirm Password</Typography> */}
-            <Input.Password className="text-field" placeholder="Confirm Password" />
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
+            >
+              <Input
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                className="text-field"
+                placeholder="Username"
+              />
+            </Form.Item>
           </Form.Item>
+          <Form.Item>
+            {' '}
+            <Typography className="item-label">Password</Typography>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              hasFeedback
+            >
+              <Input.Password
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="text-field"
+                placeholder="Password"
+              />
+            </Form.Item>
+          </Form.Item>
+          <Form.Item>
+            {' '}
+            <Typography className="item-label">Confirm Password</Typography>
+            <Form.Item
+              name="confirm"
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(rule, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+
+                    return Promise.reject('The two passwords that you entered do not match!');
+                  },
+                }),
+              ]}
+            >
+              <Input.Password className="text-field" placeholder="Confirm Password" />
+            </Form.Item>
+          </Form.Item>
+
           <Form.Item className="description">
             <Checkbox>
-              <a href="/#" className="text-color">
-                I agree with terms and conditions
-              </a>
+              <span className="text-color">I agree with terms and conditions</span>
             </Checkbox>
           </Form.Item>
           <Form.Item className="description">

@@ -48,36 +48,38 @@ const Login = ({ change_auth }) => {
               <img src={smallLogo} alt="mmcloud" className="small-logo" />
               <span className="mobile-title">MM Cloud</span>
             </div>
-            <Form.Item>
+            <div className="heading">
               <Typography className="sign-title">SIGN IN</Typography>
               <Divider className="divider" />
+            </div>
+            <Form.Item>
+              <Typography className="item-label">Username/Email</Typography>
+              <Form.Item
+                value={email}
+                name="email"
+                rules={[{ required: true, message: 'Please input your name or Email!' }]}
+              >
+                <Input
+                  className="text-field"
+                  placeholder="Username"
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+              </Form.Item>
             </Form.Item>
-            <Form.Item
-              label={<Typography className="item-label">Username/Email</Typography>}
-              value={email}
-              name="email"
-              rules={[{ required: true, message: 'Please input your name or Email!' }]}
-            >
-              {/* <Typography className="item-label">Username/Email</Typography> */}
-              <Input
-                className="text-field"
-                placeholder="Username"
-                onChange={(e) => setLoginEmail(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              label={<Typography className="item-label">Password</Typography>}
-              value={password}
-              name="password"
-              rules={[{ required: true, message: 'Please input your Password!' }]}
-            >
-              {/* <Typography className="item-label">Password</Typography> */}
-              <Input
-                className="text-field"
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+            <Form.Item>
+              <Typography className="item-label">Password</Typography>
+              <Form.Item
+                value={password}
+                name="password"
+                rules={[{ required: true, message: 'Please input your Password!' }]}
+              >
+                <Input
+                  className="text-field"
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Item>
             </Form.Item>
 
             <Form.Item className="description">
