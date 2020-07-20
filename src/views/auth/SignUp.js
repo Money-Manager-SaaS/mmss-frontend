@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography, Divider, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
-
-import { connect } from 'react-redux';
-import { setEmail } from 'utils';
-import action from '@/store/action';
+import { toastr } from 'react-redux-toastr';
 import signLogo from '@/assets/images/sign-logo.png';
 import smallLogo from '@/assets/images/mini-logo.png';
 import './Sign.css';
+import { userRegister } from 'api/user';
 
-const Registe = ({ change_auth }) => {
-  // const [form] = Form.useForm();
+export default ({ history }) => {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    const data = { userName, password, email: userName };
+    userRegister(data)
+      .then((res) => {
+        toastr.success('Success', 'Please use your username and password to login');
+        history.push('login');
+      })
+      .catch((err) => {
+        toastr.error('Error', 'Password maybe too weak or email has been registered');
+        console.log(err);
+      });
   };
 
-  const mockLogin = (e) => {
-    e.preventDefault();
-    change_auth({ email: '39260972@qq.com', auth: true });
-    setEmail('39260972@qq.com');
-  };
   return (
     <Row>
       <Col className="left-section" md={12}>
@@ -41,6 +44,7 @@ const Registe = ({ change_auth }) => {
           <Form.Item
             className="item-label"
             name="email"
+            label={<Typography className="item-label">Username/Email</Typography>}
             rules={[
               {
                 type: 'email',
@@ -52,12 +56,18 @@ const Registe = ({ change_auth }) => {
               },
             ]}
           >
-            <Typography className="item-label">Username/Email</Typography>
-            <Input className="text-field" placeholder="Username" />
+            {/* <Typography className="item-label">Username/Email</Typography> */}
+            <Input
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="text-field"
+              placeholder="Username"
+            />
           </Form.Item>
 
           <Form.Item
             name="password"
+            label={<Typography className="item-label">Password</Typography>}
             rules={[
               {
                 required: true,
@@ -66,12 +76,18 @@ const Registe = ({ change_auth }) => {
             ]}
             hasFeedback
           >
-            <Typography className="item-label">Password</Typography>
-            <Input.Password className="text-field" placeholder="Password" />
+            {/* <Typography className="item-label">Password</Typography> */}
+            <Input.Password
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="text-field"
+              placeholder="Password"
+            />
           </Form.Item>
 
           <Form.Item
             name="confirm"
+            label={<Typography className="item-label">Confirm Password</Typography>}
             dependencies={['password']}
             hasFeedback
             rules={[
@@ -90,7 +106,7 @@ const Registe = ({ change_auth }) => {
               }),
             ]}
           >
-            <Typography className="item-label">Confirm Password</Typography>
+            {/* <Typography className="item-label">Confirm Password</Typography> */}
             <Input.Password className="text-field" placeholder="Confirm Password" />
           </Form.Item>
           <Form.Item className="description">
@@ -103,19 +119,13 @@ const Registe = ({ change_auth }) => {
           <Form.Item className="description">
             <Link to="/login">Already have an account? Sign in here</Link>
           </Form.Item>
-
           <Form.Item>
             <Button type="primary" htmlType="submit" className="sign-button">
               SIGN UP
             </Button>
           </Form.Item>
-          <Button type="primary" htmlType="submit" className="sign-button" onClick={mockLogin}>
-            Mock Register
-          </Button>
         </Form>
       </Col>
     </Row>
   );
 };
-
-export default connect(null, { change_auth: action.user.change_auth })(Registe);
