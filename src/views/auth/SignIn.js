@@ -3,25 +3,33 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import action from '@/store/action';
 import { setEmail } from 'utils';
-
+import { userLogin } from 'api/user';
 import { Form, Input, Button, Row, Col, Typography, Divider } from 'antd';
 import signLogo from '@/assets/images/sign-logo.png';
 import smallLogo from '@/assets/images/mini-logo.png';
 import './Sign.css';
-
+import { toastr } from 'react-redux-toastr';
 const Login = ({ change_auth }) => {
-  const [username, setUserName] = useState('');
+  const [email, setLoginEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onFinish = (values) => {
+    const data = { email, password };
+    console.log(data);
     console.log('Received values of form: ', values);
+    userLogin(data)
+      .then((res) => {
+        change_auth({ email: res.data.user.email, auth: true });
+        setEmail(res.data.user.email);
+        console.log(res.data.accessToken, res.data.refreshToken);
+        toastr.success('Success', 'Login Successfully');
+      })
+      .catch((err) => {
+        toastr.error('Error', 'Password or email might wrong');
+        console.log(err);
+      });
   };
 
-  const mockLogin = (e) => {
-    e.preventDefault();
-    change_auth({ email: '39260972@qq.com', auth: true });
-    setEmail('39260972@qq.com');
-  };
   return (
     <>
       <Row>
@@ -45,23 +53,25 @@ const Login = ({ change_auth }) => {
               <Divider className="divider" />
             </Form.Item>
             <Form.Item
-              value={username}
-              name="username"
+              label={<Typography className="item-label">Username/Email</Typography>}
+              value={email}
+              name="email"
               rules={[{ required: true, message: 'Please input your name or Email!' }]}
             >
-              <Typography className="item-label">Username/Email</Typography>
+              {/* <Typography className="item-label">Username/Email</Typography> */}
               <Input
                 className="text-field"
                 placeholder="Username"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setLoginEmail(e.target.value)}
               />
             </Form.Item>
             <Form.Item
+              label={<Typography className="item-label">Password</Typography>}
               value={password}
               name="password"
               rules={[{ required: true, message: 'Please input your Password!' }]}
             >
-              <Typography className="item-label">Password</Typography>
+              {/* <Typography className="item-label">Password</Typography> */}
               <Input
                 className="text-field"
                 type="password"
@@ -76,9 +86,6 @@ const Login = ({ change_auth }) => {
                 SIGN IN
               </Button>
             </Form.Item>
-            <Button type="primary" htmlType="submit" className="sign-button" onClick={mockLogin}>
-              MOCK LOGIN
-            </Button>
           </Form>
         </Col>
       </Row>

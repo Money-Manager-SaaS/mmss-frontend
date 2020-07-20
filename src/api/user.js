@@ -14,7 +14,7 @@ export const getUser = (data) => {
 export const userRegister = (data) => {
   let req = {
     data,
-    url: `api/v1/register`,
+    url: `auth/signup`,
   };
   return _post(req);
 };
@@ -22,7 +22,7 @@ export const userRegister = (data) => {
 export const userLogin = (data) => {
   let req = {
     data,
-    url: `api/v1/login`,
+    url: `auth/signin`,
   };
   return _post(req);
 };
