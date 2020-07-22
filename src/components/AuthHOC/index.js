@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 export default (OriginalComponent) => {
   function AuthGuard(props) {
     useEffect(() => {
-      if (!props.auth) {
+      if (!props.refreshToken) {
         props.history.push('/login');
       }
-    }, [props.auth, props.history]);
+    }, [props.refreshToken, props.history]);
 
     return <OriginalComponent {...props} />;
   }
 
-  return connect((state) => ({ auth: state.user.auth }))(AuthGuard);
+  return connect((state) => ({ refreshToken: state.user.refreshToken }))(AuthGuard);
 };

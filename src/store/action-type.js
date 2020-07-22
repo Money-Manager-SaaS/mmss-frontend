@@ -1,8 +1,3 @@
-export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
-export const ADD_TRANSACTION = 'ADD_TRANSACTION';
-export const UPDATE_TRANSACTION = 'UPDATE_TRANSACTION';
-export const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
-
 export const GET_ACCOUNTS = 'GET_ACCOUNTS';
 export const ADD_ACCOUNT = 'ADD_ACCOUNT';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
@@ -21,3 +16,8 @@ export const GET_PAYEES = 'GET_PAYEES';
 export const ADD_PAYEE = 'ADD_PAYEE';
 export const UPDATE_PAYEE = 'UPDATE_PAYEE';
 export const DELETE_PAYEE = 'DELETE_PAYEE';
+
+export const GET_LEDGERS = 'GET_LEDGERS';
+export const ADD_LEDGER = 'ADD_LEDGER';
+export const UPDATE_LEDGER = 'UPDATE_LEDGER';
+export const DELETE_LEDGER = 'DELETE_LEDGER';

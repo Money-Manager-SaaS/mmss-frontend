@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Account.css';
 import { connect } from 'react-redux';
 import { createAccount, updateAccount, deleteAccount } from 'api/account';
 import { toastr } from 'react-redux-toastr';
 import action from 'store/action';
 function Account(props) {
-  const { accounts, add_account, delete_account, global_loading, update_account } = props;
+  const { add_account, delete_account, global_loading, update_account, ledgerId, ledger } = props;
+
+  const [accounts, setAccounts] = useState([]);
   const [currency, setCurrency] = useState('');
   const [amount, setAmount] = useState('');
   const [name, setName] = useState('');
   const [theAccount, setTheAccount] = useState({});
+  useEffect(() => {
+    if (ledger && ledger.accounts) {
+      console.log(ledger.accounts, Array.isArray(ledger.accounts));
+      setAccounts(ledger.accounts);
+    }
+  }, [ledger]);
   const createNewAccount = () => {
     if (name === '' || currency === '') {
       toastr.warning('Failed', 'Name and Currency is required');
       return;
     }
-    const data = { ledgerID: 1, name, currency, amount: isNaN(amount) ? 0 : amount };
+    const data = { name, currency, amount: isNaN(amount) ? 0 : amount };
     global_loading();
-    createAccount(data)
+    createAccount(data, ledgerId)
       .then((res) => {
         if (res.status === 200) {
           add_account(res.data);
@@ -103,8 +111,8 @@ function Account(props) {
           <div style={{ visibility: account.id === theAccount.id ? 'hidden' : 'visible' }}>
             {account.name}
             <br />
-            {account.currency}
-            <br />
+            {/* {account.currency}
+            <br /> */}
             {account.amount}
             <button
               onClick={() => {

@@ -16,10 +16,10 @@ export const getOneAccount = (data) => {
   return _get(req);
 };
 
-export const createAccount = (data) => {
+export const createAccount = (data, ledgerID) => {
   let req = {
     data,
-    url: 'api/v1/accounts',
+    url: `api/v1/accounts/${ledgerID}`,
   };
   return _post(req);
 };

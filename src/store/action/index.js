@@ -1,9 +1,9 @@
-import transaction from './transaction';
 import account from './account';
 import category from './category';
 import user from './user';
 import payee from './payee';
 import globalLoading from './globalLoading';
-let action = { transaction, account, category, user, payee, globalLoading };
+import ledger from './ledger';
+let action = { account, category, user, payee, globalLoading, ledger };
 
 export default action;

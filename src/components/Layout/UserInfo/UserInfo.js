@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import './UserInfoStyle.css';
 import { connect } from 'react-redux';
-import { removeEmail } from '../../../utils';
 import action from '../../../store/action';
-
+import { removeRefreshToken } from 'utils';
 const menu = (
   <Menu>
     <Menu.Item>
@@ -20,17 +19,15 @@ const menu = (
 
 export function UserInfo({ email, change_auth }) {
   const logout = () => {
-    removeEmail();
-    change_auth({ email: '', auth: false });
+    change_auth({ email: '', refreshToken: undefined });
+    removeRefreshToken();
   };
   return (
     <div className="user-info">
       <Dropdown overlay={menu}>
         <Link className="ant-dropdown-link" to="/profile">
-          <Typography className="user-name">
-            Hi{email}</Typography>
-          {' '}
-          <DownOutlined className="arrow-down"/>
+          <Typography className="user-name">Hi{email}</Typography>{' '}
+          <DownOutlined className="arrow-down" />
         </Link>
       </Dropdown>
       <Avatar className="user-symbol">J</Avatar>
@@ -42,5 +39,5 @@ export function UserInfo({ email, change_auth }) {
 }
 
 export default connect((state) => ({ email: state.user.email }), {
-  change_auth: action.user.change_auth
+  change_auth: action.user.change_auth,
 })(UserInfo);

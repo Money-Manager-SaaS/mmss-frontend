@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import action from '@/store/action';
-import { setEmail } from 'utils';
+import { setRefreshToken } from 'utils';
 import { userLogin } from 'api/user';
 import { Form, Input, Button, Row, Col, Typography, Divider } from 'antd';
 import signLogo from '@/assets/images/sign-logo.png';
@@ -19,9 +19,9 @@ const Login = ({ change_auth }) => {
     console.log('Received values of form: ', values);
     userLogin(data)
       .then((res) => {
-        change_auth({ email: res.data.user.email, auth: true });
-        setEmail(res.data.user.email);
-        console.log(res.data.accessToken, res.data.refreshToken);
+        change_auth({ email: res.data.user.email, refreshToken: res.data.refreshToken });
+        setRefreshToken(res.data.refreshToken);
+
         toastr.success('Success', 'Login Successfully');
       })
       .catch((err) => {
