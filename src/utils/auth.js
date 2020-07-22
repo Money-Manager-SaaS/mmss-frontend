@@ -1,13 +1,13 @@
-const userEmail = 'userEmail';
+const tokenKey = 'RefreshToken';
 
-export function getEmail() {
-  return localStorage.getItem(userEmail);
+export function getRefreshToken() {
+  return localStorage.getItem(tokenKey);
 }
 
-export function setEmail(email) {
-  return localStorage.setItem(userEmail, email);
+export function setRefreshToken(token) {
+  return localStorage.setItem(tokenKey, token);
 }
 
-export function removeEmail() {
-  return localStorage.removeItem(userEmail);
+export function removeRefreshToken() {
+  return localStorage.removeItem(tokenKey);
 }

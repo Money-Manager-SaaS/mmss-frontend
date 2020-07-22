@@ -10,37 +10,42 @@ import routes, { loginRoutes } from 'routes';
 import store from 'store';
 import GlobalLoading from 'components/GlobalLoading';
 import Layout from 'components/Layout/Layout';
-import { mockGetUser } from 'api/user';
-import { setEmail, removeEmail, getEmail } from 'utils';
 
+import { refreshAccessToken, axios } from 'api';
+import { getLedgers } from 'api/ledger';
 const history = createBrowserHistory();
 
-function GetAccount({ change_auth, get_accounts, get_categories, get_payees, auth }) {
+function GetAccount({
+  change_auth,
+  get_accounts,
+  get_categories,
+  get_payees,
+  refreshToken,
+  get_ledgers,
+}) {
   useEffect(() => {
-    console.log('Getting user account');
-    if (auth || !!getEmail()) {
-      mockGetUser()
-        .then((data) => {
-          if (data.status === 200) {
-            setEmail(data.data.email);
-            change_auth({ email: data.data.email, auth: true });
-            get_accounts(data.data.accounts);
-            get_categories(data.data.categories);
-            get_payees(data.data.payees);
-          } else if (data.status === 401) {
-            // No Auth
-            removeEmail();
-            change_auth({ email: '', auth: false });
-            get_accounts([]);
-            get_categories([]);
-            toastr.error('Error', 'Not Get User Info');
+    console.log('Getting user refreshToken');
+    if (!!refreshToken) {
+      refreshAccessToken({ refreshToken })
+        .then((res) => {
+          axios.defaults.headers.common['Authorization'] = res.data.accessToken;
+          return getLedgers();
+        })
+        .then((res) => {
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            get_ledgers(res.data);
+            toastr.success('Get Ledgers');
+          } else {
+            console.log('res', res.data);
+            toastr.warning('No Ledgers Please Create one ledger');
           }
         })
         .catch((err) => {
-          console.log(err);
+          toastr.error('Error');
+          console.log('err', err);
         });
     }
-  }, [change_auth, get_accounts, get_categories, get_payees, auth]);
+  }, [change_auth, get_accounts, get_categories, get_payees, refreshToken, get_ledgers]);
 
   const LoginPages = () => (
     <Switch>
@@ -63,15 +68,18 @@ function GetAccount({ change_auth, get_accounts, get_categories, get_payees, aut
   );
 
   return (
-    <ConnectedRouter history={history}>{auth ? <AuthPages /> : <LoginPages />}</ConnectedRouter>
+    <ConnectedRouter history={history}>
+      {!!refreshToken ? <AuthPages /> : <LoginPages />}
+    </ConnectedRouter>
   );
 }
 
-const ConnectGetAccount = connect((state) => ({ auth: state.user.auth }), {
+const ConnectGetAccount = connect((state) => ({ refreshToken: state.user.refreshToken }), {
   get_accounts: action.account.get_accounts,
   get_categories: action.category.get_categories,
   change_auth: action.user.change_auth,
   get_payees: action.payee.get_payees,
+  get_ledgers: action.ledger.get_ledgers,
 })(GetAccount);
 
 function Root({ globalLoading, auth }) {
@@ -89,7 +97,6 @@ class App extends Component {
       <Provider store={store}>
         <ConnectGlobalLoading />
         <ConnectGetAccount />
-
         <ReduxToastr
           position="bottom-center"
           transitionIn="fadeIn"

@@ -1,6 +1,6 @@
 const baseURL = 'https://mm-cloud.herokuapp.com/';
 
-const axios = require('axios').create({
+export const axios = require('axios').create({
   baseURL: baseURL, //api请求的baseURL
   timeout: 10000,
   withCredentials: true, // 允许跨域 cookie
@@ -35,4 +35,12 @@ export const _put = (req) => {
 //delete
 export const _delete = (req) => {
   return axios({ method: 'delete', url: `/${req.url}`, data: req.data });
+};
+
+export const refreshAccessToken = (data) => {
+  let req = {
+    data,
+    url: `auth/refresh`,
+  };
+  return _post(req);
 };

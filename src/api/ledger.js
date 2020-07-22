@@ -8,6 +8,13 @@ export const getLedgers = (data) => {
   return _get(req);
 };
 
+export const ledgerInit = (id) => {
+  let req = {
+    url: `api/v1/init/${id}`,
+  };
+  return _get(req);
+};
+
 export const getOneLedger = (data) => {
   let req = {
     data,
