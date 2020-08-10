@@ -21,3 +21,4 @@ export const GET_LEDGERS = 'GET_LEDGERS';
 export const ADD_LEDGER = 'ADD_LEDGER';
 export const UPDATE_LEDGER = 'UPDATE_LEDGER';
 export const DELETE_LEDGER = 'DELETE_LEDGER';
+export const SELECT_LEDGER = 'SELECT_LEDGER';

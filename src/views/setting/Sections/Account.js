@@ -5,16 +5,15 @@ import { createAccount, updateAccount, deleteAccount } from 'api/account';
 import { toastr } from 'react-redux-toastr';
 import action from 'store/action';
 function Account(props) {
-  const { add_account, delete_account, global_loading, update_account, ledgerId, ledger } = props;
-
+  const { setReGet, global_loading, ledgerId, ledger } = props;
   const [accounts, setAccounts] = useState([]);
   const [currency, setCurrency] = useState('');
   const [amount, setAmount] = useState('');
+  const [sign, setSign] = useState('');
   const [name, setName] = useState('');
   const [theAccount, setTheAccount] = useState({});
   useEffect(() => {
     if (ledger && ledger.accounts) {
-      console.log(ledger.accounts, Array.isArray(ledger.accounts));
       setAccounts(ledger.accounts);
     }
   }, [ledger]);
@@ -23,20 +22,26 @@ function Account(props) {
       toastr.warning('Failed', 'Name and Currency is required');
       return;
     }
-    const data = { name, currency, amount: isNaN(amount) ? 0 : amount };
+    const data = {
+      name,
+      currency: { name: currency, symbol: sign ? sign : '$', rate: 1 },
+      amount: isNaN(amount) ? 0 : amount,
+      ledgerId,
+    };
     global_loading();
     createAccount(data, ledgerId)
       .then((res) => {
         if (res.status === 200) {
-          add_account(res.data);
+          setReGet((needGet) => needGet + 1);
           setCurrency('');
           setAmount('');
           setName('');
+          setSign('');
           toastr.success('OK', 'Create Account Successfully');
         } else {
           toastr.warning('Failed', 'Create Account Failed');
+          global_loading(false);
         }
-        global_loading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -47,20 +52,18 @@ function Account(props) {
 
   const deleteTheAccount = (id) => {
     global_loading();
-    const data = { id };
+    const data = { ledgerId, id };
     deleteAccount(data)
       .then((res) => {
-        console.log(res.status === 200);
         if (res.status === 200) {
-          delete_account(id);
+          setReGet((needGet) => needGet + 1);
           toastr.success('OK', 'Delete Account Successfully');
         } else {
           toastr.warning('Failed', 'Delete Account Failed');
+          global_loading(false);
         }
-        global_loading(false);
       })
       .catch((err) => {
-        console.log(err);
         global_loading(false);
         toastr.error('Error', 'Error');
       });
@@ -73,17 +76,18 @@ function Account(props) {
     }
     global_loading();
     const data = theAccount;
+    data.ledgerId = ledgerId;
     updateAccount(data)
       .then((res) => {
         console.log(res.status === 200);
         if (res.status === 200) {
-          update_account(data);
+          setReGet((needGet) => needGet + 1);
           setTheAccount({});
           toastr.success('OK', 'Update Account Successfully');
         } else {
+          global_loading(false);
           toastr.warning('Failed', 'Update Account Failed');
         }
-        global_loading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -93,74 +97,86 @@ function Account(props) {
   };
 
   return (
-    <div className="main-content">
-      {accounts.map((account, index) => (
-        <div key={index}>
-          <div>
-            {account.id}
-            <button
-              onClick={() => {
-                deleteTheAccount(account.id);
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Delete
-            </button>
-          </div>
-          <br />
-          <div style={{ visibility: account.id === theAccount.id ? 'hidden' : 'visible' }}>
-            {account.name}
+    <div style={{ height: 500, overflowY: 'scroll' }} className="main-content">
+      {!!ledger &&
+        accounts.map((account, index) => (
+          <div key={index}>
+            <div>
+              {account.id}
+              <button
+                onClick={() => {
+                  deleteTheAccount(account.id);
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                Delete
+              </button>
+            </div>
             <br />
-            {/* {account.currency}
-            <br /> */}
-            {account.amount}
-            <button
-              onClick={() => {
-                setTheAccount(account);
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Update
-            </button>
-          </div>
-          <div style={{ visibility: account.id === theAccount.id ? 'visible' : 'hidden' }}>
-            <input
-              placeholder={'Name'}
-              value={theAccount.name ? theAccount.name : ''}
-              onChange={(e) => {
-                setTheAccount({ ...theAccount, name: e.target.value });
-              }}
-            />
-            <input
-              placeholder={'Currency'}
-              value={theAccount.currency ? theAccount.currency : ''}
-              onChange={(e) => {
-                setTheAccount({ ...theAccount, currency: e.target.value });
-              }}
-            />
-            <input
-              placeholder={'Amount'}
-              value={theAccount.amount ? theAccount.amount : ''}
-              onChange={(e) => {
-                setTheAccount({ ...theAccount, amount: e.target.value });
-              }}
-            />
+            <div style={{ visibility: account.id === theAccount.id ? 'hidden' : 'visible' }}>
+              {account.name}
+              <br />
+              {account.currency && (
+                <>
+                  {account.currency.name}({account.currency.symbol})
+                  <br />
+                </>
+              )}
+              {account.amount}
+              <button
+                onClick={() => {
+                  setTheAccount(account);
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                Update
+              </button>
+            </div>
+            <div style={{ visibility: account.id === theAccount.id ? 'visible' : 'hidden' }}>
+              <input
+                placeholder={'Name'}
+                value={theAccount.name ? theAccount.name : ''}
+                onChange={(e) => {
+                  setTheAccount({ ...theAccount, name: e.target.value });
+                }}
+              />
+              <input
+                placeholder={'Currency'}
+                value={theAccount.currency ? theAccount.currency.name : ''}
+                onChange={(e) => {
+                  setTheAccount({ ...theAccount, currency: e.target.value });
+                }}
+              />
+              <input
+                placeholder={'Currency Sign'}
+                value={theAccount.currency ? theAccount.currency.symbol : ''}
+                onChange={(e) => {
+                  setTheAccount({ ...theAccount, symbol: e.target.value });
+                }}
+              />
+              <input
+                placeholder={'Amount'}
+                value={theAccount.amount ? theAccount.amount : ''}
+                onChange={(e) => {
+                  setTheAccount({ ...theAccount, amount: e.target.value });
+                }}
+              />
 
-            <button onClick={updateTheAccount} style={{ marginLeft: 10 }}>
-              Save
-            </button>
-            <button
-              onClick={() => {
-                setTheAccount({});
-              }}
-              style={{ marginLeft: 5 }}
-            >
-              Cancel
-            </button>
+              <button onClick={updateTheAccount} style={{ marginLeft: 10 }}>
+                Save
+              </button>
+              <button
+                onClick={() => {
+                  setTheAccount({});
+                }}
+                style={{ marginLeft: 5 }}
+              >
+                Cancel
+              </button>
+            </div>
+            <br />
           </div>
-          <br />
-        </div>
-      ))}
+        ))}
       <input
         placeholder={'Name'}
         value={name}
@@ -176,6 +192,13 @@ function Account(props) {
         }}
       />
       <input
+        placeholder={'Currency Sign'}
+        value={sign}
+        onChange={(e) => {
+          setSign(e.target.value);
+        }}
+      />
+      <input
         placeholder={'Amount'}
         type="number"
         value={amount}
@@ -188,6 +211,4 @@ function Account(props) {
   );
 }
 
-export default connect((state) => state.account, { ...action.account, ...action.globalLoading })(
-  Account
-);
+export default connect(null, action.globalLoading)(Account);

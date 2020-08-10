@@ -8,18 +8,10 @@ export const getCategories = (data) => {
   return _get(req);
 };
 
-export const getOneCategory = (data) => {
-  let req = {
-    data,
-    url: `api/v1/categories/${data.id}`,
-  };
-  return _get(req);
-};
-
 export const createCategory = (data) => {
   let req = {
     data,
-    url: 'api/v1/categories',
+    url: `api/v1/categories/${data.ledgerId}`,
   };
   return _post(req);
 };
@@ -27,14 +19,14 @@ export const createCategory = (data) => {
 export const updateCategory = (data) => {
   let req = {
     data,
-    url: `api/v1/categories/${data.id}`,
+    url: `api/v1/categories/${data.ledgerId}/${data.id}`,
   };
   return _put(req);
 };
 
 export const deleteCategory = (data) => {
   let req = {
-    url: `api/v1/categories/${data.id}`,
+    url: `api/v1/categories/${data.ledgerId}/${data.id}`,
   };
   return _delete(req);
 };

@@ -21,7 +21,6 @@ const Login = ({ change_auth }) => {
       .then((res) => {
         change_auth({ email: res.data.user.email, refreshToken: res.data.refreshToken });
         setRefreshToken(res.data.refreshToken);
-
         toastr.success('Success', 'Login Successfully');
       })
       .catch((err) => {

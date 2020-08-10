@@ -8,18 +8,10 @@ export const getAccounts = (data) => {
   return _get(req);
 };
 
-export const getOneAccount = (data) => {
+export const createAccount = (data) => {
   let req = {
     data,
-    url: `api/v1/accounts/${data.id}`,
-  };
-  return _get(req);
-};
-
-export const createAccount = (data, ledgerID) => {
-  let req = {
-    data,
-    url: `api/v1/accounts/${ledgerID}`,
+    url: `api/v1/accounts/${data.ledgerId}`,
   };
   return _post(req);
 };
@@ -27,14 +19,14 @@ export const createAccount = (data, ledgerID) => {
 export const updateAccount = (data) => {
   let req = {
     data,
-    url: `api/v1/accounts/${data.id}`,
+    url: `api/v1/accounts/${data.ledgerId}/${data.id}`,
   };
   return _put(req);
 };
 
 export const deleteAccount = (data) => {
   let req = {
-    url: `api/v1/accounts/${data.id}`,
+    url: `api/v1/accounts/${data.ledgerId}/${data.id}`,
   };
   return _delete(req);
 };

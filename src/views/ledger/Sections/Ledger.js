@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Ledger.css';
 import { connect } from 'react-redux';
 import { createLedger, updateLedger, deleteLedger } from 'api/ledger';
+
 import { toastr } from 'react-redux-toastr';
 import action from 'store/action';
 function Ledger(props) {
@@ -14,7 +15,7 @@ function Ledger(props) {
       toastr.warning('Failed', 'Name is required');
       return;
     }
-    const data = { ledgerID: 1, name };
+    const data = { name };
     global_loading();
     createLedger(data)
       .then((res) => {

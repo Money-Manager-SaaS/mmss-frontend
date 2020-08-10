@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Category.css';
 import { connect } from 'react-redux';
 import { createCategory, updateCategory, deleteCategory } from 'api/category';
 import { toastr } from 'react-redux-toastr';
 import action from 'store/action';
 function Category(props) {
-  const { categories, add_category, delete_category, global_loading, update_category } = props;
-
+  const { setReGet, global_loading, ledgerId, ledger } = props;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [theCategory, setTheCategory] = useState({});
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (ledger && ledger.categories) {
+      setCategories(ledger.categories);
+    }
+  }, [ledger]);
+
   const createNewCategory = () => {
     if (name === '') {
       toastr.warning('Failed', 'Name is required');
       return;
     }
-    const data = { ledgerID: 1, name, description };
+    const data = { ledgerId, name, description };
     global_loading();
     createCategory(data)
       .then((res) => {
         if (res.status === 200) {
-          add_category(res.data);
+          setReGet((reGet) => reGet + 1);
           setDescription('');
 
           setName('');
@@ -39,12 +46,12 @@ function Category(props) {
 
   const deleteTheCategory = (id) => {
     global_loading();
-    const data = { id };
+    const data = { id, ledgerId };
     deleteCategory(data)
       .then((res) => {
         console.log(res.status === 200);
         if (res.status === 200) {
-          delete_category(id);
+          setReGet((reGet) => reGet + 1);
           toastr.success('OK', 'Delete Category Successfully');
         } else {
           toastr.warning('Failed', 'Delete Category Failed');
@@ -65,11 +72,12 @@ function Category(props) {
     }
     global_loading();
     const data = theCategory;
+    data.ledgerId = ledgerId;
     updateCategory(data)
       .then((res) => {
         console.log(res.status === 200);
         if (res.status === 200) {
-          update_category(data);
+          setReGet((reGet) => reGet + 1);
           setTheCategory({});
           toastr.success('OK', 'Update Category Successfully');
         } else {
@@ -85,63 +93,64 @@ function Category(props) {
   };
 
   return (
-    <div className="main-content">
-      {categories.map((category, index) => (
-        <div key={index}>
-          <div>
-            {category.id}
-            <button
-              onClick={() => {
-                deleteTheCategory(category.id);
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Delete
-            </button>
+    <div style={{ height: 500, overflowY: 'scroll' }} className="main-content">
+      {!!ledger &&
+        categories.map((category, index) => (
+          <div key={index}>
+            <div>
+              {category.id}
+              <button
+                onClick={() => {
+                  deleteTheCategory(category.id);
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                Delete
+              </button>
+            </div>
+            <br />
+            <div style={{ visibility: category.id === theCategory.id ? 'hidden' : 'visible' }}>
+              Name: {category.name} <br />
+              Description: {category.description}
+              <button
+                onClick={() => {
+                  setTheCategory(category);
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                Update
+              </button>
+            </div>
+            <div style={{ visibility: category.id === theCategory.id ? 'visible' : 'hidden' }}>
+              <input
+                placeholder="Name"
+                value={theCategory.name ? theCategory.name : ''}
+                onChange={(e) => {
+                  setTheCategory({ ...theCategory, name: e.target.value });
+                }}
+              />
+              <input
+                placeholder="Description"
+                value={theCategory.description ? theCategory.description : ''}
+                onChange={(e) => {
+                  setTheCategory({ ...theCategory, description: e.target.value });
+                }}
+              />
+              <button onClick={updateTheCategory} style={{ marginLeft: 10 }}>
+                Save
+              </button>
+              <button
+                onClick={() => {
+                  setTheCategory({});
+                }}
+                style={{ marginLeft: 5 }}
+              >
+                Cancel
+              </button>
+            </div>
+            <br />
           </div>
-          <br />
-          <div style={{ visibility: category.id === theCategory.id ? 'hidden' : 'visible' }}>
-            Name: {category.name} <br />
-            Description: {category.description}
-            <button
-              onClick={() => {
-                setTheCategory(category);
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Update
-            </button>
-          </div>
-          <div style={{ visibility: category.id === theCategory.id ? 'visible' : 'hidden' }}>
-            <input
-              placeholder="Name"
-              value={theCategory.name ? theCategory.name : ''}
-              onChange={(e) => {
-                setTheCategory({ ...theCategory, name: e.target.value });
-              }}
-            />
-            <input
-              placeholder="Description"
-              value={theCategory.description ? theCategory.description : ''}
-              onChange={(e) => {
-                setTheCategory({ ...theCategory, description: e.target.value });
-              }}
-            />
-            <button onClick={updateTheCategory} style={{ marginLeft: 10 }}>
-              Save
-            </button>
-            <button
-              onClick={() => {
-                setTheCategory({});
-              }}
-              style={{ marginLeft: 5 }}
-            >
-              Cancel
-            </button>
-          </div>
-          <br />
-        </div>
-      ))}
+        ))}
       <input
         placeholder="Name"
         value={name}
@@ -162,6 +171,4 @@ function Category(props) {
   );
 }
 
-export default connect((state) => state.category, { ...action.category, ...action.globalLoading })(
-  Category
-);
+export default connect(null, action.globalLoading)(Category);

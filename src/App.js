@@ -10,9 +10,9 @@ import routes, { loginRoutes } from 'routes';
 import store from 'store';
 import GlobalLoading from 'components/GlobalLoading';
 import Layout from 'components/Layout/Layout';
-
 import { refreshAccessToken, axios } from 'api';
 import { getLedgers } from 'api/ledger';
+import initDefaultLedger from 'utils/initDefaultLedger';
 const history = createBrowserHistory();
 
 function GetAccount({
@@ -24,27 +24,35 @@ function GetAccount({
   get_ledgers,
 }) {
   useEffect(() => {
-    console.log('Getting user refreshToken');
-    if (!!refreshToken) {
-      refreshAccessToken({ refreshToken })
-        .then((res) => {
-          axios.defaults.headers.common['Authorization'] = res.data.accessToken;
-          return getLedgers();
-        })
-        .then((res) => {
-          if (Array.isArray(res.data) && res.data.length > 0) {
-            get_ledgers(res.data);
+    //for async await add async here
+    async function runApp() {
+      if (!!refreshToken) {
+        try {
+          const tokenRes = await refreshAccessToken({ refreshToken });
+          axios.defaults.headers.common['Authorization'] = tokenRes.data.accessToken;
+          const ledgersRes = await getLedgers();
+          if (Array.isArray(ledgersRes.data) && ledgersRes.data.length > 0) {
+            get_ledgers(ledgersRes.data);
             toastr.success('Get Ledgers');
-          } else {
-            console.log('res', res.data);
-            toastr.warning('No Ledgers Please Create one ledger');
           }
-        })
-        .catch((err) => {
+          // else if (!Array.isArray(ledgersRes.data) || ledgersRes.data.length === 0) {
+          //   const ledgersRes1 = await initDefaultLedger();
+          //   if (Array.isArray(ledgersRes1.data) && ledgersRes1.data.length > 0) {
+          //     get_ledgers(ledgersRes1.data);
+          //     toastr.success('Get Ledgers1');
+          //   } else {
+          //     toastr.error('Error');
+          //   }
+          // }
+          else {
+            toastr.error('Error');
+          }
+        } catch (err) {
           toastr.error('Error');
-          console.log('err', err);
-        });
+        }
+      }
     }
+    runApp();
   }, [change_auth, get_accounts, get_categories, get_payees, refreshToken, get_ledgers]);
 
   const LoginPages = () => (

@@ -8,63 +8,53 @@ import { PicRightOutlined, AccountBookOutlined, UsergroupAddOutlined } from '@an
 import { connect } from 'react-redux';
 import { ledgerInit } from 'api/ledger';
 import { toastr } from 'react-redux-toastr';
-function Setting({ ledgers, hasLedgers }) {
+import action from 'store/action';
+function Setting({ selectedLedger, global_loading }) {
   const [myLedgers, setMyLedgers] = useState([]);
+  const [reGet, setReGet] = useState(0);
   const getLedger = (id) => {
+    global_loading();
     ledgerInit(id)
       .then((res) => {
         const newLedger = {
           ...res.data.data.ledger,
           trancatsions: res.data.data.trancatsions,
         };
+        global_loading(false);
         setMyLedgers((myLedgers) => {
           const foundIndex = myLedgers.findIndex((ledger) => ledger.id === newLedger.id);
           if (foundIndex > -1) {
-            // myLedgers.splice(foundIndex, 1, newLedger);
             return myLedgers.map((one) => (one.id === newLedger.id ? newLedger : one));
           } else {
-            // myLedgers.push(newLedger);
             return [...myLedgers, newLedger];
           }
-          // return myLedgers;
         });
       })
       .catch((err) => {
+        global_loading(false);
         toastr.warning('No Content', 'Please Create Accounts');
       });
   };
   useEffect(() => {
-    if (hasLedgers && ledgers[0]) {
-      getLedger(ledgers[0].id);
+    if (selectedLedger) {
+      getLedger(selectedLedger);
     }
     // eslint-disable-next-line
-  }, [hasLedgers]);
+  }, [selectedLedger, reGet]);
   return (
     <div className="main-content">
-      <Tabs
-        type="card"
-        onChange={(e) => {
-          if (myLedgers.findIndex((ledger) => ledger.id === Number(e)) === -1) {
-            getLedger(e);
-          }
-        }}
-      >
-        {ledgers.map((ledgers) => (
-          <Tabs.TabPane tab={<span>{ledgers.name}</span>} key={ledgers.id}>
-            <OneLedgerSetting ledgerId={ledgers.id} myLedgers={myLedgers} />
-          </Tabs.TabPane>
-        ))}
-      </Tabs>
+      <OneLedgerSetting setReGet={setReGet} ledgerId={selectedLedger} myLedgers={myLedgers} />
     </div>
   );
 }
 
-function OneLedgerSetting({ ledgerId, myLedgers }) {
+function OneLedgerSetting({ setReGet, ledgerId, myLedgers }) {
   const [ledger, setLedger] = useState();
 
   useEffect(() => {
     setLedger(myLedgers.find((ledger) => ledger.id === ledgerId));
   }, [myLedgers, ledgerId]);
+
   return (
     <>
       <Tabs defaultActiveKey="1" type="card">
@@ -77,7 +67,7 @@ function OneLedgerSetting({ ledgerId, myLedgers }) {
           }
           key="1"
         >
-          <Account ledgerId={ledgerId} ledger={ledger} />
+          <Account ledgerId={ledgerId} ledger={ledger} setReGet={setReGet} />
         </Tabs.TabPane>
         <Tabs.TabPane
           tab={
@@ -88,7 +78,7 @@ function OneLedgerSetting({ ledgerId, myLedgers }) {
           }
           key="2"
         >
-          <Category ledgerId={ledgerId} ledger={ledger} />
+          <Category ledgerId={ledgerId} ledger={ledger} setReGet={setReGet} />
         </Tabs.TabPane>
         <Tabs.TabPane
           tab={
@@ -99,10 +89,10 @@ function OneLedgerSetting({ ledgerId, myLedgers }) {
           }
           key="3"
         >
-          <Payee ledgerId={ledgerId} ledger={ledger} />
+          <Payee ledgerId={ledgerId} ledger={ledger} setReGet={setReGet} />
         </Tabs.TabPane>
       </Tabs>
     </>
   );
 }
-export default connect((state) => state.ledger)(Setting);
+export default connect((state) => state.ledger, action.globalLoading)(Setting);

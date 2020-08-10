@@ -25,6 +25,12 @@ const ledger = {
       data,
     };
   },
+  select_ledger(data) {
+    return {
+      type: TYPES.SELECT_LEDGER,
+      data,
+    };
+  },
 };
 
 export default ledger;
