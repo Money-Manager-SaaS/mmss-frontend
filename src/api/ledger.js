@@ -31,6 +31,17 @@ export const createLedger = (data) => {
   return _post(req);
 };
 
+/**
+ * post an empty body to either get a default ledger or create one
+ */
+export const createDefaultLedger = () => {
+  let req = {
+    data: undefined,
+    url: 'api/v1/ledgers/default',
+  };
+  return _post(req);
+};
+
 export const updateLedger = (data) => {
   let req = {
     data,
