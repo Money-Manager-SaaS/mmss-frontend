@@ -34,16 +34,17 @@ function GetAccount({
           if (Array.isArray(ledgersRes.data) && ledgersRes.data.length > 0) {
             get_ledgers(ledgersRes.data);
             toastr.success('Get Ledgers');
+            console.log(ledgersRes.data)
+
           }
-          // else if (!Array.isArray(ledgersRes.data) || ledgersRes.data.length === 0) {
-          //   const ledgersRes1 = await initDefaultLedger();
-          //   if (Array.isArray(ledgersRes1.data) && ledgersRes1.data.length > 0) {
-          //     get_ledgers(ledgersRes1.data);
-          //     toastr.success('Get Ledgers1');
-          //   } else {
-          //     toastr.error('Error');
-          //   }
-          // }
+          else if (!Array.isArray(ledgersRes.data) || ledgersRes.data.length === 0) {
+            const defaultLedgerResp = await initDefaultLedger();
+            if (defaultLedgerResp) {
+              toastr.success('Get Ledgers1');
+            } else {
+              toastr.error('Error');
+            }
+          }
           else {
             toastr.error('Error');
           }
