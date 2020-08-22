@@ -16,7 +16,6 @@ export default ({
   selectTable,
   ...restProps
 }) => {
-  console.log(title);
   const InputNode = () => {
     switch (dataIndex) {
       case 'note':

@@ -20,7 +20,6 @@ function Overall({ setReGet, ledgerId, myLedgers, global_loading }) {
   useEffect(() => {
     const ledger = myLedgers.find((ledger) => ledger.id === ledgerId);
     if (ledger) {
-      console.log('ledger', ledger);
       setAccountsTable(CreateIdNameTable(ledger.accounts));
       setCategoriesTable(CreateIdNameTable(ledger.categories));
       setPayeesTable(CreateIdNameTable(ledger.payees));

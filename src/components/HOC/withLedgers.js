@@ -8,6 +8,7 @@ export default (OriginalComponent) => {
   function WithLedgers({ selectedLedger, global_loading }) {
     const [myLedgers, setMyLedgers] = useState([]);
     const [reGet, setReGet] = useState(0);
+    console.log(myLedgers);
     const getLedger = (id) => {
       global_loading();
       ledgerInit(id)
@@ -28,7 +29,7 @@ export default (OriginalComponent) => {
         })
         .catch((err) => {
           global_loading(false);
-          setMyLedgers((myLedgers) => myLedgers);
+
           toastr.warning('No Content', 'Please Create Accounts');
         });
     };
