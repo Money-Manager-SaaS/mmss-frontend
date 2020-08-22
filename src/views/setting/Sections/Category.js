@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Category.css';
-import { connect } from 'react-redux';
 import { createCategory, updateCategory, deleteCategory } from 'api/category';
 import { toastr } from 'react-redux-toastr';
-import action from 'store/action';
-function Category(props) {
+export default function Category(props) {
   const { setReGet, global_loading, ledgerId, ledger } = props;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -170,5 +168,3 @@ function Category(props) {
     </div>
   );
 }
-
-export default connect(null, action.globalLoading)(Category);

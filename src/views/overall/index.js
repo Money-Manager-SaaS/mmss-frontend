@@ -1,19 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 
-import { Tabs, Row, Col } from 'antd';
-import action from 'store/action';
-import { HomeOutlined } from '@ant-design/icons';
+import { Row, Col } from 'antd';
+
 import './Overall.css';
 
 import CreateForm from './CreateForm';
 import DataTable from './DataTable';
 import Search from './Search';
-
-function Overall(props) {
+import withLedgers from 'components/HOC/withLedgers';
+import { CreateIdNameTable } from 'utils';
+function Overall({ setReGet, ledgerId, myLedgers, global_loading }) {
   const typesTable = { '-1': 'Withdraw', '0': 'Transfer', '1': 'Deposit' };
-  const { accountsTable, categoriesTable, payeesTable, categories, global_loading } = props;
+
   const [transactions, setTransactions] = useState([]);
+  const [accountsTable, setAccountsTable] = useState({});
+  const [categoriesTable, setCategoriesTable] = useState({});
+  const [payeesTable, setPayeesTable] = useState({});
+
+  useEffect(() => {
+    const ledger = myLedgers.find((ledger) => ledger.id === ledgerId);
+    if (ledger) {
+      console.log('ledger', ledger);
+      setAccountsTable(CreateIdNameTable(ledger.accounts));
+      setCategoriesTable(CreateIdNameTable(ledger.categories));
+      setPayeesTable(CreateIdNameTable(ledger.payees));
+      setTransactions((transactions) => {
+        if (Array.isArray(ledger.transactions)) {
+          return ledger.transactions;
+        } else {
+          return transactions;
+        }
+      });
+    } else {
+      setAccountsTable({});
+      setCategoriesTable({});
+      setPayeesTable({});
+      setTransactions([]);
+    }
+  }, [myLedgers, ledgerId]);
 
   const handleShowCreate = (e) => {
     if (e.keyCode === 67 && e.ctrlKey) {
@@ -33,67 +57,42 @@ function Overall(props) {
       className="main-content"
       style={{ height: 'calc(100% - 70px)', width: 'calc(100% - 40px)' }}
     >
-      <Tabs defaultActiveKey="1">
-        <Tabs.TabPane
-          className="content"
-          tab={
-            <span>
-              <HomeOutlined />
-              Default
-            </span>
-          }
-          key="1"
-        >
-          <Row style={{ height: '95%', overflowY: 'scroll' }} className="data-section">
-            <Col span={20} className="section-padding">
-              <Search
-                accountsTable={accountsTable}
-                categoriesTable={categoriesTable}
-                payeesTable={payeesTable}
-                typesTable={typesTable}
-                setTransactions={setTransactions}
-                global_loading={global_loading}
-              />
-              <DataTable
-                transactions={transactions}
-                accountsTable={accountsTable}
-                categoriesTable={categoriesTable}
-                payeesTable={payeesTable}
-                typesTable={typesTable}
-                setTransactions={setTransactions}
-                global_loading={global_loading}
-              />
-            </Col>
-            <Col span={4} className="section-padding">
-              {' '}
-              <CreateForm
-                setTransactions={setTransactions}
-                categories={categories}
-                accountsTable={accountsTable}
-                categoriesTable={categoriesTable}
-                payeesTable={payeesTable}
-                typesTable={typesTable}
-                global_loading={global_loading}
-              />
-            </Col>
-          </Row>
-        </Tabs.TabPane>
-        {/* <Tabs.TabPane
-          className="content"
-          tab={
-            <span>
-              <AreaChartOutlined />
-              Family
-            </span>
-          }
-          key="2"
-        /> */}
-      </Tabs>
+      <Row style={{ height: '95%', overflowY: 'scroll' }} className="data-section">
+        <Col span={20} className="section-padding">
+          <Search
+            accountsTable={accountsTable}
+            categoriesTable={categoriesTable}
+            payeesTable={payeesTable}
+            typesTable={typesTable}
+            global_loading={global_loading}
+            ledgerId={ledgerId}
+            setReGet={setReGet}
+          />
+          <DataTable
+            transactions={transactions}
+            accountsTable={accountsTable}
+            categoriesTable={categoriesTable}
+            payeesTable={payeesTable}
+            typesTable={typesTable}
+            ledgerId={ledgerId}
+            setReGet={setReGet}
+            global_loading={global_loading}
+          />
+        </Col>
+        <Col span={4} className="section-padding">
+          <CreateForm
+            ledgerId={ledgerId}
+            setReGet={setReGet}
+            global_loading={global_loading}
+            accountsTable={accountsTable}
+            categoriesTable={categoriesTable}
+            payeesTable={payeesTable}
+            typesTable={typesTable}
+          />
+        </Col>
+      </Row>
     </div>
   );
 }
 
-export default connect(
-  (state) => ({ ...state.account, ...state.category, ...state.payee }),
-  action.globalLoading
-)(Overall);
+export default withLedgers(Overall);

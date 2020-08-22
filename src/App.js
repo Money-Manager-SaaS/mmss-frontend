@@ -12,7 +12,7 @@ import GlobalLoading from 'components/GlobalLoading';
 import Layout from 'components/Layout/Layout';
 import { refreshAccessToken, axios } from 'api';
 import { getLedgers } from 'api/ledger';
-import initDefaultLedger from 'utils/initDefaultLedger';
+
 const history = createBrowserHistory();
 
 function GetAccount({
@@ -34,17 +34,7 @@ function GetAccount({
           if (Array.isArray(ledgersRes.data) && ledgersRes.data.length > 0) {
             get_ledgers(ledgersRes.data);
             toastr.success('Get Ledgers');
-          }
-          // else if (!Array.isArray(ledgersRes.data) || ledgersRes.data.length === 0) {
-          //   const ledgersRes1 = await initDefaultLedger();
-          //   if (Array.isArray(ledgersRes1.data) && ledgersRes1.data.length > 0) {
-          //     get_ledgers(ledgersRes1.data);
-          //     toastr.success('Get Ledgers1');
-          //   } else {
-          //     toastr.error('Error');
-          //   }
-          // }
-          else {
+          } else {
             toastr.error('Error');
           }
         } catch (err) {

@@ -8,6 +8,14 @@ export const getLedgers = (data) => {
   return _get(req);
 };
 
+export const defaultLedger = (data) => {
+  let req = {
+    data,
+    url: 'api/v1/ledgers/default',
+  };
+  return _post(req);
+};
+
 export const ledgerInit = (id) => {
   let req = {
     url: `api/v1/init/${id}`,

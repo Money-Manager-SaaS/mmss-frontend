@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Payee.css';
-import { connect } from 'react-redux';
 import { createPayee, updatePayee, deletePayee } from 'api/payee';
 import { toastr } from 'react-redux-toastr';
-import action from 'store/action';
-function Payee(props) {
+export default function Payee(props) {
   const { setReGet, global_loading, ledgerId, ledger } = props;
 
   const [payees, setPayees] = useState([]);
@@ -153,5 +151,3 @@ function Payee(props) {
     </div>
   );
 }
-
-export default connect(null, action.globalLoading)(Payee);

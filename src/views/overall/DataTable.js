@@ -18,7 +18,8 @@ export default function DataTable({
   payeesTable,
   typesTable,
   global_loading,
-  setTransactions,
+  ledgerId,
+  setReGet,
 }) {
   const [dataSource, setDataSource] = useState([]);
   const [accounts, setAccounts] = useState([]);
@@ -33,19 +34,19 @@ export default function DataTable({
       fAccounts.push({ text: account, value: account });
     }
     setAccounts(fAccounts);
-    console.log(fAccounts);
+
     setDataSource(
       transactions.map((transaction) => ({
         key: transaction.id,
         date: moment(transaction.date ? transaction.date : transaction.createdAt).format(
           'MM/DD/YYYY'
         ),
-        account: accountsTable[transaction.accountID],
-        to: accountsTable[transaction.toAccountID],
+        account: accountsTable[transaction.accountId],
+        to: accountsTable[transaction.toAccountId],
         amount: '$' + transaction.amount.toFixed(2),
         type: typesTable[transaction.transferType],
-        payee: payeesTable[transaction.payeeID],
-        category: categoriesTable[transaction.categoryID],
+        payee: payeesTable[transaction.payeeId],
+        category: categoriesTable[transaction.categoryId],
         note: transaction.note,
         action: null,
       }))
@@ -54,12 +55,11 @@ export default function DataTable({
 
   const handleDelete = (row) => {
     global_loading();
-
-    const data = { id: row.key };
+    const data = { id: row.key, ledgerId };
     deleteTransaction(data)
       .then((res) => {
         if (res.status === 200) {
-          setTransactions((transactions) => transactions.filter((t) => t.id !== row.key));
+          setReGet((reGet) => reGet + 1);
           toastr.success('OK', 'Delete Transaction Successfully');
         } else {
           toastr.warning('Failed', 'Delete Transaction Failed');
@@ -103,7 +103,8 @@ export default function DataTable({
       payeeID: valueIsNumber(row.payee),
       amount: Number(row.amount),
       toAccountID: valueIsNumber(row.to),
-      note: row.note,
+      // note: row.note,
+      ledgerId,
     };
 
     for (const key in data) {
@@ -111,15 +112,12 @@ export default function DataTable({
         delete data[key];
       }
     }
-    console.log(data);
 
     updateTransaction(data)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          setTransactions((transactions) =>
-            transactions.map((transaction) => (transaction.id === data.id ? res.data : transaction))
-          );
+          setReGet((reGet) => reGet + 1);
 
           toastr.success('OK', 'Update Transaction Successfully');
         } else {

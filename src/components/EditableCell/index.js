@@ -16,6 +16,7 @@ export default ({
   selectTable,
   ...restProps
 }) => {
+  console.log(title);
   const InputNode = () => {
     switch (dataIndex) {
       case 'note':
@@ -34,6 +35,12 @@ export default ({
             placeholder={title}
             optionLabelProp="label"
           >
+            {title === 'TO' ||
+              (title === 'PAYEE' && (
+                <Option value={''} label={''}>
+                  {''}
+                </Option>
+              ))}
             {Object.keys(selectTable).map((key, index) => (
               <Option key={index} value={Number(key)} label={selectTable[key]}>
                 {selectTable[key]}
@@ -56,7 +63,6 @@ export default ({
           }}
           rules={[
             {
-              required: true,
               message: `Please Input ${title}!`,
             },
           ]}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Account.css';
-import { connect } from 'react-redux';
+
 import { createAccount, updateAccount, deleteAccount } from 'api/account';
 import { toastr } from 'react-redux-toastr';
-import action from 'store/action';
-function Account(props) {
+
+export default function Account(props) {
   const { setReGet, global_loading, ledgerId, ledger } = props;
   const [accounts, setAccounts] = useState([]);
   const [currency, setCurrency] = useState('');
@@ -210,5 +210,3 @@ function Account(props) {
     </div>
   );
 }
-
-export default connect(null, action.globalLoading)(Account);

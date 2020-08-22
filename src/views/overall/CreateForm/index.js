@@ -16,7 +16,8 @@ export default function CreateForm({
   payeesTable,
   typesTable,
   global_loading,
-  setTransactions,
+  ledgerId,
+  setReGet,
 }) {
   const [date, setDate] = useState(moment());
   const [transferType, setTransferType] = useState(-1);
@@ -42,6 +43,7 @@ export default function CreateForm({
       amount,
       toAccountID,
       note,
+      ledgerId,
     };
 
     for (const key in data) {
@@ -53,11 +55,10 @@ export default function CreateForm({
     createTransaction(data)
       .then((res) => {
         if (res.status === 200) {
-          setTransactions((transactions) => [...transactions, res.data]);
           setPayeeID('');
-          setAmount('');
           setToAccountID('');
           setNote('');
+          setReGet((reGet) => reGet + 1);
           toastr.success('OK', 'Create Transaction Successfully');
         } else {
           toastr.warning('Failed', 'Create Transaction Failed');
@@ -74,12 +75,15 @@ export default function CreateForm({
     if (JSON.stringify(accountsTable) !== '{}') {
       setAccountID(Number(Object.keys(accountsTable)[0]));
     }
+  }, [accountsTable]);
+
+  useEffect(() => {
     if (JSON.stringify(categoriesTable) !== '{}') {
       setCategoryID(Number(Object.keys(categoriesTable)[0]));
     }
-  }, [accountsTable, categoriesTable]);
+  }, [categoriesTable]);
+
   const confirmDate = (value) => {
-    console.log(value);
     setDate(value);
   };
   const confirmType = (e) => {
@@ -138,8 +142,11 @@ export default function CreateForm({
             optionLabelProp="label"
             onChange={setToAccountID}
           >
+            <Option value={null} label={''}>
+              {''}
+            </Option>
             {Object.keys(accountsTable).map((key, index) => (
-              <Option key={index} value={Number(key)}>
+              <Option key={index} value={Number(key)} label={accountsTable[key]}>
                 {accountsTable[key]}
               </Option>
             ))}

@@ -19,7 +19,6 @@ export default function Search({
   categoriesTable,
   payeesTable,
   typesTable,
-  global_loading,
 }) {
   const [dateFrom, setDateFrom] = useState(moment().subtract(1, 'month'));
   const [dateTo, setDateTo] = useState(moment());
@@ -57,7 +56,6 @@ export default function Search({
 
   useEffect(() => {
     if (firstTimeLoad) {
-      global_loading();
       getTransactions()
         .then((data) => {
           if (data.status === 200) {
@@ -65,11 +63,10 @@ export default function Search({
           } else {
             toastr.warning('Opps', 'Not Get Transactions');
           }
-          global_loading(false);
         })
         .catch((err) => {
-          toastr.error('Error', 'Not Get Transactions');
-          global_loading(false);
+          // toastr.error('Error', 'Not Get Transactions');
+
           console.log(err);
         });
       firstTimeLoad = false;
@@ -86,7 +83,7 @@ export default function Search({
         clearTimeout(timmer);
       };
     }
-  }, [dateFrom, dateTo, payees, categories, type, account, note, global_loading, setTransactions]);
+  }, [dateFrom, dateTo, payees, categories, type, account, note, setTransactions]);
 
   useEffect(
     () => () => {
