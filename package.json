@@ -12,7 +12,7 @@
     "gh-pages": "2.2.0",
     "history": "4.10.1",
     "less": "3.11.1",
-    "less-loader": "5.0.0",
+    "less-loader": "7.3.0",
     "moment": "2.24.0",
     "react": "16.13.1",
     "react-app-rewired": "2.1.5",
